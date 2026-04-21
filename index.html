@@ -216,10 +216,15 @@ function WorkCard({ work, onClick, onLike, liked }) {
   return (
     <article className="group rounded-2xl overflow-hidden bg-white border border-[#E7EDF3] hover:border-[#B8D9EC] hover:shadow-[0_20px_40px_-20px_rgba(15,54,89,0.18)] transition-all duration-300 hover:-translate-y-1">
       <div className="p-4 pb-3">
-        {/* Tags */}
-        <div className="flex items-center gap-2 mb-2.5">
-          {work.featured && <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-[#FBF4DF] text-[#C9A349]"><Icon name="Star" size={10} /> 精选</span>}
-          <span className="text-[10px] text-[#B8C9D9] font-cn ml-auto">作业 {work.round}</span>
+        {/* Author + Tags */}
+        <div className="flex items-center gap-2 mb-3">
+          <Avatar url={work.author.avatar} name={work.author.name} size={28} />
+          <div className="flex-1 min-w-0">
+            <div className="text-[12px] font-medium text-[#0A1F3D] truncate">{work.author.name}</div>
+            <div className="text-[10px] text-[#B8C9D9]">{new Date(work.createdAt).toLocaleDateString("zh-CN")}</div>
+          </div>
+          {work.featured && <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-[#FBF4DF] text-[#C9A349] shrink-0"><Icon name="Star" size={10} /> 精选</span>}
+          <span className="text-[10px] text-[#B8C9D9] font-cn shrink-0">作业 {work.round}</span>
         </div>
 
         {/* Title */}
@@ -240,11 +245,7 @@ function WorkCard({ work, onClick, onLike, liked }) {
       </div>
 
       {/* Footer */}
-      <div className="px-4 pb-4 pt-2 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <Avatar url={work.author.avatar} name={work.author.name} size={22} />
-          <span className="text-[11px] text-[#0A1F3D]">{work.author.name}</span>
-        </div>
+      <div className="px-4 pb-4 pt-2 flex items-center justify-end">
         <div className="flex items-center gap-2">
           <button onClick={(e) => { e.stopPropagation(); onLike(work.id); }}
             className={`inline-flex items-center gap-1 text-[11px] transition px-2 py-1 rounded-full ${
