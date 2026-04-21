@@ -103,14 +103,8 @@ function WorkDetailModal({ work, onClose, onLike, liked }) {
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-6" style={{ background: "rgba(10,31,61,0.5)", backdropFilter: "blur(8px)" }} onClick={onClose}>
       <div onClick={(e) => e.stopPropagation()} className="relative w-full max-w-[600px] max-h-[85vh] overflow-y-auto bg-white rounded-2xl shadow-[0_40px_80px_-20px_rgba(10,31,61,0.4)] border border-[#E7EDF3]">
-        {/* Cover */}
-        <div className="relative h-[180px] overflow-hidden rounded-t-2xl" style={{ background: `linear-gradient(135deg, oklch(85% 0.05 ${work.imgHue}), oklch(72% 0.08 ${(work.imgHue + 40) % 360}))` }}>
-          <div className="absolute inset-0 opacity-40" style={{ backgroundImage: "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.5), transparent 50%)" }} />
-          {work.featured && <div className="absolute top-4 left-4 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#FBF4DF] text-[#C9A349] text-[11px] font-medium"><Icon name="Star" size={11} strokeWidth={2.5} /> 精选</div>}
-          <button onClick={onClose} className="absolute top-4 right-4 w-8 h-8 rounded-full bg-black/20 hover:bg-black/40 text-white flex items-center justify-center transition"><Icon name="X" size={16} /></button>
-        </div>
-
-        <div className="px-6 py-5">
+        <div className="px-6 pt-5 pb-5 relative">
+          <button onClick={onClose} className="absolute top-4 right-4 w-8 h-8 rounded-full bg-[#F4F7FA] hover:bg-[#E7EDF3] text-[#8FA3B8] hover:text-[#0A1F3D] flex items-center justify-center transition"><Icon name="X" size={16} /></button>
           <h3 className="font-cn-heavy text-[22px] text-[#0A1F3D] leading-snug">{work.title}</h3>
           <div className="mt-3 flex items-center gap-3">
             <Avatar url={work.author.avatar} name={work.author.name} size={32} />
@@ -123,10 +117,12 @@ function WorkDetailModal({ work, onClose, onLike, liked }) {
           <p className="mt-4 text-[13px] text-[#3F546B] leading-[1.8]">{work.excerpt}</p>
 
           {/* Link */}
-          <a href={work.link} target="_blank" rel="noopener noreferrer" className="mt-4 flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#F6FBFE] border border-[#E7EDF3] hover:border-[#4FA8D8] transition group">
-            <Icon name="ExternalLink" size={14} className="text-[#4FA8D8]" />
-            <span className="text-[12px] text-[#4FA8D8] group-hover:underline truncate">{work.link}</span>
-          </a>
+          {work.link && (
+            <a href={work.link} target="_blank" rel="noopener noreferrer" className="mt-4 flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#F6FBFE] border border-[#E7EDF3] hover:border-[#4FA8D8] transition group">
+              <Icon name="ExternalLink" size={14} className="text-[#4FA8D8]" />
+              <span className="text-[12px] text-[#4FA8D8] group-hover:underline truncate">{work.link}</span>
+            </a>
+          )}
 
           {/* Screenshots */}
           {work.images && work.images.length > 0 && (
