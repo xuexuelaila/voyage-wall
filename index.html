@@ -45,77 +45,44 @@ const Icon = ({ name, size = 16, className = "", strokeWidth = 1.75 }) => {
 };
 
 // ── Avatar ──
-function CartoonAvatar({ seed = 0, size = 28 }) {
-  const palettes = [
-    { bg: "#4FC3E3", skin: "#FFD9B5", hair: "#22324A", acc: "#0C2440" },
-    { bg: "#D9B46A", skin: "#FFE3C4", hair: "#2B1B12", acc: "#5B3A18" },
-    { bg: "#7FD8F0", skin: "#F6C9A0", hair: "#1A1A2E", acc: "#0E3050" },
-    { bg: "#F08A6B", skin: "#FFD2B0", hair: "#3A2418", acc: "#2B1410" },
-    { bg: "#8FD8C3", skin: "#FFDAB2", hair: "#1C2330", acc: "#0E3A2B" },
-    { bg: "#B4A0E6", skin: "#FFD6B8", hair: "#2A1E3F", acc: "#1A1030" },
-    { bg: "#E6B0B0", skin: "#FFDCBA", hair: "#2E1818", acc: "#5B2A2A" },
-    { bg: "#9DB8E6", skin: "#FFD3AE", hair: "#1E2A44", acc: "#0A1C3A" },
-  ];
-  const p = palettes[seed % palettes.length];
-  const style = seed % 4;
+function Avatar({ url, name, size = 28 }) {
+  const [err, setErr] = useState(false);
+  if (url && !err) {
+    return <img src={url} alt={name} className="rounded-full overflow-hidden shrink-0 object-cover" style={{ width: size, height: size }} onError={() => setErr(true)} />;
+  }
+  // Fallback: letter avatar
+  const colors = ["#4FC3E3","#D9B46A","#7FD8F0","#F08A6B","#8FD8C3","#B4A0E6","#E6B0B0","#9DB8E6"];
+  const c = colors[(name || "").charCodeAt(0) % colors.length];
   return (
-    <div className="rounded-full overflow-hidden shrink-0" style={{ width: size, height: size, background: p.bg }}>
-      <svg viewBox="0 0 64 64" width={size} height={size}>
-        <rect x="20" y="50" width="24" height="14" rx="4" fill={p.acc} />
-        <circle cx="32" cy="30" r="14" fill={p.skin} />
-        {style === 0 && <path d="M18 28 C 18 16, 46 16, 46 28 L 46 24 C 44 20, 36 18, 32 18 C 28 18, 22 20, 20 24 Z" fill={p.hair} />}
-        {style === 1 && <><path d="M19 30 C 19 18, 45 18, 45 30 L 45 27 C 43 22, 36 20, 32 20 C 28 20, 22 22, 20 27 Z" fill={p.hair} /><circle cx="46" cy="20" r="5" fill={p.hair} /></>}
-        {style === 2 && <path d="M18 30 C 18 17, 46 17, 46 30 L 46 25 C 42 20, 38 19, 34 19 L 30 22 C 26 22, 22 24, 20 27 Z" fill={p.hair} />}
-        {style === 3 && <path d="M18 28 C 18 18, 46 18, 46 28 C 44 24, 38 22, 32 22 C 26 22, 20 24, 18 28 Z" fill={p.hair} />}
-        <circle cx="27" cy="31" r="1.6" fill="#1A1F2B" />
-        <circle cx="37" cy="31" r="1.6" fill="#1A1F2B" />
-        <path d="M29 37 Q 32 40, 35 37" fill="none" stroke="#1A1F2B" strokeWidth="1.2" strokeLinecap="round" />
-      </svg>
+    <div className="rounded-full overflow-hidden shrink-0 flex items-center justify-center font-cn-heavy text-white" style={{ width: size, height: size, background: c, fontSize: size * 0.4 }}>
+      {(name || "?").slice(0, 1)}
     </div>
   );
 }
 
-// ── Mock Data ──
-const AUTHORS = [
-  { id: 1, name: "沈砚书" }, { id: 2, name: "林未晓" }, { id: 3, name: "陆知野" },
-  { id: 4, name: "周若初" }, { id: 5, name: "顾南川" }, { id: 6, name: "许明远" },
-  { id: 7, name: "苏见微" }, { id: 8, name: "白鹿舟" }, { id: 9, name: "方听澜" },
-];
-const TITLES = [
-  "用 AI 重做了我家社区的便民服务地图", "给独立设计师做的一套作品集生成器",
-  "三个周末做了一个宠物领养配对 Agent", "一本能陪孩子读绘本的 AI 播讲器",
-  "帮我妈做的买菜清单识别器", "把 200 篇读书笔记变成一个可搜索的大脑",
-  "咖啡店点单的语音下单原型", "给自己做的每日穿搭推荐助手",
-  "用 AI 做了一个老照片修复小工具", "帮朋友生意做的客户回访自动化",
-  "把会议录音直接变成行动清单", "小学数学错题本自动整理器",
-];
-const EXCERPTS = [
-  "第一次把想法做出来，从调研到上线一共花了 11 天。踩了很多坑，记录在这里。",
-  "目标用户是小 B，核心是把「想展示什么」拆得足够细。",
-  "重点不是匹配算法，而是怎么设计「劝退」流程。",
-  "重点解决家长没时间读绘本的问题。故事节奏、语气、停顿都做了可调参数。",
-  "起因是她总是在菜市场忘记买什么。现在手机拍一下冰箱就能对比上周的清单。",
-  "之前的笔记散在四个地方。做了一个统一入口。",
-  "咖啡店老板是朋友，高峰期手忙脚乱。原型跑了一周，点单时间缩短 40%。",
-  "天气、日程、昨天穿了什么都会考虑。准确率大概 70%。",
-  "周末花了一下午，结果被家族群传疯了。",
-  "SOP 做了四版才跑通。Agent 最大的坑是你以为它会记得。",
-  "从会议录音到任务卡的全流程。对接了 Notion 和飞书。",
-  "扫错题→识别知识点→生成相似题。用儿子的作业本测了两个月。",
-];
-
-function makeWorks(n) {
-  const works = [];
-  for (let i = 0; i < n; i++) {
-    works.push({
-      id: i + 1, title: TITLES[i % TITLES.length], excerpt: EXCERPTS[i % EXCERPTS.length],
-      author: AUTHORS[i % AUTHORS.length], round: (i % 5) + 1, featured: i % 7 === 0,
-      likes: 12 + ((i * 37) % 280), imgHue: (i * 47) % 360,
-      createdAt: Date.now() - i * 3600000 * (2 + Math.random() * 10),
-      link: `https://example.com/work/${i + 1}`,
-    });
-  }
-  return works;
+// ── Data Loading ──
+function useWorks() {
+  const [works, setWorks] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    fetch("data.json").then(r => r.json()).then(data => {
+      const parsed = data.map((d, i) => ({
+        id: d.id || i + 1,
+        title: d.formName || "作业提交",
+        excerpt: d.description || "",
+        author: { name: d.name, avatar: d.avatar },
+        round: d.round || 3,
+        featured: i % 13 === 0,
+        likes: Math.floor(Math.random() * 200) + 5,
+        images: d.images || [],
+        imgHue: (i * 47) % 360,
+        createdAt: new Date(d.createdAt).getTime() || Date.now() - i * 3600000,
+      }));
+      setWorks(parsed);
+      setLoading(false);
+    }).catch(() => setLoading(false));
+  }, []);
+  return { works, loading };
 }
 
 // ── Work Detail Modal ──
@@ -146,7 +113,7 @@ function WorkDetailModal({ work, onClose, onLike, liked }) {
         <div className="px-6 py-5">
           <h3 className="font-cn-heavy text-[22px] text-[#0A1F3D] leading-snug">{work.title}</h3>
           <div className="mt-3 flex items-center gap-3">
-            <CartoonAvatar seed={work.author.id} size={32} />
+            <Avatar url={work.author.avatar} name={work.author.name} size={32} />
             <div>
               <div className="text-[13px] font-medium text-[#0A1F3D]">{work.author.name}</div>
               <div className="text-[10px] text-[#8FA3B8]">作业 {work.round} · {new Date(work.createdAt).toLocaleDateString("zh-CN")}</div>
@@ -162,16 +129,18 @@ function WorkDetailModal({ work, onClose, onLike, liked }) {
           </a>
 
           {/* Screenshots */}
-          <div className="mt-4 grid grid-cols-3 gap-2">
-            {[0, 40, 80].map((offset, i) => (
-              <div key={i} onClick={() => setImgZoom(true)} className="aspect-[4/3] rounded-lg overflow-hidden cursor-pointer hover:opacity-80 transition relative group"
-                style={{ background: `linear-gradient(135deg, oklch(88% 0.04 ${(work.imgHue + offset) % 360}), oklch(76% 0.06 ${(work.imgHue + offset + 30) % 360}))` }}>
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition bg-black/20">
-                  <div className="w-7 h-7 rounded-full bg-white/90 flex items-center justify-center"><Icon name="ZoomIn" size={12} /></div>
+          {work.images && work.images.length > 0 && (
+            <div className="mt-4 grid grid-cols-3 gap-2">
+              {work.images.slice(0, 6).map((img, i) => (
+                <div key={i} onClick={() => setImgZoom(img)} className="aspect-[4/3] rounded-lg overflow-hidden cursor-pointer hover:opacity-80 transition relative group bg-[#F4F7FA]">
+                  <img src={img} alt="" className="w-full h-full object-cover" />
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition bg-black/20">
+                    <div className="w-7 h-7 rounded-full bg-white/90 flex items-center justify-center"><Icon name="ZoomIn" size={12} /></div>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
 
           {/* Actions */}
           <div className="mt-5 flex items-center justify-between">
@@ -196,7 +165,7 @@ function WorkDetailModal({ work, onClose, onLike, liked }) {
           <div onClick={(e) => e.stopPropagation()}>
             <div className="w-[340px] rounded-3xl overflow-hidden shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)]" style={{ background: "linear-gradient(180deg, #E9F6FF 0%, #D4EDFC 30%, #EEF6FB 100%)" }}>
               <div className="px-5 pt-5 pb-3 flex items-center gap-3">
-                <CartoonAvatar seed={work.author.id} size={36} />
+                <Avatar url={work.author.avatar} name={work.author.name} size={36} />
                 <div>
                   <div className="text-[14px] font-medium text-[#0A1F3D]">{work.author.name}@超级AI大航海</div>
                   <div className="text-[11px] text-[#5A7088]">邀请你来查看这个作品</div>
@@ -206,7 +175,7 @@ function WorkDetailModal({ work, onClose, onLike, liked }) {
                 <h3 className="font-cn-heavy text-[18px] text-[#0A1F3D] leading-snug">{work.title}</h3>
                 <p className="mt-2 text-[12px] text-[#3F546B] leading-[1.6] line-clamp-3">{work.excerpt}</p>
                 <div className="mt-3 flex items-center gap-2">
-                  <CartoonAvatar seed={work.author.id} size={24} />
+                  <Avatar url={work.author.avatar} name={work.author.name} size={24} />
                   <span className="text-[11px] text-[#0A1F3D]">{work.author.name}</span>
                   <span className="text-[10px] text-[#B8C9D9] ml-auto">{new Date(work.createdAt).toLocaleDateString("zh-CN")}</span>
                 </div>
@@ -231,9 +200,9 @@ function WorkDetailModal({ work, onClose, onLike, liked }) {
 
       {/* Image zoom */}
       {imgZoom && (
-        <div className="fixed inset-0 z-[110] flex items-center justify-center bg-black/80" onClick={() => setImgZoom(false)}>
-          <div className="relative w-[80vw] max-w-[800px] aspect-[16/10] rounded-2xl" style={{ background: `linear-gradient(135deg, oklch(85% 0.05 ${work.imgHue}), oklch(72% 0.08 ${(work.imgHue + 40) % 360}))` }}>
-            <div className="absolute inset-0 flex items-center justify-center text-white/40">作品截图预览</div>
+        <div className="fixed inset-0 z-[110] flex items-center justify-center bg-black/80 p-8" onClick={() => setImgZoom(false)}>
+          <div className="relative max-w-[90vw] max-h-[90vh]">
+            <img src={imgZoom} alt="" className="max-w-full max-h-[85vh] rounded-xl object-contain" />
             <button onClick={() => setImgZoom(false)} className="absolute top-3 right-3 w-9 h-9 rounded-full bg-black/40 text-white flex items-center justify-center"><Icon name="X" size={18} /></button>
           </div>
         </div>
@@ -260,13 +229,14 @@ function WorkCard({ work, onClick, onLike, liked }) {
         <p className="mt-2 text-[12px] text-[#5A7088] leading-relaxed line-clamp-2">{work.excerpt}</p>
 
         {/* Thumbnails */}
-        <div className="mt-3 flex gap-1">
-          {[0, 25, 50, 75, 100, 125].slice(0, 3 + (work.id % 4)).map((offset, i) => (
-            <div key={i} className="w-10 h-10 rounded-md overflow-hidden cursor-pointer hover:opacity-75 transition shrink-0"
-              onClick={onClick}
-              style={{ background: `linear-gradient(135deg, oklch(88% 0.04 ${(work.imgHue + offset) % 360}), oklch(78% 0.06 ${(work.imgHue + offset + 25) % 360}))` }} />
-          ))}
-        </div>
+        {work.images && work.images.length > 0 && (
+          <div className="mt-3 flex gap-1">
+            {work.images.slice(0, 6).map((img, i) => (
+              <img key={i} src={img} alt="" onClick={onClick}
+                className="w-10 h-10 rounded-md overflow-hidden cursor-pointer hover:opacity-75 transition shrink-0 object-cover bg-[#F4F7FA]" />
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Footer */}
@@ -328,7 +298,7 @@ function App() {
     try { return JSON.parse(localStorage.getItem("voyage_likes") || "{}"); } catch { return {}; }
   });
 
-  const allWorks = useMemo(() => makeWorks(60), []);
+  const { works: allWorks, loading } = useWorks();
 
   const toggleLike = (id) => {
     setLikedIds((prev) => {
@@ -361,7 +331,7 @@ function App() {
       <div className="max-w-[1280px] mx-auto px-8 pt-22 pb-16">
         <div className="mb-8 pt-4">
           <h1 className="font-cn-heavy text-[32px] text-[#0A1F3D]">作业墙</h1>
-          <p className="mt-1.5 text-[14px] text-[#5A7088]">每一个作品都是一次真实的实战，共 {allWorks.length} 件作品</p>
+          <p className="mt-1.5 text-[14px] text-[#5A7088]">{loading ? "加载中..." : `每一个作品都是一次真实的实战，共 ${allWorks.length} 件作品`}</p>
         </div>
 
         <div className="flex flex-wrap items-center gap-3 mb-8">
