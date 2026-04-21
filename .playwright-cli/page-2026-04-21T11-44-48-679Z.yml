@@ -1,0 +1,6 @@
+- generic [ref=e6]:
+  - heading "生财有术后台" [level=1] [ref=e8]:
+    - strong [ref=e9]: 生财有术后台
+  - button "登录" [active] [ref=e11]:
+    - img [ref=e13]
+    - text: 登录

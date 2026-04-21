@@ -1,0 +1,263 @@
+- generic [ref=e3]:
+  - generic [ref=e5]:
+    - generic [ref=e7]:
+      - img "logo" [ref=e9]
+      - img [ref=e12] [cursor=pointer]
+    - generic [ref=e16]:
+      - img [ref=e18]
+      - textbox "搜索菜单" [ref=e20]
+    - list [ref=e21]:
+      - listitem [ref=e22]:
+        - button [ref=e23] [cursor=pointer]:
+          - img [ref=e25]
+      - listitem [ref=e27]:
+        - button [ref=e28] [cursor=pointer]:
+          - img [ref=e30]
+      - listitem [ref=e32]:
+        - button [ref=e33] [cursor=pointer]:
+          - img [ref=e35]
+      - listitem [ref=e37]:
+        - img "avatar" [ref=e40] [cursor=pointer]
+  - generic [ref=e44]:
+    - generic [ref=e45]:
+      - generic [ref=e46] [cursor=pointer]:
+        - img [ref=e48]
+        - generic [ref=e50]: 最近访问
+      - generic [ref=e51] [cursor=pointer]:
+        - img [ref=e53]
+        - generic [ref=e56]: 用户管理
+      - generic [ref=e57] [cursor=pointer]:
+        - img [ref=e59]
+        - generic [ref=e62]: 航海家管理
+      - generic [ref=e63] [cursor=pointer]:
+        - img [ref=e65]
+        - generic [ref=e69]: 客户管理
+      - generic [ref=e70] [cursor=pointer]:
+        - img [ref=e72]
+        - generic [ref=e74]: 营销管理
+      - generic [ref=e75] [cursor=pointer]:
+        - img [ref=e77]
+        - generic [ref=e79]: 触达中心
+      - generic [ref=e80] [cursor=pointer]:
+        - img [ref=e82]
+        - generic [ref=e84]: 用户运营
+      - generic [ref=e85] [cursor=pointer]:
+        - img [ref=e87]
+        - generic [ref=e89]: 内容管理
+      - generic [ref=e90] [cursor=pointer]:
+        - img [ref=e92]
+        - generic [ref=e94]: 课程管理
+      - generic [ref=e95] [cursor=pointer]:
+        - img [ref=e97]
+        - generic [ref=e99]: 深海圈管理
+      - generic [ref=e100] [cursor=pointer]:
+        - img [ref=e102]
+        - generic [ref=e105]: 社区运营
+      - generic [ref=e106] [cursor=pointer]:
+        - img [ref=e108]
+        - generic [ref=e112]: 活动运营
+      - generic [ref=e113] [cursor=pointer]:
+        - img [ref=e115]
+        - generic [ref=e117]: 实战运营
+      - generic [ref=e118] [cursor=pointer]:
+        - img [ref=e120]
+        - generic [ref=e122]: 任务中心
+      - generic [ref=e123] [cursor=pointer]:
+        - img [ref=e125]
+        - generic [ref=e127]: 交易管理
+      - generic [ref=e128] [cursor=pointer]:
+        - img [ref=e130]
+        - generic [ref=e133]: 权限管理
+      - generic [ref=e134] [cursor=pointer]:
+        - img [ref=e136]
+        - generic [ref=e138]: 开发工具
+    - generic [ref=e142]:
+      - generic [ref=e143] [cursor=pointer]: 下载任务
+      - generic [ref=e144] [cursor=pointer]: 私戳任务
+      - generic [ref=e145] [cursor=pointer]: 系统任务
+      - generic [ref=e146]:
+        - generic [ref=e147] [cursor=pointer]:
+          - text: 群聊AI总结
+          - img [ref=e149]
+        - generic [ref=e151]:
+          - generic [ref=e154] [cursor=pointer]: 总结列表
+          - generic [ref=e157] [cursor=pointer]: 任务管理
+  - list [ref=e159]:
+    - listitem [ref=e160]: 下载任务
+  - iframe [active] [ref=e165]:
+    - generic [ref=f1e1]:
+      - main [ref=f1e2]:
+        - generic [ref=f1e8]:
+          - generic [ref=f1e9]:
+            - heading "筛选" [level=3] [ref=f1e11]:
+              - generic [ref=f1e12]: 筛选
+            - generic [ref=f1e14]:
+              - generic [ref=f1e15]:
+                - generic [ref=f1e18]: 类型
+                - combobox [ref=f1e21] [cursor=pointer]:
+                  - generic [ref=f1e23]: 导出任务
+                  - img [ref=f1e25]
+              - generic [ref=f1e27]:
+                - generic [ref=f1e30]: 任务名称
+                - textbox [ref=f1e34]
+          - generic [ref=f1e37]:
+            - table [ref=f1e40]:
+              - rowgroup [ref=f1e49]:
+                - row "ID 表名 类型 任务状态 创建时间 最近信息 操作" [ref=f1e50]:
+                  - columnheader "ID" [ref=f1e51]:
+                    - generic [ref=f1e53]: ID
+                  - columnheader "表名" [ref=f1e55]:
+                    - generic [ref=f1e57]: 表名
+                  - columnheader "类型" [ref=f1e59]:
+                    - generic [ref=f1e61]: 类型
+                  - columnheader "任务状态" [ref=f1e63]:
+                    - generic [ref=f1e65]: 任务状态
+                  - columnheader "创建时间" [ref=f1e67]:
+                    - generic [ref=f1e69]: 创建时间
+                  - columnheader "最近信息" [ref=f1e71]:
+                    - generic [ref=f1e73]: 最近信息
+                  - columnheader "操作" [ref=f1e75]:
+                    - generic [ref=f1e77]: 操作
+            - table [ref=f1e81]:
+              - rowgroup [ref=f1e90]:
+                - 'row "28576 (雪雪 操作) 表单:1793 导出 --> 🦞openclaw航海第三次作业 导出任务 已完成 2026-04-21 导出数量: 270, 完成时间: 04-21 20:19 查看" [ref=f1e91]':
+                  - cell "28576" [ref=f1e92]
+                  - cell "(雪雪 操作) 表单:1793 导出 --> 🦞openclaw航海第三次作业" [ref=f1e93]
+                  - cell "导出任务" [ref=f1e94]
+                  - cell "已完成" [ref=f1e95]:
+                    - generic [ref=f1e98]: 已完成
+                  - cell "2026-04-21" [ref=f1e99]
+                  - 'cell "导出数量: 270, 完成时间: 04-21 20:19" [ref=f1e100]'
+                  - cell "查看" [ref=f1e101]:
+                    - button "查看" [active] [ref=f1e103] [cursor=pointer]:
+                      - generic [ref=f1e104]: 查看
+                - 'row "28575 (乐之 操作) 群成员匹配.xlsx 导出任务 已完成 2026-04-21 导出数量: 462, 完成时间: 04-21 19:33 查看" [ref=f1e105]':
+                  - cell "28575" [ref=f1e106]
+                  - cell "(乐之 操作) 群成员匹配.xlsx" [ref=f1e107]
+                  - cell "导出任务" [ref=f1e108]
+                  - cell "已完成" [ref=f1e109]:
+                    - generic [ref=f1e112]: 已完成
+                  - cell "2026-04-21" [ref=f1e113]
+                  - 'cell "导出数量: 462, 完成时间: 04-21 19:33" [ref=f1e114]'
+                  - cell "查看" [ref=f1e115]:
+                    - button "查看" [ref=f1e117] [cursor=pointer]:
+                      - generic [ref=f1e118]: 查看
+                - 'row "28574 (乐之 操作) 群成员匹配.xlsx 导出任务 已完成 2026-04-21 导出数量: 462, 完成时间: 04-21 19:26 查看" [ref=f1e119]':
+                  - cell "28574" [ref=f1e120]
+                  - cell "(乐之 操作) 群成员匹配.xlsx" [ref=f1e121]
+                  - cell "导出任务" [ref=f1e122]
+                  - cell "已完成" [ref=f1e123]:
+                    - generic [ref=f1e126]: 已完成
+                  - cell "2026-04-21" [ref=f1e127]
+                  - 'cell "导出数量: 462, 完成时间: 04-21 19:26" [ref=f1e128]'
+                  - cell "查看" [ref=f1e129]:
+                    - button "查看" [ref=f1e131] [cursor=pointer]:
+                      - generic [ref=f1e132]: 查看
+                - 'row "28573 (乐之 操作) 群成员匹配.xlsx 导出任务 已完成 2026-04-21 导出数量: 462, 完成时间: 04-21 19:18 查看" [ref=f1e133]':
+                  - cell "28573" [ref=f1e134]
+                  - cell "(乐之 操作) 群成员匹配.xlsx" [ref=f1e135]
+                  - cell "导出任务" [ref=f1e136]
+                  - cell "已完成" [ref=f1e137]:
+                    - generic [ref=f1e140]: 已完成
+                  - cell "2026-04-21" [ref=f1e141]
+                  - 'cell "导出数量: 462, 完成时间: 04-21 19:18" [ref=f1e142]'
+                  - cell "查看" [ref=f1e143]:
+                    - button "查看" [ref=f1e145] [cursor=pointer]:
+                      - generic [ref=f1e146]: 查看
+                - 'row "28572 (桑桑 操作) 表单:1722 导出 --> 【深海圈丨AI编程】报名表单 导出任务 已完成 2026-04-21 导出数量: 2108, 完成时间: 04-21 18:46 查看" [ref=f1e147]':
+                  - cell "28572" [ref=f1e148]
+                  - cell "(桑桑 操作) 表单:1722 导出 --> 【深海圈丨AI编程】报名表单" [ref=f1e149]
+                  - cell "导出任务" [ref=f1e150]
+                  - cell "已完成" [ref=f1e151]:
+                    - generic [ref=f1e154]: 已完成
+                  - cell "2026-04-21" [ref=f1e155]
+                  - 'cell "导出数量: 2108, 完成时间: 04-21 18:46" [ref=f1e156]'
+                  - cell "查看" [ref=f1e157]:
+                    - button "查看" [ref=f1e159] [cursor=pointer]:
+                      - generic [ref=f1e160]: 查看
+                - 'row "28571 (莞尔 操作) 帖子导出 导出任务 已完成 2026-04-21 导出数量: 112, 完成时间: 04-21 18:24 查看" [ref=f1e161]':
+                  - cell "28571" [ref=f1e162]
+                  - cell "(莞尔 操作) 帖子导出" [ref=f1e163]
+                  - cell "导出任务" [ref=f1e164]
+                  - cell "已完成" [ref=f1e165]:
+                    - generic [ref=f1e168]: 已完成
+                  - cell "2026-04-21" [ref=f1e169]
+                  - 'cell "导出数量: 112, 完成时间: 04-21 18:24" [ref=f1e170]'
+                  - cell "查看" [ref=f1e171]:
+                    - button "查看" [ref=f1e173] [cursor=pointer]:
+                      - generic [ref=f1e174]: 查看
+                - 'row "28570 (芝芝 操作) 表单:1875 导出 --> 个人资料填写表2-第三期航海家 导出任务 已完成 2026-04-21 导出数量: 444, 完成时间: 04-21 18:03 查看" [ref=f1e175]':
+                  - cell "28570" [ref=f1e176]
+                  - cell "(芝芝 操作) 表单:1875 导出 --> 个人资料填写表2-第三期航海家" [ref=f1e177]
+                  - cell "导出任务" [ref=f1e178]
+                  - cell "已完成" [ref=f1e179]:
+                    - generic [ref=f1e182]: 已完成
+                  - cell "2026-04-21" [ref=f1e183]
+                  - 'cell "导出数量: 444, 完成时间: 04-21 18:03" [ref=f1e184]'
+                  - cell "查看" [ref=f1e185]:
+                    - button "查看" [ref=f1e187] [cursor=pointer]:
+                      - generic [ref=f1e188]: 查看
+                - 'row "28569 (凯瑜 操作) 表单:1868 导出 --> 生财联合办公（广州站）工位费提交表 （4.16-5.15） 导出任务 已完成 2026-04-21 导出数量: 36, 完成时间: 04-21 17:38 查看" [ref=f1e189]':
+                  - cell "28569" [ref=f1e190]
+                  - cell "(凯瑜 操作) 表单:1868 导出 --> 生财联合办公（广州站）工位费提交表 （4.16-5.15）" [ref=f1e191]
+                  - cell "导出任务" [ref=f1e192]
+                  - cell "已完成" [ref=f1e193]:
+                    - generic [ref=f1e196]: 已完成
+                  - cell "2026-04-21" [ref=f1e197]
+                  - 'cell "导出数量: 36, 完成时间: 04-21 17:38" [ref=f1e198]'
+                  - cell "查看" [ref=f1e199]:
+                    - button "查看" [ref=f1e201] [cursor=pointer]:
+                      - generic [ref=f1e202]: 查看
+                - 'row "28568 航海家用户导出 (芝芝 操作) 导出任务 已完成 2026-04-21 导出数量: 1929, 完成时间: 04-21 17:36 查看" [ref=f1e203]':
+                  - cell "28568" [ref=f1e204]
+                  - cell "航海家用户导出 (芝芝 操作)" [ref=f1e205]
+                  - cell "导出任务" [ref=f1e206]
+                  - cell "已完成" [ref=f1e207]:
+                    - generic [ref=f1e210]: 已完成
+                  - cell "2026-04-21" [ref=f1e211]
+                  - 'cell "导出数量: 1929, 完成时间: 04-21 17:36" [ref=f1e212]'
+                  - cell "查看" [ref=f1e213]:
+                    - button "查看" [ref=f1e215] [cursor=pointer]:
+                      - generic [ref=f1e216]: 查看
+                - 'row "28567 (雪雪 操作) 表单:1793 导出 --> 🦞openclaw航海第三次作业 导出任务 已完成 2026-04-21 导出数量: 270, 完成时间: 04-21 17:09 查看" [ref=f1e217]':
+                  - cell "28567" [ref=f1e218]
+                  - cell "(雪雪 操作) 表单:1793 导出 --> 🦞openclaw航海第三次作业" [ref=f1e219]
+                  - cell "导出任务" [ref=f1e220]
+                  - cell "已完成" [ref=f1e221]:
+                    - generic [ref=f1e224]: 已完成
+                  - cell "2026-04-21" [ref=f1e225]
+                  - 'cell "导出数量: 270, 完成时间: 04-21 17:09" [ref=f1e226]'
+                  - cell "查看" [ref=f1e227]:
+                    - button "查看" [ref=f1e229] [cursor=pointer]:
+                      - generic [ref=f1e230]: 查看
+            - generic [ref=f1e232]:
+              - generic [ref=f1e234]: 1/2450 共：24491 项
+              - generic [ref=f1e237]:
+                - list [ref=f1e238]:
+                  - listitem [ref=f1e239] [cursor=pointer]:
+                    - img [ref=f1e241]
+                  - listitem [ref=f1e243] [cursor=pointer]:
+                    - button "1" [ref=f1e244]
+                  - listitem [ref=f1e245] [cursor=pointer]:
+                    - button "2" [ref=f1e246]
+                  - listitem [ref=f1e247] [cursor=pointer]:
+                    - button "3" [ref=f1e248]
+                  - listitem [ref=f1e249] [cursor=pointer]:
+                    - button "4" [ref=f1e250]
+                  - listitem [ref=f1e251] [cursor=pointer]:
+                    - button "5" [ref=f1e252]
+                  - listitem [ref=f1e253] [cursor=pointer]:
+                    - button "6" [ref=f1e254]
+                  - listitem [ref=f1e255] [cursor=pointer]:
+                    - button "7" [ref=f1e256]
+                  - listitem [ref=f1e257]:
+                    - button "..." [ref=f1e258]
+                  - listitem [ref=f1e259] [cursor=pointer]:
+                    - button "2450" [ref=f1e260]
+                  - listitem [ref=f1e261] [cursor=pointer]:
+                    - img [ref=f1e263]
+                - generic [ref=f1e265]:
+                  - generic [ref=f1e266]: 跳转至
+                  - textbox [ref=f1e267]
+                  - generic [ref=f1e268] [cursor=pointer]: GO
+      - status [ref=f1e269]

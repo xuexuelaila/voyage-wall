@@ -1,0 +1,451 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - generic [ref=e5]:
+      - generic [ref=e7]:
+        - img "logo" [ref=e9]
+        - img [ref=e12] [cursor=pointer]
+      - generic [ref=e16]:
+        - img [ref=e18]
+        - textbox "搜索菜单" [ref=e20]
+      - list [ref=e21]:
+        - listitem [ref=e22]:
+          - button [ref=e23] [cursor=pointer]:
+            - img [ref=e25]
+        - listitem [ref=e27]:
+          - button [ref=e28] [cursor=pointer]:
+            - img [ref=e30]
+        - listitem [ref=e32]:
+          - button [ref=e33] [cursor=pointer]:
+            - img [ref=e35]
+        - listitem [ref=e37]:
+          - img "avatar" [ref=e40] [cursor=pointer]
+    - generic [ref=e44]:
+      - generic [ref=e45]:
+        - generic [ref=e46] [cursor=pointer]:
+          - img [ref=e48]
+          - generic [ref=e50]: 最近访问
+        - generic [ref=e51] [cursor=pointer]:
+          - img [ref=e53]
+          - generic [ref=e56]: 用户管理
+        - generic [ref=e57] [cursor=pointer]:
+          - img [ref=e59]
+          - generic [ref=e62]: 航海家管理
+        - generic [ref=e63] [cursor=pointer]:
+          - img [ref=e65]
+          - generic [ref=e69]: 客户管理
+        - generic [ref=e70] [cursor=pointer]:
+          - img [ref=e72]
+          - generic [ref=e74]: 营销管理
+        - generic [ref=e75] [cursor=pointer]:
+          - img [ref=e77]
+          - generic [ref=e79]: 触达中心
+        - generic [ref=e80] [cursor=pointer]:
+          - img [ref=e82]
+          - generic [ref=e84]: 用户运营
+        - generic [ref=e85] [cursor=pointer]:
+          - img [ref=e87]
+          - generic [ref=e89]: 内容管理
+        - generic [ref=e90] [cursor=pointer]:
+          - img [ref=e92]
+          - generic [ref=e94]: 课程管理
+        - generic [ref=e95] [cursor=pointer]:
+          - img [ref=e97]
+          - generic [ref=e99]: 深海圈管理
+        - generic [ref=e100] [cursor=pointer]:
+          - img [ref=e102]
+          - generic [ref=e105]: 社区运营
+        - generic [ref=e106] [cursor=pointer]:
+          - img [ref=e108]
+          - generic [ref=e112]: 活动运营
+        - generic [ref=e113] [cursor=pointer]:
+          - img [ref=e115]
+          - generic [ref=e117]: 实战运营
+        - generic [ref=e118] [cursor=pointer]:
+          - img [ref=e120]
+          - generic [ref=e122]: 任务中心
+        - generic [ref=e123] [cursor=pointer]:
+          - img [ref=e125]
+          - generic [ref=e127]: 交易管理
+        - generic [ref=e128] [cursor=pointer]:
+          - img [ref=e130]
+          - generic [ref=e133]: 权限管理
+        - generic [ref=e134] [cursor=pointer]:
+          - img [ref=e136]
+          - generic [ref=e138]: 开发工具
+      - generic [ref=e142]:
+        - generic [ref=e143] [cursor=pointer]: 用户查询
+        - generic [ref=e144]:
+          - generic [ref=e145] [cursor=pointer]:
+            - text: 用户数据看板
+            - img [ref=e147]
+          - generic [ref=e149]:
+            - generic [ref=e152] [cursor=pointer]: 用户进出日志
+            - generic [ref=e155] [cursor=pointer]: 用户增长汇总
+            - generic [ref=e158] [cursor=pointer]: 用户增长明细
+        - generic [ref=e159]:
+          - generic [ref=e160] [cursor=pointer]:
+            - text: 用户画像
+            - img [ref=e162]
+          - generic [ref=e164]:
+            - generic [ref=e167] [cursor=pointer]: 会员信息
+            - generic [ref=e170] [cursor=pointer]: 跟进记录
+        - generic [ref=e171]:
+          - generic [ref=e172] [cursor=pointer]:
+            - text: 用户标签
+            - img [ref=e174]
+          - generic [ref=e176]:
+            - generic [ref=e179] [cursor=pointer]: 航海家
+            - generic [ref=e182] [cursor=pointer]: 传术师
+            - generic [ref=e185] [cursor=pointer]: 深海圈·AI产品出海
+            - generic [ref=e188] [cursor=pointer]: 深海圈·YouTube
+            - generic [ref=e191] [cursor=pointer]: 深海圈·B站好物
+            - generic [ref=e194] [cursor=pointer]: 活动委员
+            - generic [ref=e197] [cursor=pointer]: 内容志愿者
+            - generic [ref=e200] [cursor=pointer]: 发帖白名单
+            - generic [ref=e203] [cursor=pointer]: 体验卡合作
+            - generic [ref=e206] [cursor=pointer]: 冷静区
+        - generic [ref=e207] [cursor=pointer]: 标签管理
+    - list [ref=e209]:
+      - listitem [ref=e210]: 表单记录
+    - generic [ref=e214]:
+      - generic [ref=e217]:
+        - button "1793 - 🦞openclaw航海第三次作业 修改表单配置 导出 收起" [expanded] [ref=e218] [cursor=pointer]:
+          - img [ref=e220]
+          - button "1793 - 🦞openclaw航海第三次作业" [ref=e223]
+          - generic [ref=e225]:
+            - img [ref=e227]
+            - button "修改表单配置" [ref=e230]
+            - button "导出" [ref=e232]
+            - generic [ref=e234]: 收起
+        - region [ref=e235]:
+          - generic [ref=e237]:
+            - generic [ref=e238]:
+              - generic [ref=e240]:
+                - text: 填写人
+                - img [ref=e241]
+              - generic [ref=e247]:
+                - textbox "请输入完整的 星球编号/星球昵称" [ref=e248]
+                - img [ref=e251]
+            - generic [ref=e253]:
+              - generic [ref=e255]: 处理状态
+              - generic [ref=e259] [cursor=pointer]:
+                - textbox "全部" [ref=e260]
+                - img [ref=e263]
+            - generic [ref=e265]:
+              - generic [ref=e267]: 处理备注
+              - textbox "输入关键词" [ref=e272]
+            - generic [ref=e273]:
+              - generic [ref=e275]: 订单号
+              - textbox "输入订单号" [ref=e280]
+            - generic [ref=e281]:
+              - generic [ref=e283]: 填写内容
+              - textbox "输入关键词" [ref=e288]
+            - generic [ref=e289]:
+              - generic [ref=e291]: 创建时间
+              - generic [ref=e295]:
+                - textbox "开始日期" [ref=e297]: 2026-04-21
+                - generic [ref=e298]: "-"
+                - textbox "结束日期" [ref=e300]
+                - img [ref=e303]
+            - generic [ref=e305]:
+              - generic [ref=e307]: 更新时间
+              - generic [ref=e311]:
+                - textbox "开始日期" [ref=e313]: 2026-04-21
+                - generic [ref=e314]: "-"
+                - textbox "结束日期" [ref=e316]
+                - img [ref=e319]
+            - generic [ref=e321]:
+              - generic [ref=e323]: 表单记录ID
+              - textbox "输入表单记录ID" [ref=e328]
+      - generic [ref=e330]:
+        - list [ref=e334]:
+          - generic [ref=e335]:
+            - generic [ref=e336]:
+              - generic [ref=e338]:
+                - img "avatar" [ref=e342]
+                - generic [ref=e344]:
+                  - link "流量科学（10403）" [ref=e346] [cursor=pointer]:
+                    - /url: /user-management/user-detail?xq_group_number=10403
+                  - generic [ref=e348]: 邀请人：无
+              - generic [ref=e350]:
+                - generic [ref=e351]: 表单记录ID：438957
+                - generic [ref=e355]: 更新时间：2026-04-01 14:15
+            - generic [ref=e356]:
+              - generic [ref=e358]:
+                - text: 后台备注（仅后台可见）：
+                - img [ref=e359]
+              - generic [ref=e362]:
+                - generic [ref=e363]:
+                  - generic [ref=e365]: 丨成功用openclaw制作出每天定时查收生财社区精华贴的截图
+                  - img [ref=e374]
+                - generic [ref=e375]:
+                  - generic [ref=e377]: 丨成功用openclaw制作出个人助理的截图
+                  - img [ref=e386]
+                - generic [ref=e387]:
+                  - generic [ref=e389]: 丨在学习的过程中遇到了什么问题
+                  - generic [ref=e394]: 整个的感觉很神奇，非常感谢生财举办的这一次航海。我对小龙虾这个事情彻底了解了。其实我觉得更重要的是去魅。以前觉得深不可测，很神秘。真正实操下来发现，它就是一个助理，就是一个带大模型的助理。
+          - generic [ref=e395]:
+            - generic [ref=e396]:
+              - generic [ref=e398]:
+                - img "avatar" [ref=e402]
+                - generic [ref=e404]:
+                  - link "悠途（19776）" [ref=e406] [cursor=pointer]:
+                    - /url: /user-management/user-detail?xq_group_number=19776
+                  - generic [ref=e408]: 邀请人：无
+              - generic [ref=e410]:
+                - generic [ref=e411]: 表单记录ID：446064
+                - generic [ref=e415]: 更新时间：2026-04-01 12:52
+            - generic [ref=e416]:
+              - generic [ref=e418]:
+                - text: 后台备注（仅后台可见）：
+                - img [ref=e419]
+              - generic [ref=e422]:
+                - generic [ref=e423]:
+                  - generic [ref=e425]: 丨成功用openclaw制作出每天定时查收生财社区精华贴的截图
+                  - img [ref=e434]
+                - generic [ref=e435]:
+                  - generic [ref=e437]: 丨成功用openclaw制作出个人助理的截图
+                  - img [ref=e446]
+                - generic [ref=e447]:
+                  - generic [ref=e449]: 丨在学习的过程中遇到了什么问题
+                  - generic [ref=e454]: 获取没有API接口的网站时，还没有找到可靠的方法获取准确数据
+          - generic [ref=e455]:
+            - generic [ref=e456]:
+              - generic [ref=e458]:
+                - img "avatar" [ref=e462]
+                - generic [ref=e464]:
+                  - link "11（2518）" [ref=e466] [cursor=pointer]:
+                    - /url: /user-management/user-detail?xq_group_number=2518
+                  - generic [ref=e468]: 邀请人：无
+              - generic [ref=e470]:
+                - generic [ref=e471]: 表单记录ID：442009
+                - generic [ref=e475]: 更新时间：2026-04-01 12:08
+            - generic [ref=e476]:
+              - generic [ref=e478]:
+                - text: 后台备注（仅后台可见）：
+                - img [ref=e479]
+              - generic [ref=e482]:
+                - generic [ref=e483]:
+                  - generic [ref=e485]: 丨成功用openclaw制作出每天定时查收生财社区精华贴的截图
+                  - img [ref=e494]
+                - generic [ref=e495]:
+                  - generic [ref=e497]: 丨成功用openclaw制作出个人助理的截图
+                  - img [ref=e506]
+                - generic [ref=e507]:
+                  - generic [ref=e509]: 丨在学习的过程中遇到了什么问题
+                  - generic [ref=e514]: 无
+          - generic [ref=e515]:
+            - generic [ref=e516]:
+              - generic [ref=e518]:
+                - img "avatar" [ref=e522]
+                - generic [ref=e524]:
+                  - link "陈嘉鑫（34053）" [ref=e526] [cursor=pointer]:
+                    - /url: /user-management/user-detail?xq_group_number=34053
+                  - generic [ref=e528]: 邀请人：无
+              - generic [ref=e530]:
+                - generic [ref=e531]: 表单记录ID：445985
+                - generic [ref=e535]: 更新时间：2026-04-01 10:10
+            - generic [ref=e536]:
+              - generic [ref=e538]:
+                - text: 后台备注（仅后台可见）：
+                - img [ref=e539]
+              - generic [ref=e542]:
+                - generic [ref=e543]:
+                  - generic [ref=e545]: 丨成功用openclaw制作出每天定时查收生财社区精华贴的截图
+                  - img [ref=e554]
+                - generic [ref=e555]:
+                  - generic [ref=e557]: 丨成功用openclaw制作出个人助理的截图
+                  - img [ref=e566]
+                - generic [ref=e567]:
+                  - generic [ref=e569]: 丨在学习的过程中遇到了什么问题
+                  - generic [ref=e574]: 过程中还是要跟 AI 不停地调试吧，然后就是你的业务要非常地细化
+          - generic [ref=e575]:
+            - generic [ref=e576]:
+              - generic [ref=e578]:
+                - img "avatar" [ref=e582]
+                - generic [ref=e584]:
+                  - link "Huang（59266）" [ref=e586] [cursor=pointer]:
+                    - /url: /user-management/user-detail?xq_group_number=59266
+                  - generic [ref=e588]: 邀请人：无
+              - generic [ref=e590]:
+                - generic [ref=e591]: 表单记录ID：445883
+                - generic [ref=e595]: 更新时间：2026-04-01 00:23
+            - generic [ref=e596]:
+              - generic [ref=e598]:
+                - text: 后台备注（仅后台可见）：
+                - img [ref=e599]
+              - generic [ref=e602]:
+                - generic [ref=e603]:
+                  - generic [ref=e605]: 丨成功用openclaw制作出每天定时查收生财社区精华贴的截图
+                  - img [ref=e614]
+                - generic [ref=e615]:
+                  - generic [ref=e617]: 丨成功用openclaw制作出个人助理的截图
+                  - img [ref=e626]
+                - generic [ref=e627]:
+                  - generic [ref=e629]: 丨在学习的过程中遇到了什么问题
+                  - generic [ref=e634]: 识别UI位置老是错误
+          - generic [ref=e635]:
+            - generic [ref=e636]:
+              - generic [ref=e638]:
+                - img "avatar" [ref=e642]
+                - generic [ref=e644]:
+                  - link "满江（38990）" [ref=e646] [cursor=pointer]:
+                    - /url: /user-management/user-detail?xq_group_number=38990
+                  - generic [ref=e648]: 邀请人：无
+              - generic [ref=e650]:
+                - generic [ref=e651]: 表单记录ID：445891
+                - generic [ref=e655]: 更新时间：2026-04-01 00:11
+            - generic [ref=e656]:
+              - generic [ref=e658]:
+                - text: 后台备注（仅后台可见）：
+                - img [ref=e659]
+              - generic [ref=e662]:
+                - generic [ref=e663]:
+                  - generic [ref=e665]: 丨成功用openclaw制作出每天定时查收生财社区精华贴的截图
+                  - generic [ref=e669]:
+                    - img [ref=e674]
+                    - img [ref=e679]
+                - generic [ref=e680]:
+                  - generic [ref=e682]: 丨成功用openclaw制作出个人助理的截图
+                  - img [ref=e691]
+                - generic [ref=e692]:
+                  - generic [ref=e694]: 丨在学习的过程中遇到了什么问题
+                  - generic [ref=e698]:
+                    - generic [ref=e699]: 已解决
+                    - img [ref=e704]
+          - generic [ref=e705]:
+            - generic [ref=e706]:
+              - generic [ref=e708]:
+                - img "avatar" [ref=e712]
+                - generic [ref=e714]:
+                  - link "怡然（21511）" [ref=e716] [cursor=pointer]:
+                    - /url: /user-management/user-detail?xq_group_number=21511
+                  - generic [ref=e718]: 邀请人：无
+              - generic [ref=e720]:
+                - generic [ref=e721]: 表单记录ID：445882
+                - generic [ref=e725]: 更新时间：2026-03-31 23:59
+            - generic [ref=e726]:
+              - generic [ref=e728]:
+                - text: 后台备注（仅后台可见）：
+                - img [ref=e729]
+              - generic [ref=e732]:
+                - generic [ref=e733]:
+                  - generic [ref=e735]: 丨成功用openclaw制作出每天定时查收生财社区精华贴的截图
+                  - img [ref=e744]
+                - generic [ref=e745]:
+                  - generic [ref=e747]: 丨成功用openclaw制作出个人助理的截图
+                  - img [ref=e756]
+                - generic [ref=e757]:
+                  - generic [ref=e759]: 丨在学习的过程中遇到了什么问题
+                  - generic [ref=e764]: 偶尔会遇到权限报错，已解决
+          - generic [ref=e765]:
+            - generic [ref=e766]:
+              - generic [ref=e768]:
+                - img "avatar" [ref=e772]
+                - generic [ref=e774]:
+                  - link "利云（82136）" [ref=e776] [cursor=pointer]:
+                    - /url: /user-management/user-detail?xq_group_number=82136
+                  - generic [ref=e778]: 邀请人：无
+              - generic [ref=e780]:
+                - generic [ref=e781]: 表单记录ID：445874
+                - generic [ref=e785]: 更新时间：2026-03-31 23:50
+            - generic [ref=e786]:
+              - generic [ref=e788]:
+                - text: 后台备注（仅后台可见）：
+                - img [ref=e789]
+              - generic [ref=e792]:
+                - generic [ref=e793]:
+                  - generic [ref=e795]: 丨成功用openclaw制作出每天定时查收生财社区精华贴的截图
+                  - generic [ref=e799]:
+                    - img [ref=e804]
+                    - img [ref=e809]
+                    - img [ref=e814]
+                - generic [ref=e815]:
+                  - generic [ref=e817]: 丨成功用openclaw制作出个人助理的截图
+                  - generic [ref=e821]:
+                    - img [ref=e826]
+                    - img [ref=e831]
+                - generic [ref=e832]:
+                  - generic [ref=e834]: 丨在学习的过程中遇到了什么问题
+                  - generic [ref=e838]:
+                    - generic [ref=e839]: 犯傻了在飞书用腾讯云的部署，全是限制，看着给的答复很无语，腾讯云又在搞事情了，圈用户回去使用微信和QQ
+                    - generic [ref=e841]:
+                      - img [ref=e844]
+                      - img [ref=e847]
+          - generic [ref=e848]:
+            - generic [ref=e849]:
+              - generic [ref=e851]:
+                - img "avatar" [ref=e855]
+                - generic [ref=e857]:
+                  - link "来来（50284）" [ref=e859] [cursor=pointer]:
+                    - /url: /user-management/user-detail?xq_group_number=50284
+                  - generic [ref=e861]: 邀请人：无
+              - generic [ref=e863]:
+                - generic [ref=e864]: 表单记录ID：445873
+                - generic [ref=e868]: 更新时间：2026-03-31 23:49
+            - generic [ref=e869]:
+              - generic [ref=e871]:
+                - text: 后台备注（仅后台可见）：
+                - img [ref=e872]
+              - generic [ref=e875]:
+                - generic [ref=e876]:
+                  - generic [ref=e878]: 丨成功用openclaw制作出每天定时查收生财社区精华贴的截图
+                  - img [ref=e887]
+                - generic [ref=e888]:
+                  - generic [ref=e890]: 丨成功用openclaw制作出个人助理的截图
+                  - img [ref=e899]
+                - generic [ref=e900]:
+                  - generic [ref=e902]: 丨在学习的过程中遇到了什么问题
+                  - generic [ref=e907]: 没有问题
+          - generic [ref=e908]:
+            - generic [ref=e909]:
+              - generic [ref=e911]:
+                - img "avatar" [ref=e915]
+                - generic [ref=e917]:
+                  - link "拉提卡（12458）" [ref=e919] [cursor=pointer]:
+                    - /url: /user-management/user-detail?xq_group_number=12458
+                  - generic [ref=e921]: 邀请人：无
+              - generic [ref=e923]:
+                - generic [ref=e924]: 表单记录ID：445870
+                - generic [ref=e928]: 更新时间：2026-03-31 23:47
+            - generic [ref=e929]:
+              - generic [ref=e931]:
+                - text: 后台备注（仅后台可见）：
+                - img [ref=e932]
+              - generic [ref=e935]:
+                - generic [ref=e936]:
+                  - generic [ref=e938]: 丨成功用openclaw制作出每天定时查收生财社区精华贴的截图
+                  - img [ref=e947]
+                - generic [ref=e948]:
+                  - generic [ref=e950]: 丨成功用openclaw制作出个人助理的截图
+                  - img [ref=e959]
+                - generic [ref=e960]:
+                  - generic [ref=e962]: 丨在学习的过程中遇到了什么问题
+                  - generic [ref=e966]:
+                    - generic [ref=e967]: 小龙虾不听话，前两步没有完成
+                    - img [ref=e972]
+        - generic [ref=e976]:
+          - generic [ref=e977]: 共 270 条
+          - list [ref=e978]:
+            - generic [ref=e979]:
+              - img [ref=e980]
+              - text: .
+            - listitem [ref=e982] [cursor=pointer]: "1"
+            - listitem [ref=e983] [cursor=pointer]: "2"
+            - listitem [ref=e984] [cursor=pointer]: "3"
+            - listitem [ref=e985] [cursor=pointer]: "4"
+            - listitem [ref=e986] [cursor=pointer]: "5"
+            - listitem [ref=e987] [cursor=pointer]:
+              - img [ref=e988]
+            - listitem [ref=e991] [cursor=pointer]: "27"
+            - generic [ref=e992] [cursor=pointer]:
+              - img [ref=e993]
+              - text: .
+          - generic [ref=e995]:
+            - generic [ref=e996]: 前往
+            - spinbutton [ref=e998]
+  - generic [ref=e1010]:
+    - generic [ref=e1011]: 已开始导出
+    - generic [ref=e1012]:
+      - button "返回" [ref=e1013] [cursor=pointer]
+      - button "查看导出进度" [ref=e1014] [cursor=pointer]

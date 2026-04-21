@@ -1,0 +1,178 @@
+- generic [ref=e3]:
+  - generic [ref=e5]:
+    - generic [ref=e7]:
+      - img "logo" [ref=e9]
+      - img [ref=e12] [cursor=pointer]
+    - generic [ref=e16]:
+      - img [ref=e18]
+      - textbox "搜索菜单" [ref=e20]
+    - list [ref=e21]:
+      - listitem [ref=e22]:
+        - button [ref=e23] [cursor=pointer]:
+          - img [ref=e25]
+      - listitem [ref=e27]:
+        - button [ref=e28] [cursor=pointer]:
+          - img [ref=e30]
+      - listitem [ref=e32]:
+        - button [ref=e33] [cursor=pointer]:
+          - img [ref=e35]
+      - listitem [ref=e37]:
+        - img "avatar" [ref=e40] [cursor=pointer]
+  - generic [ref=e44]:
+    - generic [ref=e45]:
+      - generic [ref=e46] [cursor=pointer]:
+        - img [ref=e48]
+        - generic [ref=e50]: 最近访问
+      - generic [ref=e51] [cursor=pointer]:
+        - img [ref=e53]
+        - generic [ref=e56]: 用户管理
+      - generic [ref=e57] [cursor=pointer]:
+        - img [ref=e59]
+        - generic [ref=e62]: 航海家管理
+      - generic [ref=e63] [cursor=pointer]:
+        - img [ref=e65]
+        - generic [ref=e69]: 客户管理
+      - generic [ref=e70] [cursor=pointer]:
+        - img [ref=e72]
+        - generic [ref=e74]: 营销管理
+      - generic [ref=e75] [cursor=pointer]:
+        - img [ref=e77]
+        - generic [ref=e79]: 触达中心
+      - generic [ref=e80] [cursor=pointer]:
+        - img [ref=e82]
+        - generic [ref=e84]: 用户运营
+      - generic [ref=e85] [cursor=pointer]:
+        - img [ref=e87]
+        - generic [ref=e89]: 内容管理
+      - generic [ref=e90] [cursor=pointer]:
+        - img [ref=e92]
+        - generic [ref=e94]: 课程管理
+      - generic [ref=e95] [cursor=pointer]:
+        - img [ref=e97]
+        - generic [ref=e99]: 深海圈管理
+      - generic [ref=e100] [cursor=pointer]:
+        - img [ref=e102]
+        - generic [ref=e105]: 社区运营
+      - generic [ref=e106] [cursor=pointer]:
+        - img [ref=e108]
+        - generic [ref=e112]: 活动运营
+      - generic [ref=e113] [cursor=pointer]:
+        - img [ref=e115]
+        - generic [ref=e117]: 实战运营
+      - generic [ref=e118] [cursor=pointer]:
+        - img [ref=e120]
+        - generic [ref=e122]: 任务中心
+      - generic [ref=e123] [cursor=pointer]:
+        - img [ref=e125]
+        - generic [ref=e127]: 交易管理
+      - generic [ref=e128] [cursor=pointer]:
+        - img [ref=e130]
+        - generic [ref=e133]: 权限管理
+      - generic [ref=e134] [cursor=pointer]:
+        - img [ref=e136]
+        - generic [ref=e138]: 开发工具
+    - generic [ref=e142]:
+      - generic [ref=e143] [cursor=pointer]: 内容运营统计
+      - generic [ref=e144]:
+        - generic [ref=e145] [cursor=pointer]:
+          - text: 帖子内容管理
+          - img [ref=e147]
+        - generic [ref=e149]:
+          - generic [ref=e152] [cursor=pointer]: 帖子管理
+          - generic [ref=e155] [cursor=pointer]: 帖子评审
+          - generic [ref=e158] [cursor=pointer]: 帖子标签
+          - generic [ref=e161] [cursor=pointer]: 帖子合集
+      - generic [ref=e162]:
+        - generic [ref=e163] [cursor=pointer]:
+          - text: 情报收集流转
+          - img [ref=e165]
+        - generic [ref=e167]:
+          - generic [ref=e170] [cursor=pointer]: 风向标
+          - generic [ref=e173] [cursor=pointer]: 情报分发
+          - generic [ref=e176] [cursor=pointer]: 情报跟进
+      - generic [ref=e177]:
+        - generic [ref=e178] [cursor=pointer]:
+          - text: 项目库
+          - img [ref=e180]
+        - generic [ref=e185] [cursor=pointer]: 项目管理
+      - generic [ref=e186]:
+        - generic [ref=e187] [cursor=pointer]:
+          - text: 内容工具
+          - img [ref=e189]
+        - generic [ref=e191]:
+          - generic [ref=e194] [cursor=pointer]: 表单管理
+          - generic [ref=e197] [cursor=pointer]: 飞书文档渲染
+          - generic [ref=e200] [cursor=pointer]: 鉴权链接
+          - generic [ref=e203] [cursor=pointer]: 图片转链接
+          - generic [ref=e206] [cursor=pointer]: 海报管理
+          - generic [ref=e209] [cursor=pointer]: 二维码生成
+      - generic [ref=e210]:
+        - generic [ref=e211] [cursor=pointer]:
+          - text: 飞书文档管理
+          - img [ref=e213]
+        - generic [ref=e218] [cursor=pointer]: 文档列表
+      - generic [ref=e219]:
+        - generic [ref=e220] [cursor=pointer]:
+          - text: AI实验室
+          - img [ref=e222]
+        - generic [ref=e224]:
+          - generic [ref=e227] [cursor=pointer]: 帖子标题生成
+          - generic [ref=e230] [cursor=pointer]: 帖子标签生成
+          - generic [ref=e233] [cursor=pointer]: 作业好事判断
+          - generic [ref=e236] [cursor=pointer]: 作业好事判断（无定义）
+          - generic [ref=e239] [cursor=pointer]: AI打标签
+          - generic [ref=e242] [cursor=pointer]: AI打标签-所有帖子
+          - generic [ref=e245] [cursor=pointer]: 提示词模板
+  - list [ref=e247]:
+    - listitem [ref=e248]: 表单管理
+  - generic [ref=e252]:
+    - generic [ref=e255]:
+      - button "创建表单 收起" [expanded] [ref=e256] [cursor=pointer]:
+        - img [ref=e258]
+        - generic [ref=e261]:
+          - img [ref=e263]
+          - button "创建表单" [ref=e266]
+          - generic [ref=e268]: 收起
+      - region [ref=e269]:
+        - generic [ref=e271]:
+          - generic [ref=e272]:
+            - generic [ref=e274]: 表单ID
+            - textbox "数字" [ref=e279]: "1793"
+          - generic [ref=e280]:
+            - generic [ref=e282]: 标题
+            - textbox "关键词" [ref=e287]
+          - generic [ref=e288]:
+            - generic [ref=e290]: 编码表单ID
+            - textbox "表单链接上的ID" [ref=e295]
+    - generic [ref=e297]:
+      - list [ref=e301]:
+        - generic [ref=e303]:
+          - generic [ref=e307]:
+            - link "1793 - 🦞openclaw航海第三次作业" [ref=e1115] [cursor=pointer]:
+              - /url: https://scys.com/form/z27Vz2cO
+            - link "查看 270 份表单记录" [active] [ref=e1118] [cursor=pointer]:
+              - /url: /content-management/tools/form/data?form_id=1793
+          - generic [ref=e316]:
+            - generic [ref=e318]:
+              - button [ref=e320] [cursor=pointer]:
+                - img [ref=e322]
+              - link "生成二维码" [ref=e325] [cursor=pointer]:
+                - /url: /content-management/tools/qrcode?content=https://scys.com/form/z27Vz2cO
+              - link "克隆表单" [ref=e327] [cursor=pointer]:
+                - /url: /content-management/tools/form/edit?action=copy&form_id=1793
+              - link "修改配置" [ref=e329] [cursor=pointer]:
+                - /url: /content-management/tools/form/edit?action=edit&form_id=1793
+              - button "复制链接" [ref=e331] [cursor=pointer]
+            - generic [ref=e333]:
+              - generic [ref=e335]: "@芝芝"
+              - generic [ref=e339]: 创建于 2026-03-22 19:23
+      - generic [ref=e1092]:
+        - generic [ref=e1093]: 共 1 条
+        - list [ref=e1094]:
+          - generic [ref=e1095]:
+            - img [ref=e1096]
+            - text: .
+          - listitem [ref=e1098] [cursor=pointer]: "1"
+          - generic [ref=e1108]:
+            - img [ref=e1109]
+            - text: .
