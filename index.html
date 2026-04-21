@@ -246,26 +246,46 @@ function WorkDetailModal({ work, onClose, onLike, liked }) {
 function WorkCard({ work, onClick, onLike, liked }) {
   return (
     <article className="group rounded-2xl overflow-hidden bg-white border border-[#E7EDF3] hover:border-[#B8D9EC] hover:shadow-[0_20px_40px_-20px_rgba(15,54,89,0.18)] transition-all duration-300 hover:-translate-y-1">
-      <div className="relative aspect-[16/10] overflow-hidden cursor-pointer" onClick={onClick}
-        style={{ background: `linear-gradient(135deg, oklch(90% 0.04 ${work.imgHue}), oklch(78% 0.07 ${(work.imgHue + 40) % 360}))` }}>
-        <div className="absolute inset-0 opacity-50" style={{ backgroundImage: "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.6), transparent 50%)" }} />
-        {work.featured && <div className="absolute top-3 left-3 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-[#FBF4DF] text-[#C9A349]"><Icon name="Star" size={10} /> 精选</div>}
-        <div className="absolute bottom-2 right-2 text-[9px] text-white/50">作业 {work.round}</div>
-      </div>
-      <div className="p-4">
+      <div className="p-4 pb-3">
+        {/* Tags */}
+        <div className="flex items-center gap-2 mb-2.5">
+          {work.featured && <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-[#FBF4DF] text-[#C9A349]"><Icon name="Star" size={10} /> 精选</span>}
+          <span className="text-[10px] text-[#B8C9D9] font-cn ml-auto">作业 {work.round}</span>
+        </div>
+
+        {/* Title */}
         <h4 className="font-cn-heavy text-[15px] text-[#0A1F3D] leading-snug truncate cursor-pointer hover:text-[#4FA8D8] transition" onClick={onClick}>{work.title}</h4>
-        <p className="mt-1.5 text-[12px] text-[#5A7088] leading-relaxed line-clamp-2">{work.excerpt}</p>
-        <div className="mt-3 pt-3 border-t border-[#EEF3F7] flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <CartoonAvatar seed={work.author.id} size={24} />
-            <span className="text-[12px] text-[#0A1F3D]">{work.author.name}</span>
-          </div>
+
+        {/* Excerpt */}
+        <p className="mt-2 text-[12px] text-[#5A7088] leading-relaxed line-clamp-2">{work.excerpt}</p>
+
+        {/* Thumbnails */}
+        <div className="mt-3 flex gap-1.5">
+          {[0, 35, 70].map((offset, i) => (
+            <div key={i} className="flex-1 aspect-[4/3] rounded-lg overflow-hidden cursor-pointer hover:opacity-80 transition"
+              onClick={onClick}
+              style={{ background: `linear-gradient(135deg, oklch(88% 0.04 ${(work.imgHue + offset) % 360}), oklch(78% 0.06 ${(work.imgHue + offset + 25) % 360}))` }} />
+          ))}
+        </div>
+      </div>
+
+      {/* Footer */}
+      <div className="px-4 pb-4 pt-2 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <CartoonAvatar seed={work.author.id} size={22} />
+          <span className="text-[11px] text-[#0A1F3D]">{work.author.name}</span>
+        </div>
+        <div className="flex items-center gap-2">
           <button onClick={(e) => { e.stopPropagation(); onLike(work.id); }}
             className={`inline-flex items-center gap-1 text-[11px] transition px-2 py-1 rounded-full ${
               liked ? "text-[#E15454] bg-[#FEF2F2]" : "text-[#8FA3B8] hover:text-[#E15454] hover:bg-[#FEF2F2]"
             }`}>
             <span className={liked ? "like-pop" : ""}><Icon name="Heart" size={12} /></span>
             <span className="num">{liked ? work.likes + 1 : work.likes}</span>
+          </button>
+          <button onClick={onClick}
+            className="h-7 px-3 rounded-full bg-[#F6FBFE] border border-[#E7EDF3] hover:border-[#4FA8D8] hover:text-[#4FA8D8] text-[#5A7088] text-[10px] font-medium transition inline-flex items-center gap-1">
+            <Icon name="Eye" size={11} /> 查看作品
           </button>
         </div>
       </div>
