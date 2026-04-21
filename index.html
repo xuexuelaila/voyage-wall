@@ -260,9 +260,9 @@ function WorkCard({ work, onClick, onLike, liked }) {
         <p className="mt-2 text-[12px] text-[#5A7088] leading-relaxed line-clamp-2">{work.excerpt}</p>
 
         {/* Thumbnails */}
-        <div className="mt-3 flex gap-1.5">
-          {[0, 35, 70].map((offset, i) => (
-            <div key={i} className="flex-1 aspect-[4/3] rounded-lg overflow-hidden cursor-pointer hover:opacity-80 transition"
+        <div className="mt-3 flex gap-1">
+          {[0, 25, 50, 75, 100, 125].slice(0, 3 + (work.id % 4)).map((offset, i) => (
+            <div key={i} className="w-10 h-10 rounded-md overflow-hidden cursor-pointer hover:opacity-75 transition shrink-0"
               onClick={onClick}
               style={{ background: `linear-gradient(135deg, oklch(88% 0.04 ${(work.imgHue + offset) % 360}), oklch(78% 0.06 ${(work.imgHue + offset + 25) % 360}))` }} />
           ))}
