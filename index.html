@@ -274,6 +274,32 @@ function WorkCard({ work, onClick, onLike, liked }) {
 }
 
 // ── App ──
+// ── Navbar ──
+function Navbar() {
+  return (
+    <nav className="fixed top-0 left-0 right-0 z-50" style={{
+      background: "rgba(255,255,255,0.88)",
+      backdropFilter: "blur(16px) saturate(1.3)",
+      borderBottom: "1px solid rgba(0,0,0,0.06)",
+      boxShadow: "0 1px 8px -2px rgba(0,0,0,0.06)",
+    }}>
+      <div className="max-w-[1280px] mx-auto px-8 h-14 flex items-center">
+        <div className="flex items-center gap-2.5">
+          <div className="w-7 h-7 rounded-md flex items-center justify-center" style={{
+            background: "rgba(79,168,216,0.1)", border: "1px solid rgba(79,168,216,0.25)", color: "#4FA8D8",
+          }}>
+            <Icon name="Anchor" size={14} strokeWidth={2} />
+          </div>
+          <span className="font-cn-heavy text-[16px] text-[#0A1F3D]">5月超级AI大航海</span>
+          <span className="text-[#DCE9F2] mx-1">│</span>
+          <span className="font-cn text-[14px] text-[#5A7088]">作业墙</span>
+        </div>
+      </div>
+    </nav>
+  );
+}
+
+// ── App ──
 function App() {
   const [round, setRound] = useState("all");
   const [sort, setSort] = useState("new");
