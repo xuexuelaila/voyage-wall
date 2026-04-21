@@ -3,245 +3,32 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>航海作品墙 · 5月超级AI大航海</title>
+<title>5月超级AI大航海 · 作业墙</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Serif+SC:wght@500;700;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <script src="https://cdn.tailwindcss.com"></script>
-<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin></script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <style>
-  :root {
-    /* Deep-sea palette */
-    --abyss:    #040C18;   /* darkest — page base */
-    --abyss-2:  #071527;   /* card base */
-    --deep:     #0C2440;   /* raised surfaces */
-    --deep-3:   #143256;
-    --current:  #1E4E7A;   /* mid-water */
-
-    --cyan:     #4FC3E3;   /* primary accent */
-    --cyan-2:   #7FD8F0;
-    --glow:     rgba(79, 195, 227, 0.15);
-
-    --ice:      #E8F4FA;   /* primary text on dark */
-    --mist:     #9AB2C7;   /* secondary text */
-    --fog:      #5A7088;   /* tertiary text */
-
-    --line:     rgba(154, 178, 199, 0.12);
-    --line-2:   rgba(154, 178, 199, 0.20);
-
-    --gold:     #D9B46A;
-  }
-  html, body { background: var(--abyss); }
-  body {
-    font-family: 'Inter', 'Noto Sans SC', system-ui, sans-serif;
-    color: var(--ice);
-    -webkit-font-smoothing: antialiased;
-  }
-  /* Chinese display: heavy Noto Sans SC for hero, medium for body */
-  :lang(zh), body { font-family: 'Inter', 'Noto Sans SC', system-ui, sans-serif; }
-  .font-cn-heavy { font-family: 'Noto Sans SC', sans-serif; font-weight: 900; letter-spacing: 0.02em; }
+  html, body { background: #FAFCFD; }
+  body { font-family: 'Inter', 'Noto Sans SC', system-ui, sans-serif; color: #0A1F3D; -webkit-font-smoothing: antialiased; }
+  .font-cn-heavy { font-family: 'Noto Sans SC', sans-serif; font-weight: 900; }
   .font-cn { font-family: 'Noto Sans SC', sans-serif; }
-  .font-serif { font-family: 'Noto Serif SC', serif; font-weight: 700; letter-spacing: -0.01em; }
-  .font-mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
   .num { font-feature-settings: "tnum" 1; }
-
-  /* Deep-sea volumetric background — used site-wide */
-  .seabg {
-    background:
-      radial-gradient(ellipse 1400px 700px at 50% -10%, rgba(30, 78, 122, 0.55), transparent 60%),
-      radial-gradient(ellipse 900px 500px at 15% 35%, rgba(20, 50, 86, 0.6), transparent 55%),
-      radial-gradient(ellipse 1000px 600px at 85% 60%, rgba(12, 36, 64, 0.8), transparent 60%),
-      linear-gradient(180deg, #061020 0%, #040C18 100%);
-  }
-  /* Volumetric wave-dune overlay drawn via layered blurred SVGs */
-  .dune-overlay {
-    position: absolute; inset: 0; pointer-events: none; overflow: hidden;
-  }
-
-  .hairline { border-color: var(--line); }
-  .hairline-2 { border-color: var(--line-2); }
-
-  .card {
-    background: linear-gradient(180deg, rgba(12, 36, 64, 0.55) 0%, rgba(7, 21, 39, 0.55) 100%);
-    border: 1px solid var(--line);
-    backdrop-filter: blur(6px);
-  }
-  .card-raise {
-    box-shadow:
-      0 1px 0 rgba(255,255,255,0.03) inset,
-      0 20px 48px -20px rgba(0,0,0,0.5);
-  }
-  .card-hover:hover {
-    border-color: rgba(79, 195, 227, 0.35);
-    box-shadow:
-      0 1px 0 rgba(255,255,255,0.05) inset,
-      0 0 0 1px rgba(79, 195, 227, 0.12),
-      0 30px 60px -24px rgba(0,0,0,0.7),
-      0 0 40px -8px var(--glow);
-  }
-
-  .stripe-placeholder {
-    background-image: repeating-linear-gradient(135deg, rgba(232,244,250,0.04) 0 2px, transparent 2px 14px);
-  }
-
-  .glow-text {
-    text-shadow: 0 0 40px rgba(79, 195, 227, 0.25), 0 0 80px rgba(79, 195, 227, 0.15);
-  }
-
-  .no-scrollbar::-webkit-scrollbar { display: none; }
-  .no-scrollbar { scrollbar-width: none; }
-
-  .feed-fade::after {
-    content: ""; position: absolute; inset: auto 0 0 0; height: 48px;
-    background: linear-gradient(180deg, transparent, rgba(7,21,39,0.9));
-    pointer-events: none;
-  }
-
-  @keyframes feedup {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-50%); }
-  }
-  .feedloop { animation: feedup 30s linear infinite; }
-
-  @keyframes bob {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(6px); }
-  }
-  .bob { animation: bob 2.4s ease-in-out infinite; }
-
-  @keyframes slowdrift {
-    0% { transform: translate3d(0,0,0); }
-    50% { transform: translate3d(-20px, 10px, 0); }
-    100% { transform: translate3d(0,0,0); }
-  }
-  .drift { animation: slowdrift 22s ease-in-out infinite; }
-  .drift-2 { animation: slowdrift 30s ease-in-out infinite reverse; }
-
-  /* selection */
-  ::selection { background: var(--cyan); color: var(--abyss); }
-
-  /* inputs */
-  input::placeholder { color: var(--fog); }
-
-  /* scroll cue */
-  @keyframes cue {
-    0% { transform: translateY(-4px); opacity: 0.3; }
-    50% { opacity: 1; }
-    100% { transform: translateY(4px); opacity: 0.3; }
-  }
-  .cue { animation: cue 2s ease-in-out infinite; }
+  ::selection { background: #4FC3E3; color: white; }
+  @keyframes likePopAnim { 0% { transform: scale(1); } 50% { transform: scale(1.4); } 100% { transform: scale(1); } }
+  .like-pop { animation: likePopAnim 0.3s ease-out; }
 </style>
 </head>
 <body>
-  <div id="root"></div>
-
-  <script type="text/babel" data-presets="react">
-// Mock data for 航海作品墙
-// Assign directly to window to avoid top-level const collisions
-// between multiple Babel-transpiled scripts sharing global scope.
-
-window.__DATA__ = (function () {
-  const AUTHORS = [
-    { id: 1, name: "沈砚书", avatar: "SY", tint: "#0E7C7B" },
-    { id: 2, name: "林未晓", avatar: "LW", tint: "#C9A349" },
-    { id: 3, name: "陆知野", avatar: "LZ", tint: "#E07856" },
-    { id: 4, name: "周若初", avatar: "ZR", tint: "#0B3B5C" },
-    { id: 5, name: "顾南川", avatar: "GN", tint: "#7FD4C1" },
-    { id: 6, name: "许明远", avatar: "XM", tint: "#0E7C7B" },
-    { id: 7, name: "苏见微", avatar: "SJ", tint: "#C9A349" },
-    { id: 8, name: "白鹿舟", avatar: "BL", tint: "#E07856" },
-    { id: 9, name: "方听澜", avatar: "FT", tint: "#0B3B5C" },
-  ];
-
-  const WORK_TITLES = [
-    "用 AI 重做了我家社区的便民服务地图",
-    "给独立设计师做的一套作品集生成器",
-    "三个周末做了一个宠物领养配对 Agent",
-    "一本能陪孩子读绘本的 AI 播讲器",
-    "帮我妈做的买菜清单识别器",
-    "把 200 篇读书笔记变成一个可搜索的大脑",
-    "咖啡店点单的语音下单原型",
-    "给自己做的每日穿搭推荐助手",
-    "用 AI 做了一个老照片修复小工具",
-    "帮朋友生意做的客户回访自动化",
-    "把会议录音直接变成行动清单",
-    "小学数学错题本自动整理器",
-  ];
-
-  const WORK_EXCERPTS = [
-    "第一次把想法做出来，从调研到上线一共花了 11 天。过程里踩了很多关于 prompt 结构和状态管理的坑，记录在这里。",
-    "目标用户是小 B，核心是把「想展示什么」这件事拆得足够细。放了三个真实用户跑出来的作品集样例。",
-    "重点不是匹配算法，而是怎么设计「劝退」流程，把不适合养的人在前两步就筛掉。",
-    "重点解决家长没时间读绘本的问题。故事节奏、语气、停顿都做了可调参数。",
-    "起因是她总是在菜市场忘记买什么。现在手机拍一下冰箱就能对比上周的清单。",
-    "之前的笔记散在四个地方。做了一个统一入口，并且能用自然语言问它「我最近在想什么」。",
-    "咖啡店老板是朋友，高峰期手忙脚乱。原型跑了一周，点单时间平均缩短 40%。",
-    "天气、日程、昨天穿了什么都会考虑。目前只给自己用，准确率大概 70%。",
-    "周末花了一下午的项目，结果被家族群传疯了。补了一份可复用的 prompt 模板。",
-    "SOP 做了四版才跑通。Agent 最大的坑是你以为它会记得，其实它不记得。",
-    "从会议录音到任务卡的全流程。对接了 Notion 和飞书。",
-    "扫错题 → 识别知识点 → 生成相似题。用我儿子的作业本测了两个月。",
-  ];
-
-  function makeWorks(n) {
-    const works = [];
-    for (let i = 0; i < n; i++) {
-      const author = AUTHORS[i % AUTHORS.length];
-      const round = (i % 5) + 1;
-      works.push({
-        id: i + 1,
-        title: WORK_TITLES[i % WORK_TITLES.length],
-        excerpt: WORK_EXCERPTS[i % WORK_EXCERPTS.length],
-        author,
-        round,
-        featured: i % 7 === 0,
-        hasImage: i % 4 !== 0,
-        likes: 12 + ((i * 37) % 280),
-        comments: 2 + ((i * 11) % 48),
-        imgHue: (i * 47) % 360,
-      });
-    }
-    return works;
-  }
-
-  const FEED = [
-    { who: "沈砚书", what: "提交了第 4 次作业", when: "刚刚" },
-    { who: "林未晓", what: "成功上岸 🎉", when: "2 分钟前" },
-    { who: "陆知野", what: "点赞了《会议录音转行动清单》", when: "3 分钟前" },
-    { who: "周若初", what: "发布了新作品", when: "5 分钟前" },
-    { who: "顾南川", what: "完成了第 3 次作业", when: "7 分钟前" },
-    { who: "许明远", what: "评论了《绘本播讲器》", when: "9 分钟前" },
-    { who: "苏见微", what: "成功上岸 🎉", when: "12 分钟前" },
-    { who: "白鹿舟", what: "提交了第 2 次作业", when: "15 分钟前" },
-    { who: "方听澜", what: "点赞了《穿搭推荐助手》", when: "17 分钟前" },
-    { who: "沈砚书", what: "评论了《买菜清单识别器》", when: "20 分钟前" },
-  ];
-
-  const ROUND_STATS = [
-    { round: 1, count: 1284, label: "出发" },
-    { round: 2, count: 986, label: "启航" },
-    { round: 3, count: 742, label: "上岸线" },
-    { round: 4, count: 531, label: "远洋" },
-    { round: 5, count: 412, label: "靠岸" },
-  ];
-
-  const PROGRESS = { done: 2, current: 2 };
-
-  return { AUTHORS, makeWorks, FEED, ROUND_STATS, PROGRESS };
-})();
-  </script>
-  <script type="text/babel" data-presets="react">
-// ————————————————————————————————————————————————————————————
-//  航海作品墙 · Fleet Command Center edition
-//  Concept: bridge console + fleet exhibition hall
-// ————————————————————————————————————————————————————————————
+<div id="root"></div>
+<script type="text/babel">
 const { useState, useEffect, useMemo, useRef } = React;
-const { AUTHORS, makeWorks, FEED, ROUND_STATS, PROGRESS } = window.__DATA__;
 
-// —— Primitives ——————————————————————————————————————————————
+// ── Icon ──
 const Icon = ({ name, size = 16, className = "", strokeWidth = 1.75 }) => {
   const ref = useRef(null);
   useEffect(() => {
@@ -257,2628 +44,317 @@ const Icon = ({ name, size = 16, className = "", strokeWidth = 1.75 }) => {
   return <span ref={ref} className={`inline-flex items-center ${className}`} />;
 };
 
-const Divider = ({ className = "" }) =>
-<div className={`h-px bg-[var(--line)] ${className}`} />;
-
-
-// —— Cartoon avatar ———————————————————————————————————————————
-function CartoonAvatar({ seed = 0, size = 28, ring = false }) {
+// ── Avatar ──
+function CartoonAvatar({ seed = 0, size = 28 }) {
   const palettes = [
-  { bg: "#4FC3E3", skin: "#FFD9B5", hair: "#22324A", acc: "#0C2440" },
-  { bg: "#D9B46A", skin: "#FFE3C4", hair: "#2B1B12", acc: "#5B3A18" },
-  { bg: "#7FD8F0", skin: "#F6C9A0", hair: "#1A1A2E", acc: "#0E3050" },
-  { bg: "#F08A6B", skin: "#FFD2B0", hair: "#3A2418", acc: "#2B1410" },
-  { bg: "#8FD8C3", skin: "#FFDAB2", hair: "#1C2330", acc: "#0E3A2B" },
-  { bg: "#B4A0E6", skin: "#FFD6B8", hair: "#2A1E3F", acc: "#1A1030" },
-  { bg: "#E6B0B0", skin: "#FFDCBA", hair: "#2E1818", acc: "#5B2A2A" },
-  { bg: "#9DB8E6", skin: "#FFD3AE", hair: "#1E2A44", acc: "#0A1C3A" }];
-
+    { bg: "#4FC3E3", skin: "#FFD9B5", hair: "#22324A", acc: "#0C2440" },
+    { bg: "#D9B46A", skin: "#FFE3C4", hair: "#2B1B12", acc: "#5B3A18" },
+    { bg: "#7FD8F0", skin: "#F6C9A0", hair: "#1A1A2E", acc: "#0E3050" },
+    { bg: "#F08A6B", skin: "#FFD2B0", hair: "#3A2418", acc: "#2B1410" },
+    { bg: "#8FD8C3", skin: "#FFDAB2", hair: "#1C2330", acc: "#0E3A2B" },
+    { bg: "#B4A0E6", skin: "#FFD6B8", hair: "#2A1E3F", acc: "#1A1030" },
+    { bg: "#E6B0B0", skin: "#FFDCBA", hair: "#2E1818", acc: "#5B2A2A" },
+    { bg: "#9DB8E6", skin: "#FFD3AE", hair: "#1E2A44", acc: "#0A1C3A" },
+  ];
   const p = palettes[seed % palettes.length];
   const style = seed % 4;
-  const hatOn = seed % 5 === 0;
-  const glasses = seed % 6 === 0;
   return (
-    <div className="relative rounded-full overflow-hidden shrink-0" style={{ width: size, height: size, background: p.bg, boxShadow: ring ? "0 0 0 2px rgba(79,195,227,0.35)" : undefined }}>
-      <svg viewBox="0 0 64 64" width={size} height={size} className="absolute inset-0">
+    <div className="rounded-full overflow-hidden shrink-0" style={{ width: size, height: size, background: p.bg }}>
+      <svg viewBox="0 0 64 64" width={size} height={size}>
         <rect x="20" y="50" width="24" height="14" rx="4" fill={p.acc} />
         <circle cx="32" cy="30" r="14" fill={p.skin} />
         {style === 0 && <path d="M18 28 C 18 16, 46 16, 46 28 L 46 24 C 44 20, 36 18, 32 18 C 28 18, 22 20, 20 24 Z" fill={p.hair} />}
         {style === 1 && <><path d="M19 30 C 19 18, 45 18, 45 30 L 45 27 C 43 22, 36 20, 32 20 C 28 20, 22 22, 20 27 Z" fill={p.hair} /><circle cx="46" cy="20" r="5" fill={p.hair} /></>}
         {style === 2 && <path d="M18 30 C 18 17, 46 17, 46 30 L 46 25 C 42 20, 38 19, 34 19 L 30 22 C 26 22, 22 24, 20 27 Z" fill={p.hair} />}
         {style === 3 && <path d="M18 28 C 18 18, 46 18, 46 28 C 44 24, 38 22, 32 22 C 26 22, 20 24, 18 28 Z" fill={p.hair} />}
-        {hatOn && <><rect x="18" y="20" width="28" height="4" fill={p.acc} /><path d="M20 20 Q 32 10, 44 20 Z" fill="#E8F4FA" /><circle cx="32" cy="16" r="2" fill={p.bg} /></>}
         <circle cx="27" cy="31" r="1.6" fill="#1A1F2B" />
         <circle cx="37" cy="31" r="1.6" fill="#1A1F2B" />
-        {glasses && <g fill="none" stroke="#1A1F2B" strokeWidth="1"><circle cx="27" cy="31" r="3.5" /><circle cx="37" cy="31" r="3.5" /><line x1="30.5" y1="31" x2="33.5" y2="31" /></g>}
-        <circle cx="24" cy="35" r="1.6" fill={p.bg} opacity="0.5" />
-        <circle cx="40" cy="35" r="1.6" fill={p.bg} opacity="0.5" />
         <path d="M29 37 Q 32 40, 35 37" fill="none" stroke="#1A1F2B" strokeWidth="1.2" strokeLinecap="round" />
       </svg>
-    </div>);
-
-}
-function Avatar({ a, size = 28 }) {return <CartoonAvatar seed={a.id} size={size} />;}
-
-// —— Deep-sea decor ——————————————————————————————————————————
-function DeepSeaDecor({ intense = false }) {
-  return (
-    <div className="dune-overlay" aria-hidden>
-      <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 1600 900">
-        <defs>
-          <radialGradient id="dune1" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#2B6A96" stopOpacity={intense ? 0.6 : 0.35} />
-            <stop offset="100%" stopColor="#2B6A96" stopOpacity="0" />
-          </radialGradient>
-          <radialGradient id="dune2" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#4FC3E3" stopOpacity={intense ? 0.2 : 0.1} />
-            <stop offset="100%" stopColor="#4FC3E3" stopOpacity="0" />
-          </radialGradient>
-          <filter id="blur1"><feGaussianBlur stdDeviation="60" /></filter>
-        </defs>
-        <ellipse cx="820" cy="260" rx="700" ry="180" fill="url(#dune1)" filter="url(#blur1)" className="drift" />
-        <ellipse cx="400" cy="520" rx="500" ry="140" fill="url(#dune2)" filter="url(#blur1)" className="drift-2" />
-      </svg>
-    </div>);
-
-}
-
-// —— NAVBAR ————————————————————————————————————————————————————
-function MyVoyageModal({ open, onClose }) {
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (e) => { if (e.key === "Escape") onClose(); };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [open, onClose]);
-  if (!open) return null;
-
-  const voyages = [
-    { name: "小红书垂直小店", status: "航行中", icon: "ShoppingBag", color: "#FF6B8A" },
-    { name: "视频号带货", status: "航行中", icon: "Video", color: "#D9B46A" },
-    { name: "超级AI大航海", status: "航行中", icon: "Anchor", color: "#4FC3E3" },
-  ];
-
-  return (
-    <div className="fixed inset-0 z-[100] flex items-start justify-end p-0" onClick={onClose}>
-      <div onClick={(e) => e.stopPropagation()}
-        className="mt-[68px] mr-6 w-[240px] rounded-xl overflow-hidden"
-        style={{
-          background: "rgba(7, 21, 39, 0.65)",
-          backdropFilter: "blur(20px) saturate(1.5)",
-          WebkitBackdropFilter: "blur(20px) saturate(1.5)",
-          border: "1px solid rgba(79, 195, 227, 0.12)",
-          boxShadow: "0 20px 60px -20px rgba(0,0,0,0.6), 0 0 40px -10px rgba(79, 195, 227, 0.1)",
-        }}>
-        {/* Voyage list */}
-        <div className="p-2 space-y-1">
-          {voyages.map((v, i) => (
-            <div key={i}
-              className="group flex items-center gap-2.5 px-3 py-2.5 rounded-lg cursor-pointer transition-all"
-              style={{
-                background: "transparent",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = "rgba(79, 195, 227, 0.08)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = "transparent";
-              }}>
-              <div className="w-7 h-7 rounded-md flex items-center justify-center shrink-0"
-                style={{ background: `${v.color}15` }}>
-                <span style={{ color: v.color }}><Icon name={v.icon} size={13} /></span>
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="text-[12px] font-medium text-white/85 truncate">{v.name}</div>
-              </div>
-              <div className="flex items-center gap-1">
-                <span className="w-1 h-1 rounded-full animate-pulse" style={{ background: v.color }} />
-                <span className="text-[9px] font-mono" style={{ color: `${v.color}99` }}>{v.status}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
     </div>
   );
 }
 
-function Navbar({ entered, setEntered, navTab, setNavTab }) {
-  const [scrolled, setScrolled] = useState(false);
-  const [voyageOpen, setVoyageOpen] = useState(false);
-  const [notiOpen, setNotiOpen] = useState(false);
-  const [notiTab, setNotiTab] = useState("all");
-  const [readIds, setReadIds] = useState({});
+// ── Mock Data ──
+const AUTHORS = [
+  { id: 1, name: "沈砚书" }, { id: 2, name: "林未晓" }, { id: 3, name: "陆知野" },
+  { id: 4, name: "周若初" }, { id: 5, name: "顾南川" }, { id: 6, name: "许明远" },
+  { id: 7, name: "苏见微" }, { id: 8, name: "白鹿舟" }, { id: 9, name: "方听澜" },
+];
+const TITLES = [
+  "用 AI 重做了我家社区的便民服务地图", "给独立设计师做的一套作品集生成器",
+  "三个周末做了一个宠物领养配对 Agent", "一本能陪孩子读绘本的 AI 播讲器",
+  "帮我妈做的买菜清单识别器", "把 200 篇读书笔记变成一个可搜索的大脑",
+  "咖啡店点单的语音下单原型", "给自己做的每日穿搭推荐助手",
+  "用 AI 做了一个老照片修复小工具", "帮朋友生意做的客户回访自动化",
+  "把会议录音直接变成行动清单", "小学数学错题本自动整理器",
+];
+const EXCERPTS = [
+  "第一次把想法做出来，从调研到上线一共花了 11 天。踩了很多坑，记录在这里。",
+  "目标用户是小 B，核心是把「想展示什么」拆得足够细。",
+  "重点不是匹配算法，而是怎么设计「劝退」流程。",
+  "重点解决家长没时间读绘本的问题。故事节奏、语气、停顿都做了可调参数。",
+  "起因是她总是在菜市场忘记买什么。现在手机拍一下冰箱就能对比上周的清单。",
+  "之前的笔记散在四个地方。做了一个统一入口。",
+  "咖啡店老板是朋友，高峰期手忙脚乱。原型跑了一周，点单时间缩短 40%。",
+  "天气、日程、昨天穿了什么都会考虑。准确率大概 70%。",
+  "周末花了一下午，结果被家族群传疯了。",
+  "SOP 做了四版才跑通。Agent 最大的坑是你以为它会记得。",
+  "从会议录音到任务卡的全流程。对接了 Notion 和飞书。",
+  "扫错题→识别知识点→生成相似题。用儿子的作业本测了两个月。",
+];
 
-  const notifications = [
-    { id: 1, type: "system", icon: "Radio", color: "#E15454", title: "直播提醒", text: "今晚 20:00 高手领航直播：xxx", time: "10 分钟前", action: "预约" },
-    { id: 2, type: "system", icon: "Unlock", color: "#14B8A6", title: "课程解锁", text: "航海手册 07课《xxx》已解锁", time: "1 小时前", action: "去学习" },
-    { id: 3, type: "nudge", icon: "Bell", color: "#D9B46A", title: "催打卡", text: "沈砚书 等 3 人催你提交 LEG 03 作业", time: "25 分钟前", action: "去提交" },
-    { id: 4, type: "nudge", icon: "Bell", color: "#D9B46A", title: "催打卡", text: "顾南川 催你提交 LEG 03 作业", time: "2 小时前", action: "去提交" },
-    { id: 5, type: "friend", icon: "User", color: "#4FA8D8", title: "圈友动态", text: "你关注的 林未晓 提交了 LEG 03 作业《老照片修复小工具》", time: "5 分钟前", action: "查看" },
-    { id: 6, type: "friend", icon: "User", color: "#4FA8D8", title: "圈友动态", text: "你关注的 苏见微 提交了 LEG 02 作业《穿搭推荐助手》", time: "30 分钟前", action: "查看" },
-    { id: 7, type: "friend", icon: "User", color: "#4FA8D8", title: "圈友动态", text: "你关注的 沈砚书 成功上岸 🎉", time: "1 小时前", action: "查看" },
-  ];
-
-  const filteredNoti = notiTab === "all" ? notifications : notifications.filter((n) => n.type === notiTab);
-  const unreadCount = notifications.filter((n) => !readIds[n.id]).length;
-  const nudgeUnread = notifications.filter((n) => n.type === "nudge" && !readIds[n.id]).length;
-  const friendUnread = notifications.filter((n) => n.type === "friend" && !readIds[n.id]).length;
-  const markRead = (id) => setReadIds((prev) => ({ ...prev, [id]: true }));
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  const navTabs = [
-    { key: "handbook", label: "航海手册", icon: "BookOpen" },
-    { key: "pilot", label: "高手领航", icon: "Star" },
-    { key: "qa", label: "航海问答", icon: "MessageCircle" },
-    { key: "voyage", label: "作业墙", icon: "Navigation" },
-  ];
-  return (
-    <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
-      style={entered ? {
-        background: "rgba(255, 255, 255, 0.85)",
-        backdropFilter: "blur(16px) saturate(1.3)",
-        WebkitBackdropFilter: "blur(16px) saturate(1.3)",
-        borderBottom: "1px solid rgba(0, 0, 0, 0.06)",
-        boxShadow: "0 1px 8px -2px rgba(0,0,0,0.06)",
-      } : {
-        background: scrolled
-          ? "rgba(4, 12, 24, 0.75)"
-          : "linear-gradient(180deg, rgba(4, 12, 24, 0.45) 0%, rgba(4, 12, 24, 0.15) 60%, transparent 100%)",
-        backdropFilter: scrolled ? "blur(12px) saturate(1.4)" : "none",
-        WebkitBackdropFilter: scrolled ? "blur(12px) saturate(1.4)" : "none",
-        borderBottom: scrolled ? "1px solid rgba(79, 195, 227, 0.08)" : "1px solid transparent",
-      }}>
-      <div className="max-w-[1320px] mx-auto px-8 h-16 flex items-center justify-between">
-        <div className="flex items-center gap-2.5">
-          <div className="w-7 h-7 rounded-md flex items-center justify-center"
-            style={entered ? {
-              background: "rgba(79, 195, 227, 0.1)",
-              border: "1px solid rgba(79, 195, 227, 0.25)",
-              color: "#4FA8D8",
-            } : {
-              background: "rgba(79, 195, 227, 0.08)",
-              border: "1px solid rgba(79, 195, 227, 0.2)",
-              boxShadow: "0 0 12px -4px rgba(79, 195, 227, 0.25)",
-              color: "var(--cyan)",
-            }}>
-            <Icon name="Anchor" size={14} strokeWidth={2} />
-          </div>
-          <span className={`font-cn-heavy text-[17px] tracking-wider cursor-pointer transition ${entered ? "text-[#0A1F3D] hover:text-[#4FA8D8]" : "text-white/95 hover:text-[var(--cyan)]"}`}
-            onClick={() => { if (entered) { setEntered(false); setNavTab("voyage"); window.scrollTo(0, 0); } }}>航海实战</span>
-          <span className={`mx-1 ${entered ? "text-[#DCE9F2]" : "text-white/15"}`}>│</span>
-          <span className={`font-mono text-[10px] tracking-widest ${entered ? "text-[#8FA3B8]" : "text-[var(--cyan)]/50"}`}>VOYAGE · MAY</span>
-        </div>
-        <div className="flex items-center gap-5 text-[14px]">
-          {entered && <div className="flex items-center gap-1 p-1 rounded-full" style={{
-            background: "rgba(15, 54, 89, 0.05)",
-            border: "1px solid rgba(15, 54, 89, 0.08)",
-          }}>
-            {navTabs.map((t) => (
-              <button key={t.key} onClick={() => setNavTab(t.key)}
-                className={`px-3.5 h-8 rounded-full text-[12px] transition inline-flex items-center gap-1.5 ${
-                  navTab === t.key
-                    ? "text-white"
-                    : "text-[#5A7088] hover:text-[#0A1F3D]"
-                }`}
-                style={navTab === t.key ? {
-                  background: "#0A1F3D",
-                  boxShadow: "0 4px 12px -4px rgba(10,31,61,0.3)",
-                } : {}}>
-                <Icon name={t.icon} size={12} />
-                {t.label}
-              </button>
-            ))}
-          </div>}
-          <button onClick={() => setVoyageOpen(true)} className="px-5 h-9 rounded-full font-medium text-[13px] transition inline-flex items-center gap-1.5"
-            style={entered ? {
-              background: "rgba(79, 168, 216, 0.1)",
-              border: "1px solid rgba(79, 168, 216, 0.25)",
-              color: "#4FA8D8",
-            } : {
-              background: "rgba(79, 195, 227, 0.12)",
-              border: "1px solid rgba(79, 195, 227, 0.3)",
-              color: "var(--cyan)",
-              boxShadow: "0 0 20px -6px rgba(79, 195, 227, 0.3)"
-            }}
-            onMouseEnter={(e) => {
-              if (entered) { e.currentTarget.style.background = "#4FA8D8"; e.currentTarget.style.color = "#fff"; }
-              else { e.currentTarget.style.background = "var(--cyan)"; e.currentTarget.style.color = "var(--abyss)"; }
-            }}
-            onMouseLeave={(e) => {
-              if (entered) { e.currentTarget.style.background = "rgba(79, 168, 216, 0.1)"; e.currentTarget.style.color = "#4FA8D8"; }
-              else { e.currentTarget.style.background = "rgba(79, 195, 227, 0.12)"; e.currentTarget.style.color = "var(--cyan)"; }
-            }}>
-            <Icon name="Compass" size={13} strokeWidth={2} />
-            我的航海
-          </button>
-          {entered && <div className="relative">
-            <button onClick={() => setNotiOpen((v) => !v)}
-              className="relative w-9 h-9 rounded-full flex items-center justify-center transition"
-              style={{ color: notiOpen ? "#4FA8D8" : (entered ? "#5A7088" : "white"), background: notiOpen ? "rgba(79,168,216,0.1)" : "transparent" }}>
-              <Icon name="Bell" size={17} />
-              {unreadCount > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] rounded-full bg-[#E15454] text-white text-[10px] font-medium flex items-center justify-center px-1 ring-2 ring-white">
-                  {unreadCount}
-                </span>
-              )}
-            </button>
-            {notiOpen && (
-              <div className="absolute right-0 top-[48px] w-[380px] rounded-2xl overflow-hidden"
-                style={{
-                  background: "white",
-                  border: "1px solid #E7EDF3",
-                  boxShadow: "0 20px 60px -15px rgba(10,31,61,0.2)",
-                }}>
-                {/* Header */}
-                <div className="px-5 pt-4 pb-3 flex items-center justify-between">
-                  <span className="font-cn-heavy text-[16px] text-[#0A1F3D]">消息通知</span>
-                  <button onClick={() => { notifications.forEach((n) => markRead(n.id)); }}
-                    className="text-[11px] text-[#8FA3B8] hover:text-[#4FA8D8] transition">全部已读</button>
-                </div>
-
-                {/* Tabs */}
-                <div className="px-5 flex items-center gap-1 pb-3">
-                  {[
-                    { key: "all", label: "全部", count: unreadCount },
-                    { key: "nudge", label: "催打卡", count: nudgeUnread },
-                    { key: "friend", label: "圈友动态", count: friendUnread },
-                  ].map((t) => (
-                    <button key={t.key} onClick={() => setNotiTab(t.key)}
-                      className={`px-3 h-7 rounded-full text-[11px] transition inline-flex items-center gap-1 ${
-                        notiTab === t.key ? "bg-[#0A1F3D] text-white" : "text-[#5A7088] hover:bg-[#F4F7FA]"
-                      }`}>
-                      {t.label}
-                      {t.count > 0 && <span className={`min-w-[16px] h-[16px] rounded-full text-[9px] flex items-center justify-center px-1 ${
-                        notiTab === t.key ? "bg-white/20 text-white" : "bg-[#E15454] text-white"
-                      }`}>{t.count}</span>}
-                    </button>
-                  ))}
-                </div>
-
-                <div className="h-px bg-[#EEF3F7]" />
-
-                {/* List */}
-                <div className="max-h-[360px] overflow-y-auto no-scrollbar">
-                  {filteredNoti.length === 0 && (
-                    <div className="py-12 text-center text-[13px] text-[#B8C9D9]">暂无消息</div>
-                  )}
-                  {filteredNoti.map((n) => {
-                    const isRead = readIds[n.id];
-                    return (
-                      <div key={n.id}
-                        className={`px-5 py-3.5 flex gap-3 border-b border-[#F4F7FA] last:border-0 transition hover:bg-[#F6FBFE] cursor-pointer ${isRead ? "opacity-60" : ""}`}
-                        onClick={() => markRead(n.id)}>
-                        <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5"
-                          style={{ background: `${n.color}12` }}>
-                          <span style={{ color: n.color }}><Icon name={n.icon} size={15} /></span>
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2">
-                            <span className="text-[11px] font-medium" style={{ color: n.color }}>{n.title}</span>
-                            {!isRead && <span className="w-1.5 h-1.5 rounded-full bg-[#E15454]" />}
-                          </div>
-                          <p className="mt-1 text-[12.5px] text-[#0A1F3D] leading-[1.5]">{n.text}</p>
-                          <div className="mt-2 flex items-center justify-between">
-                            <span className="text-[10px] text-[#B8C9D9] font-mono">{n.time}</span>
-                            <button className="h-6 px-3 rounded-full text-[10px] font-medium transition"
-                              style={{ background: `${n.color}12`, color: n.color, border: `1px solid ${n.color}25` }}
-                              onClick={(e) => { e.stopPropagation(); markRead(n.id); }}>
-                              {n.action}
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
-          </div>}
-          <CartoonAvatar seed={7} size={32} ring />
-        </div>
-      </div>
-      <MyVoyageModal open={voyageOpen} onClose={() => setVoyageOpen(false)} />
-      {notiOpen && <div className="fixed inset-0 z-[-1]" onClick={() => setNotiOpen(false)} />}
-    </nav>);}
-// —— BRIDGE HERO ————————————————————————————————————————————————
-function BridgeHero({ onEnter }) {
-  const handleScrollToFleet = () => {
-    if (onEnter) onEnter();
-  };
-  return (
-    <section className="relative overflow-hidden" style={{ height: "100vh", minHeight: 720 }}>
-      {/* Background image */}
-      <img
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-        src="hero-bg.png"
-        alt=""
-        style={{ opacity: 0.85 }} />
-
-      {/* Bottom-up gradient mask: transparent top → rgba(0,0,0,0.2) mid → rgba(0,0,0,0.7) bottom */}
-      <div className="absolute inset-0 pointer-events-none"
-      style={{ background: "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.7) 100%)" }} />
-      <DeepSeaDecor intense />
-
-      {/* Ship-track SVG overlay (decorative bridge radar) */}
-      <svg className="absolute inset-0 w-full h-full opacity-[0.35] pointer-events-none" preserveAspectRatio="none" viewBox="0 0 1600 480">
-        <defs>
-          <linearGradient id="trk" x1="0" x2="1" y1="0" y2="0">
-            <stop offset="0" stopColor="#4FC3E3" stopOpacity="0" />
-            <stop offset="0.6" stopColor="#4FC3E3" stopOpacity="0.7" />
-            <stop offset="1" stopColor="#4FC3E3" stopOpacity="0" />
-          </linearGradient>
-        </defs>
-        {/* Dotted baseline */}
-        <path d="M 100 320 Q 500 180, 900 260 T 1500 180" stroke="#4FC3E3" strokeOpacity="0.25" strokeWidth="1" fill="none" strokeDasharray="2 6" />
-        {/* Active track */}
-        <path d="M 100 320 Q 500 180, 900 260" stroke="url(#trk)" strokeWidth="1.4" fill="none" />
-        {/* Waypoint nodes */}
-        {[[100, 320, "done"], [380, 230, "done"], [900, 260, "current"], [1240, 210, "future"], [1500, 180, "future"]].map(([x, y, s], i) =>
-        <g key={i}>
-            {s === "current" && <circle cx={x} cy={y} r="14" fill="none" stroke="#4FC3E3" strokeWidth="0.8" opacity="0.5" />}
-            {s === "current" && <circle cx={x} cy={y} r="22" fill="none" stroke="#4FC3E3" strokeWidth="0.6" opacity="0.3" />}
-            <circle cx={x} cy={y} r="4" fill={s === "done" ? "#4FC3E3" : s === "current" ? "#D9B46A" : "#5A7088"} />
-          </g>
-        )}
-      </svg>
-
-      <div className="relative h-full max-w-[1320px] mx-auto px-8 flex flex-col justify-center items-stretch">
-        {/* Title */}
-        <h1 className="font-cn-heavy text-center text-[112px] leading-[1.0] tracking-[0.04em] glow-text">
-          5月超级<span className="text-[var(--cyan)]">AI</span>大航海
-        </h1>
-
-        {/* Slogan */}
-        <p className="mt-6 text-center text-[26px] font-cn text-[var(--mist)] tracking-wide">
-          用好 <span className="text-[var(--cyan)] font-medium">AI</span>，<span className="text-[var(--cyan)] font-medium">跟上时代！</span>
-        </p>
-
-        {/* Join-voyage CTA */}
-        <div className="mt-14 flex items-center justify-center gap-4">
-          <button onClick={handleScrollToFleet}
-          className="px-7 h-12 rounded-full bg-[var(--cyan)] text-[var(--abyss)] font-cn-heavy text-[15px] hover:bg-[var(--cyan-2)] transition inline-flex items-center gap-2 shadow-[0_0_0_1px_rgba(79,195,227,0.3),0_0_40px_-8px_rgba(79,195,227,0.8)]">
-            <Icon name="Anchor" size={16} strokeWidth={2.2} />
-            加 入 航 行
-          </button>
-          <button className="px-6 h-12 rounded-full border border-[var(--line-2)] text-[var(--ice)] font-cn text-[14px] hover:border-[var(--cyan)]/50 hover:text-[var(--cyan)] transition inline-flex items-center gap-2">
-            <Icon name="Compass" size={15} />
-            了解航海计划
-          </button>
-        </div>
-
-        {/* Scroll cue pinned near the bottom */}
-        <div onClick={handleScrollToFleet}
-        className="absolute left-1/2 -translate-x-1/2 bottom-10 flex flex-col items-center gap-1.5 text-[var(--fog)] cursor-pointer hover:text-[var(--cyan)] transition">
-          <span className="font-mono text-[10px] tracking-[0.35em]">SCROLL · 作品舰队</span>
-          <span className="cue"><Icon name="ChevronDown" size={16} /></span>
-        </div>
-
-        {/* Ambient coords — bottom-left */}
-        <div className="absolute left-8 bottom-10 font-mono text-[10px] tracking-[0.28em] text-white/45 pointer-events-none select-none flex items-center gap-2.5">
-          <span className="inline-flex items-center gap-1.5 text-[var(--cyan)]/70">
-            <span className="w-1 h-1 rounded-full bg-[var(--cyan)] animate-pulse" /> LIVE
-          </span>
-          <span className="text-white/20">│</span>
-          <span>05°24'N · 119°48'E</span>
-          <span className="text-white/20">│</span>
-          <span>072° · 12.4 kn</span>
-        </div>
-      </div>
-    </section>);
-
-}
-
-function VoyageChip({ label, value, unit, status, accent }) {
-  return (
-    <div className="flex-1 px-6 py-5 bg-[var(--abyss-2)]/80 backdrop-blur-sm">
-      <div className="flex items-center gap-1.5 text-[10px] font-mono tracking-[0.25em] text-[var(--fog)] uppercase">
-        {label}
-      </div>
-      <div className="mt-2 flex items-baseline gap-1.5">
-        <div className={`font-cn-heavy text-[34px] leading-none num ${accent === "gold" ? "text-[var(--gold)]" : "text-[var(--ice)]"}`}>{value}</div>
-        {unit && <span className="text-[13px] text-[var(--fog)]">{unit}</span>}
-      </div>
-      <div className={`mt-2 text-[11px] ${accent === "gold" ? "text-[var(--gold)]/80" : "text-[var(--cyan)]/80"} font-mono tracking-wider`}>
-        {status}
-      </div>
-    </div>);
-
-}
-
-// —— EDGE-HUGGING CREW HUD ————————————————————————————————————
-// Half-embedded intel sidebar — grows from the page's right-bottom edge
-// rather than floating as a window.
-function CrewHUD() {
-  // Take a small, curated slice — feels like an intel stream, not a log
-  const items = FEED.slice(0, 3);
-  const [collapsed, setCollapsed] = useState(false);
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    const onScroll = () => {
-      const fleet = document.getElementById("fleet");
-      if (fleet) {
-        setVisible(fleet.getBoundingClientRect().top < window.innerHeight * 0.5);
-      }
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-  return (
-    <aside
-      className={`fixed right-6 top-24 z-40 pointer-events-auto transition-all duration-500 ${visible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8 pointer-events-none"}`}
-      style={{
-        width: collapsed ? 160 : 300,
-        background: "rgba(0,0,0,0.5)",
-        backdropFilter: "blur(10px)",
-        WebkitBackdropFilter: "blur(10px)",
-        borderRadius: 12,
-        border: "1px solid rgba(255,255,255,0.08)",
-        boxShadow: "0 10px 30px -10px rgba(0,0,0,0.5)",
-        padding: collapsed ? "10px 14px" : 16
-      }}
-      aria-label="Crew 情报频道">
-
-      {/* Header — clickable row */}
-      <button
-        onClick={() => setCollapsed((c) => !c)}
-        className="w-full flex items-center gap-2 group"
-        aria-expanded={!collapsed}>
-
-        <span className="relative flex w-1.5 h-1.5">
-          <span className="absolute inset-0 rounded-full bg-[var(--cyan)] animate-ping opacity-60" />
-          <span className="relative w-1.5 h-1.5 rounded-full bg-[var(--cyan)]" />
-        </span>
-        <span className="font-mono text-[9px] tracking-[0.35em] text-[var(--cyan)]/90">CREW</span>
-        <span className="text-white/20 text-[10px]">│</span>
-        <span className="font-mono text-[9px] tracking-[0.25em] text-white/60 truncate">
-          {collapsed ? `${items.length} 新动态` : "情 报 频 道"}
-        </span>
-        <span className={`ml-auto text-white/50 group-hover:text-white/90 transition-transform duration-300 ${collapsed ? "rotate-180" : ""}`}>
-          <Icon name="ChevronUp" size={12} />
-        </span>
-      </button>
-
-      {/* Collapsible body */}
-      <div
-        className="overflow-hidden transition-all duration-300"
-        style={{
-          maxHeight: collapsed ? 0 : 400,
-          opacity: collapsed ? 0 : 1,
-          marginTop: collapsed ? 0 : 12
-        }}>
-
-        {/* Intel items — tight, 3 lines */}
-        <div className="space-y-2.5">
-          {items.map((f, i) =>
-          <div key={i} className="flex items-start gap-2.5 text-[11.5px] leading-[1.4]">
-              <span className="relative mt-[6px] shrink-0">
-                <span className="absolute inset-0 rounded-full bg-[var(--cyan)] blur-[3px] opacity-70" />
-                <span className="relative block w-1 h-1 rounded-full bg-[var(--cyan)]" />
-              </span>
-              <div className="min-w-0 flex-1">
-                <span className="text-white/75">
-                  <span className="text-white">{f.who}</span> {f.what}
-                </span>
-                <span className="ml-1.5 font-mono text-[9px] text-white/40">{f.when}</span>
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Subtle live-pulse footer, very quiet */}
-        <div className="mt-3 pt-2.5 border-t border-white/10 font-mono text-[9px] tracking-[0.25em] text-white/40">
-          ● STREAMING · 实 时 同 步
-        </div>
-      </div>
-    </aside>);
-
-}
-
-// —— FLEET FILTER ————————————————————————————————————————————
-const FLEET_STATUSES = [
-{ v: "all", l: "全部舰队", i: "Layers", desc: "所有作品" },
-{ v: "sailing", l: "航行中", i: "Navigation", desc: "当前航次提交" },
-{ v: "landed", l: "已靠港", i: "Anchor", desc: "达到上岸标准" },
-{ v: "pending", l: "待启航", i: "Hourglass", desc: "尚未提交" }];
-
-
-function FleetFilterBar({ status, setStatus, round, setRound, sort, setSort, q, setQ, counts, total }) {
-  const rounds = [
-  { v: "all", l: "全部" },
-  { v: 1, l: "作业 1" }, { v: 2, l: "作业 2" }, { v: 3, l: "作业 3" },
-  { v: 4, l: "作业 4" }, { v: 5, l: "作业 5" }];
-
-  return (
-    <div>
-      {/* Section heading with fleet counter */}
-      <div className="flex items-end justify-between mb-8">
-        <div>
-          <div className="font-mono text-[10px] tracking-[0.3em] text-[var(--cyan)] mb-2">FLEET EXHIBITION · 舰 队 展 厅</div>
-          <h2 className="font-cn-heavy text-[48px] leading-none">
-            全部作品 <span className="font-mono text-[16px] text-[var(--fog)] ml-2 align-middle">/ {total}</span>
-          </h2>
-          <p className="mt-3 text-[13px] text-[var(--mist)]">
-            每一张卡片都是一艘正在远航的船只 · 当前航段：<span className="text-[var(--cyan)]">第 {PROGRESS.current + 1} 程</span>
-          </p>
-        </div>
-        <div className="text-right text-[12px] font-mono text-[var(--fog)] pb-2">
-          <div>DAILY SYNC · 09:00</div>
-          <div className="text-[var(--cyan)]/70 mt-1">● 正在同步…</div>
-        </div>
-      </div>
-
-      {/* Primary: fleet status chips */}
-      <div className="grid grid-cols-4 gap-3 mb-5">
-        {FLEET_STATUSES.map((s) => {
-          const active = status === s.v;
-          return (
-            <button key={s.v} onClick={() => setStatus(s.v)}
-            className={`group relative text-left px-4 py-3.5 rounded-xl border transition
-                ${active ? "bg-[var(--cyan)]/10 border-[var(--cyan)]/50 shadow-[0_0_0_1px_rgba(79,195,227,0.3),0_0_30px_-8px_rgba(79,195,227,0.5)]" : "bg-[var(--abyss-2)]/60 border-[var(--line)] hover:border-[var(--line-2)]"}
-              `}>
-              <div className="flex items-center justify-between">
-                <div className={`flex items-center gap-2 ${active ? "text-[var(--cyan)]" : "text-[var(--ice)]"}`}>
-                  <Icon name={s.i} size={14} />
-                  <span className="font-cn-heavy text-[14px]">{s.l}</span>
-                </div>
-                <span className={`font-mono text-[12px] num ${active ? "text-[var(--cyan)]" : "text-[var(--fog)]"}`}>
-                  {counts[s.v]}
-                </span>
-              </div>
-              <div className="mt-1.5 text-[11px] text-[var(--fog)]">{s.desc}</div>
-              {active && <span className="absolute -bottom-px left-4 right-4 h-px bg-gradient-to-r from-transparent via-[var(--cyan)] to-transparent" />}
-            </button>);
-
-        })}
-      </div>
-
-      {/* Secondary row: round pills + sort + search */}
-      <div className="flex flex-wrap items-center gap-3">
-        <div className="flex items-center gap-1 p-1 bg-[var(--abyss-2)] border hairline rounded-full">
-          {rounds.map((r) =>
-          <button key={r.v}
-          onClick={() => setRound(r.v)}
-          className={`px-3.5 h-8 rounded-full text-[12px] transition ${round === r.v ? "bg-[var(--deep-3)] text-[var(--ice)]" : "text-[var(--mist)] hover:text-[var(--ice)]"}`}>
-              {r.l}
-            </button>
-          )}
-        </div>
-
-        <div className="flex-1" />
-
-        <div className="flex items-center gap-1 p-1 bg-[var(--abyss-2)] border hairline rounded-full">
-          {[{ v: "new", l: "最新", i: "Clock" }, { v: "hot", l: "最多点赞", i: "Flame" }].map((s) =>
-          <button key={s.v}
-          onClick={() => setSort(s.v)}
-          className={`px-3.5 h-8 rounded-full text-[12px] transition inline-flex items-center gap-1.5 ${sort === s.v ? "bg-[var(--deep-3)] text-[var(--ice)]" : "text-[var(--mist)]"}`}>
-              <Icon name={s.i} size={12} />
-              {s.l}
-            </button>
-          )}
-        </div>
-
-        <div className="relative">
-          <input
-            value={q} onChange={(e) => setQ(e.target.value)}
-            placeholder="搜索作品、作者…"
-            className="w-56 h-10 pl-9 pr-4 rounded-full bg-[var(--abyss-2)] border hairline text-[12px] text-[var(--ice)] focus:outline-none focus:border-[var(--cyan)]/50" />
-
-          <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[var(--fog)]">
-            <Icon name="Search" size={14} />
-          </span>
-        </div>
-      </div>
-    </div>);
-
-}
-
-// —— SHIP-UNIT CARD ————————————————————————————————————————————
-const SHIP_STATE = {
-  sailing: { label: "航行中", color: "var(--cyan)", icon: "Navigation" },
-  landed: { label: "已靠港", color: "var(--gold)", icon: "Anchor" },
-  pending: { label: "待启航", color: "var(--fog)", icon: "Hourglass" }
-};
-
-function WorkImage({ work }) {
-  if (!work.hasImage) {
-    return (
-      <div className="relative aspect-[4/3] overflow-hidden rounded-t-2xl"
-      style={{ background: `linear-gradient(135deg, oklch(22% 0.05 ${work.imgHue}), oklch(42% 0.08 ${(work.imgHue + 40) % 360}))` }}>
-        <div className="absolute inset-0 flex items-center justify-center">
-          <svg viewBox="0 0 120 120" className="w-20 h-20 opacity-70 text-[var(--cyan)]">
-            <g fill="none" stroke="currentColor" strokeWidth="1">
-              <circle cx="60" cy="60" r="48" />
-              <circle cx="60" cy="60" r="32" />
-              <path d="M60 12 L64 60 L60 108 L56 60 Z" fill="currentColor" fillOpacity="0.3" />
-              <path d="M12 60 L60 64 L108 60 L60 56 Z" />
-            </g>
-          </svg>
-        </div>
-        <div className="absolute bottom-3 left-3 font-mono text-[10px] tracking-widest text-[var(--mist)]">
-          SHIP-{String(work.id).padStart(3, "0")}
-        </div>
-      </div>);
-
+function makeWorks(n) {
+  const works = [];
+  for (let i = 0; i < n; i++) {
+    works.push({
+      id: i + 1, title: TITLES[i % TITLES.length], excerpt: EXCERPTS[i % EXCERPTS.length],
+      author: AUTHORS[i % AUTHORS.length], round: (i % 5) + 1, featured: i % 7 === 0,
+      likes: 12 + ((i * 37) % 280), imgHue: (i * 47) % 360,
+      createdAt: Date.now() - i * 3600000 * (2 + Math.random() * 10),
+      link: `https://example.com/work/${i + 1}`,
+    });
   }
-  return (
-    <div className="relative aspect-[4/3] overflow-hidden rounded-t-2xl bg-[var(--deep)]">
-      <div className="absolute inset-0 stripe-placeholder" />
-      <div className="absolute inset-0" style={{
-        background: `linear-gradient(135deg, oklch(38% 0.08 ${work.imgHue} / 0.6), oklch(62% 0.08 ${(work.imgHue + 40) % 360} / 0.4))`
-      }} />
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="font-mono text-[11px] tracking-widest text-[var(--ice)]/60">
-          IMG · {String(work.imgHue).padStart(3, "0")}°
-        </div>
-      </div>
-    </div>);
-
+  return works;
 }
 
-function AuthorPopover({ author, works }) {
-  const other = works.filter((w) => w.author.id === author.id).slice(0, 3);
-  return (
-    <div className="absolute bottom-full left-0 mb-2 w-72 card card-raise rounded-xl p-4 opacity-0 invisible group-hover/au:opacity-100 group-hover/au:visible transition pointer-events-none group-hover/au:pointer-events-auto z-20">
-      <div className="flex items-center gap-3 mb-3">
-        <Avatar a={author} size={40} />
-        <div>
-          <div className="font-cn-heavy text-[14px]">{author.name}</div>
-          <div className="text-[11px] font-mono text-[var(--fog)]">{other.length + 2} 件作品 · 已上岸</div>
-        </div>
-      </div>
-      <Divider />
-      <div className="mt-3 space-y-2">
-        {other.map((w) =>
-        <div key={w.id} className="text-[12px] flex items-center gap-2">
-            <span className="font-mono text-[var(--cyan)]">0{w.round}</span>
-            <span className="truncate text-[var(--mist)]">{w.title}</span>
-          </div>
-        )}
-      </div>
-      <button className="mt-3 w-full h-8 rounded-full bg-[var(--abyss)] hover:bg-[var(--cyan)] hover:text-[var(--abyss)] text-[var(--mist)] text-[12px] transition">
-        查看全部 →
-      </button>
-    </div>);
-
-}
-
-function ShipCard({ work, allWorks }) {
-  const state = SHIP_STATE[work.shipState];
-  // Fake progress per-card based on id
-  const progress = work.shipState === "landed" ? 100 : work.shipState === "pending" ? 0 : 40 + work.id * 7 % 50;
-  return (
-    <article className="group relative card card-hover rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1">
-      {/* Header bar: ship ID + state */}
-      <div className="flex items-center justify-between px-4 h-8 border-b hairline bg-[var(--abyss)]/50">
-        <div className="flex items-center gap-2 font-mono text-[10px] tracking-widest text-[var(--fog)]">
-          <span>SHIP</span>
-          <span className="text-[var(--mist)]">#{String(work.id).padStart(4, "0")}</span>
-          <span className="text-[var(--line-2)]">·</span>
-          <span>LEG {work.round}</span>
-        </div>
-        <div className="flex items-center gap-1.5" style={{ color: state.color }}>
-          <Icon name={state.icon} size={10} />
-          <span className="font-mono text-[10px] tracking-widest">{state.label.toUpperCase()}</span>
-        </div>
-      </div>
-
-      <WorkImage work={work} />
-
-      {/* Featured ribbon */}
-      {work.featured &&
-      <div className="absolute top-[42px] right-3 flex items-center gap-1 px-2.5 py-1 rounded-full bg-[var(--gold)] text-[var(--abyss)] text-[11px] font-medium">
-          <Icon name="Star" size={11} strokeWidth={2.5} />
-          精选
-        </div>
-      }
-
-      {/* Progress line hugging bottom of image */}
-      <div className="relative h-0.5 bg-[var(--abyss)]">
-        <div className="absolute inset-y-0 left-0" style={{ width: `${progress}%`, background: state.color, boxShadow: `0 0 8px ${state.color}` }} />
-      </div>
-
-      <div className="p-5">
-        <h3 className="font-cn-heavy text-[18px] leading-snug truncate text-[var(--ice)]">{work.title}</h3>
-        <p className="mt-2 text-[13px] text-[var(--mist)] leading-relaxed line-clamp-2">
-          {work.excerpt}
-        </p>
-
-        <Divider className="my-4" />
-
-        <div className="flex items-center justify-between">
-          <div className="relative group/au">
-            <div className="flex items-center gap-2 cursor-pointer">
-              <Avatar a={work.author} />
-              <div>
-                <div className="text-[13px] font-medium leading-tight text-[var(--ice)]">{work.author.name}</div>
-                <div className="text-[10px] font-mono text-[var(--fog)]">船长 · CAPT</div>
-              </div>
-            </div>
-            <AuthorPopover author={work.author} works={allWorks} />
-          </div>
-
-          <div className="flex items-center gap-3 text-[12px] text-[var(--fog)]">
-            <span className="inline-flex items-center gap-1">
-              <Icon name="Heart" size={13} /> <span className="num">{work.likes}</span>
-            </span>
-            <span className="inline-flex items-center gap-1">
-              <Icon name="MessageCircle" size={13} /> <span className="num">{work.comments}</span>
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <button className="w-full py-3 border-t hairline bg-[var(--abyss-2)]/70 hover:bg-[var(--cyan)] hover:text-[var(--abyss)] text-[var(--mist)] transition text-[13px] font-medium inline-flex items-center justify-center gap-1.5 group/btn">
-        登 船 查 看
-        <span className="inline-block transition group-hover/btn:translate-x-0.5">→</span>
-      </button>
-    </article>);
-
-}
-
-// —— GRID + PAGINATION ————————————————————————————————————————
-function Grid({ works, allWorks }) {
-  return (
-    <div className="grid grid-cols-3 gap-6 mt-10">
-      {works.map((w) => <ShipCard key={w.id} work={w} allWorks={allWorks} />)}
-    </div>);
-
-}
-
-function Pagination({ page, setPage, total }) {
-  const pages = [1, 2, 3, 4, 5, "…", total].filter((p) => typeof p !== "number" || p <= total);
-  return (
-    <div className="mt-16 mb-24 flex items-center justify-between">
-      <div className="text-[12px] font-mono text-[var(--fog)]">
-        第 {page} 页 / 共 {total} 页
-      </div>
-      <div className="flex items-center gap-1">
-        <button onClick={() => setPage(Math.max(1, page - 1))}
-        className="w-10 h-10 rounded-full border hairline hover:bg-[var(--deep)] text-[var(--mist)] inline-flex items-center justify-center disabled:opacity-30"
-        disabled={page === 1}>
-          <Icon name="ChevronLeft" size={16} />
-        </button>
-        {pages.map((p, i) =>
-        <button key={i}
-        onClick={() => typeof p === "number" && setPage(p)}
-        className={`w-10 h-10 rounded-full text-[13px] ${page === p ? "bg-[var(--cyan)] text-[var(--abyss)] font-medium" : "hover:bg-[var(--deep)] text-[var(--mist)]"} ${p === "…" ? "pointer-events-none" : ""}`}>
-            {p}
-          </button>
-        )}
-        <button onClick={() => setPage(Math.min(total, page + 1))}
-        className="w-10 h-10 rounded-full border hairline hover:bg-[var(--deep)] text-[var(--mist)] inline-flex items-center justify-center">
-          <Icon name="ChevronRight" size={16} />
-        </button>
-      </div>
-      <div className="text-[12px] text-[var(--fog)] inline-flex items-center gap-2">
-        跳转至
-        <input className="w-14 h-8 rounded border hairline bg-[var(--abyss-2)] text-center text-[12px] text-[var(--ice)] focus:outline-none focus:border-[var(--cyan)]/50" defaultValue={page} />
-        页
-      </div>
-    </div>);
-
-}
-
-// —— FOOTER ———————————————————————————————————————————————————
-function Footer() {
-  return (
-    <footer className="relative border-t hairline">
-      <DeepSeaDecor />
-      <div className="relative max-w-[1320px] mx-auto px-8 py-16 grid grid-cols-12 gap-8">
-        <div className="col-span-5">
-          <div className="font-cn-heavy text-[28px]">5 月超级 AI 大航海</div>
-          <div className="mt-3 text-[13px] text-[var(--mist)] max-w-sm leading-relaxed">
-            一场为期 60 天的 AI 实战之旅。842 名船员，从想法到上线，公开写作、公开产出。
-          </div>
-          <div className="mt-8 font-mono text-[10px] text-[var(--fog)] tracking-widest">
-            05°24'N · 119°48'E · VOYAGE MAY 2026
-          </div>
-        </div>
-        <div className="col-span-2">
-          <div className="font-mono text-[10px] tracking-[0.3em] text-[var(--cyan)] mb-4">关 于</div>
-          <ul className="space-y-2 text-[13px] text-[var(--mist)]">
-            <li className="hover:text-[var(--ice)] cursor-pointer">活动介绍</li>
-            <li className="hover:text-[var(--ice)] cursor-pointer">上岸规则</li>
-            <li className="hover:text-[var(--ice)] cursor-pointer">常见问题</li>
-          </ul>
-        </div>
-        <div className="col-span-2">
-          <div className="font-mono text-[10px] tracking-[0.3em] text-[var(--cyan)] mb-4">船 员</div>
-          <ul className="space-y-2 text-[13px] text-[var(--mist)]">
-            <li className="hover:text-[var(--ice)] cursor-pointer">我的航程</li>
-            <li className="hover:text-[var(--ice)] cursor-pointer">作品墙</li>
-            <li className="hover:text-[var(--ice)] cursor-pointer">作业提交</li>
-          </ul>
-        </div>
-        <div className="col-span-3 text-[11px] text-[var(--fog)] leading-relaxed">
-          用好 AI<br />
-          跟上时代<br />
-          <span className="font-mono text-[10px] mt-4 block">© 超级 AI 大航海</span>
-        </div>
-      </div>
-    </footer>);
-
-}
-
-// —— VOYAGE PROGRESS (white minimal, unified task rail) ————————
-const TASKS = [
-{ n: 1, title: "出发准备", goal: "建立第一个 AI 工作流", status: "done", submits: 842, highlight: "全员起航",
-  subtitle: "建立你的 AI 工作台", due: "2026.04.15",
-  overview: "熟悉主流 AI 工具链,完成一个自己会每天用的小工作流。让 AI 真正成为第二大脑,而不是又一个收藏夹吃灰。",
-  deliverables: ["一段 60 秒录屏展示你的工作流", "Prompt / 工具 / 步骤的简要说明(≤300 字)", "一张作品封面图"],
-  requirements: ["必须是你真的在每天用的工作流,不是 demo", "允许使用任何工具组合,鼓励跨工具拼接", "在作品描述里写清楚它替代了你过去怎样的流程"],
-  tips: ["从一个你现在最烦的重复动作开始", "小比全重要,能跑比漂亮重要"] },
-{ n: 2, title: "首次启航", goal: "做出可用的小原型", status: "done", submits: 648, highlight: "原型涌现",
-  subtitle: "一个可以点得动的原型", due: "2026.05.10",
-  overview: "把你最近在脑子里打转的那个小点子做出来。不需要完美,但必须能被别人点开用起来,而不只是 Figma 或描述。",
-  deliverables: ["一个可访问的原型链接", "1 分钟介绍视频 / GIF", "作品名称 + 一句话介绍"],
-  requirements: ["原型需能被陌生人打开并完成主要流程", "后端/接口允许 mock,但前端体验必须真实", "引用的素材需注明来源"],
-  tips: ["vibe-coding 比 PRD 管用", "先跑通主流程,再想边界情况"] },
-{ n: 3, title: "上岸线", goal: "交付真实用户会用的作品", status: "current", submits: 356, highlight: "进行中",
-  subtitle: "交付真实用户会用的作品", due: "2026.06.20",
-  overview: "让你的原型走向真实用户。这一站的核心不是功能多,而是有没有人会回来再用一次。在朋友圈以外找到第一批愿意留下的人。",
-  deliverables: ["产品可访问链接(域名 / 应用商店)", "至少 5 位真实用户的使用记录", "一份简短的上线复盘(你学到了什么)"],
-  requirements: ["必须有真实的非亲友用户使用过", "必须能收集到使用数据或反馈", "作品描述需包含用户最真实的一句反馈"],
-  tips: ["先在一个窄人群里做到他们离不开,再扩", "丑但有人用,胜过美但没人用"] },
-{ n: 4, title: "远洋航行", goal: "推给更多真实用户", status: "todo", submits: 0, highlight: "即将启航",
-  subtitle: "让更多人知道并使用", due: "2026.07.30",
-  overview: "从「小圈子在用」到「陌生人在付费或主动推荐」。想清楚你要去的是哪片海域,并真的把船开过去。",
-  deliverables: ["增长/传播策略记录", "关键指标截图(DAU/留存/付费等任一项)", "一次真实的增长动作复盘"],
-  requirements: ["必须通过非熟人渠道获客", "至少记录一个完整的增长实验(假设→行动→结果)"],
-  tips: ["别把渠道当战略,先找到愿意帮你传的那个人"] },
-{ n: 5, title: "靠岸归港", goal: "沉淀方法论,完成复盘", status: "todo", submits: 0, highlight: "航程尾声",
-  subtitle: "把踩过的坑沉淀成方法论", due: "2026.08.30",
-  overview: "航程结束前,把你这几个月的踩坑 / 顿悟 / 可复用经验沉淀成一份其他船员能看懂的复盘。",
-  deliverables: ["一份完整复盘文档(文章或视频均可)", "你愿意开源或分享的 1 个工件", "对下一批船员的一句建议"],
-  requirements: ["必须是你亲身经历的真实内容,不是二手转述"],
-  tips: ["你觉得很小的事,往往是别人最想看的"] }];
-
-
-// —— USER DRAWER ————————————————————————————————————————————
-function UserDrawer({ author, allWorks, onClose, onViewWork }) {
-  const [nudged, setNudged] = useState({});
-  const [followed, setFollowed] = useState(false);
-
-  useEffect(() => {
-    if (!author) return;
-    const onKey = (e) => { if (e.key === "Escape") onClose(); };
-    window.addEventListener("keydown", onKey);
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => { window.removeEventListener("keydown", onKey); document.body.style.overflow = prev; };
-  }, [author, onClose]);
-
-  if (!author) return null;
-
-  const userWorks = allWorks.filter((w) => w.author.id === author.id);
-  const submitted = TASKS.map((t) => {
-    // Mock: hide round 3 and 4 submissions to test "催作业"
-    if (t.n === 3 || t.n === 4) return { task: t, work: null };
-    const work = userWorks.find((w) => w.round === t.n);
-    return { task: t, work };
-  });
-  const doneCount = submitted.filter((s) => s.work).length;
-  const progress = Math.round(doneCount / TASKS.length * 100);
-
-  const handleNudge = (taskN) => {
-    setNudged((prev) => ({ ...prev, [taskN]: true }));
-  };
-
-  return (
-    <div className="fixed inset-0 z-[100]" onClick={onClose}>
-      {/* Backdrop */}
-      <div className="absolute inset-0" style={{ background: "rgba(10,31,61,0.35)", backdropFilter: "blur(4px)" }} />
-
-      {/* Drawer */}
-      <div onClick={(e) => e.stopPropagation()}
-        className="absolute right-0 top-0 h-full w-[420px] bg-white shadow-[-20px_0_60px_-20px_rgba(10,31,61,0.3)] flex flex-col"
-        style={{ animation: "slideInRight 0.3s ease-out" }}>
-
-        {/* Header */}
-        <div className="shrink-0 px-6 pt-6 pb-5 border-b border-[#EEF3F7]">
-          <div className="flex items-center justify-between mb-5">
-            <span className="font-mono text-[10px] tracking-[0.3em] text-[#4FA8D8]">CREW PROFILE</span>
-            <button onClick={onClose} className="w-8 h-8 rounded-full flex items-center justify-center text-[#8FA3B8] hover:text-[#0F1E2E] hover:bg-[#F4F7FA] transition">
-              <Icon name="X" size={16} />
-            </button>
-          </div>
-
-          <div className="flex items-center gap-4">
-            <CartoonAvatar seed={author.id} size={56} ring />
-            <div className="flex-1">
-              <div className="font-cn-heavy text-[20px] text-[#0A1F3D]">{author.name}</div>
-              <div className="text-[12px] text-[#8FA3B8] font-mono mt-0.5">船长 · CAPT · ID {String(author.id).padStart(4, "0")}</div>
-            </div>
-            <button onClick={() => setFollowed((v) => !v)}
-              className={`h-8 px-4 rounded-full text-[12px] font-medium transition inline-flex items-center gap-1.5 shrink-0 ${
-                followed
-                  ? "bg-[#F4F7FA] text-[#8FA3B8] border border-[#E7EDF3]"
-                  : "bg-[#4FA8D8] text-white hover:bg-[#3E96C6]"
-              }`}>
-              <Icon name={followed ? "UserCheck" : "UserPlus"} size={13} />
-              {followed ? "已关注" : "关注"}
-            </button>
-          </div>
-
-          {/* Stats row */}
-          <div className="mt-5 grid grid-cols-3 gap-3">
-            <div className="rounded-xl bg-[#F6FBFE] border border-[#E7EDF3] px-3 py-2.5 text-center">
-              <div className="font-cn-heavy text-[20px] text-[#0A1F3D] num">{doneCount}</div>
-              <div className="text-[10px] text-[#8FA3B8] mt-0.5">已提交</div>
-            </div>
-            <div className="rounded-xl bg-[#F6FBFE] border border-[#E7EDF3] px-3 py-2.5 text-center">
-              <div className="font-cn-heavy text-[20px] text-[#0A1F3D] num">{TASKS.length - doneCount}</div>
-              <div className="text-[10px] text-[#8FA3B8] mt-0.5">未提交</div>
-            </div>
-            <div className="rounded-xl bg-[#F6FBFE] border border-[#E7EDF3] px-3 py-2.5 text-center">
-              <div className="font-cn-heavy text-[20px] num" style={{ color: progress >= 60 ? "#14B8A6" : "#D9B46A" }}>{progress}%</div>
-              <div className="text-[10px] text-[#8FA3B8] mt-0.5">完成度</div>
-            </div>
-          </div>
-
-          {/* Progress bar */}
-          <div className="mt-4">
-            <div className="h-1.5 rounded-full bg-[#EEF3F7] overflow-hidden">
-              <div className="h-full rounded-full transition-all" style={{
-                width: `${progress}%`,
-                background: progress >= 60 ? "linear-gradient(90deg, #14B8A6, #7FD8C3)" : "linear-gradient(90deg, #D9B46A, #E8D5A0)"
-              }} />
-            </div>
-          </div>
-        </div>
-
-        {/* Timeline body */}
-        <div className="flex-1 overflow-y-auto px-6 py-5">
-          <div className="font-cn-heavy text-[14px] text-[#0F1E2E] mb-4">航程作业</div>
-
-          <div className="relative">
-            {/* Timeline line */}
-            <div className="absolute left-[15px] top-2 bottom-2 w-px bg-[#E7EDF3]" />
-
-            <div className="space-y-1">
-              {submitted.map(({ task, work }, i) => (
-                <div key={task.n} className="relative flex gap-4 py-3">
-                  {/* Timeline dot */}
-                  <div className="relative z-10 shrink-0 mt-1">
-                    {work ? (
-                      <div className="w-[30px] h-[30px] rounded-full bg-[#E4F3EA] border-2 border-[#14B8A6] flex items-center justify-center">
-                        <svg width="12" height="12" viewBox="-6 -6 12 12">
-                          <path d="M -3 0 L -1 2.5 L 3.5 -2" stroke="#14B8A6" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                      </div>
-                    ) : task.status === "current" ? (
-                      <div className="w-[30px] h-[30px] rounded-full bg-[#FBF4DF] border-2 border-[#D9B46A] flex items-center justify-center">
-                        <span className="w-2 h-2 rounded-full bg-[#D9B46A] animate-pulse" />
-                      </div>
-                    ) : (
-                      <div className="w-[30px] h-[30px] rounded-full bg-[#F4F7FA] border-2 border-[#DCE9F2] flex items-center justify-center">
-                        <span className="w-2 h-2 rounded-full bg-[#B8C9D9]" />
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Content */}
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="font-mono text-[10px] tracking-[0.15em] text-[#8FA3B8]">LEG 0{task.n}</span>
-                      <span className="font-cn-heavy text-[14px] text-[#0A1F3D]">{task.title}</span>
-                    </div>
-
-                    {work ? (
-                      <div className="rounded-xl border border-[#E7EDF3] hover:border-[#B8D9EC] transition overflow-hidden cursor-pointer"
-                        onClick={() => { onViewWork(work); }}>
-                        {/* Mini cover */}
-                        <div className="h-[60px] relative"
-                          style={{ background: `linear-gradient(135deg, oklch(88% 0.04 ${work.imgHue}), oklch(76% 0.06 ${(work.imgHue + 30) % 360}))` }}>
-                          {work.featured && (
-                            <div className="absolute top-2 right-2 inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-[#FBF4DF] text-[#C9A349] text-[9px]">
-                              <Icon name="Star" size={9} /> 精选
-                            </div>
-                          )}
-                        </div>
-                        <div className="px-3 py-2.5">
-                          <div className="text-[12px] font-medium text-[#0A1F3D] truncate">{work.title}</div>
-                          <div className="mt-1.5 flex items-center gap-3 text-[10px] text-[#8FA3B8]">
-                            <span className="inline-flex items-center gap-0.5"><Icon name="Heart" size={10} />{work.likes}</span>
-                            <span className="inline-flex items-center gap-0.5"><Icon name="MessageCircle" size={10} />{work.comments}</span>
-                            <span className="ml-auto text-[#14B8A6] font-mono">已提交</span>
-                          </div>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="rounded-xl border border-dashed border-[#DCE9F2] px-4 py-3 flex items-center justify-between">
-                        <span className="text-[12px] text-[#8FA3B8]">
-                          {task.status === "current" ? "进行中，尚未提交" : task.status === "todo" ? "未开始" : "未提交"}
-                        </span>
-                        {(task.status === "current" || task.status === "done") && (
-                          nudged[task.n] ? (
-                            <span className="inline-flex items-center gap-1 text-[11px] text-[#14B8A6] font-medium">
-                              <Icon name="Check" size={12} /> 已催
-                            </span>
-                          ) : (
-                            <button onClick={(e) => { e.stopPropagation(); handleNudge(task.n); }}
-                              className="h-7 px-3 rounded-full bg-[#FBF4DF] hover:bg-[#F5E9C4] text-[#8A6B1F] text-[11px] font-medium transition inline-flex items-center gap-1">
-                              <Icon name="Bell" size={11} /> 催作业
-                            </button>
-                          )
-                        )}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Footer */}
-        <div className="shrink-0 px-6 py-4 border-t border-[#EEF3F7] bg-[#FAFCFD]">
-          <button className="w-full h-10 rounded-xl bg-[#4FA8D8] hover:bg-[#3E96C6] text-white text-[13px] font-medium transition inline-flex items-center justify-center gap-2">
-            <Icon name="MessageCircle" size={14} /> 给 TA 留言
-          </button>
-        </div>
-      </div>
-
-      <style>{`
-        @keyframes slideInRight {
-          from { transform: translateX(100%); }
-          to { transform: translateX(0); }
-        }
-      `}</style>
-    </div>
-  );
-}
-
-function WorkDetailModal({ work, onClose }) {
-  const [imgZoom, setImgZoom] = useState(false);
-  const [comment, setComment] = useState("");
+// ── Work Detail Modal ──
+function WorkDetailModal({ work, onClose, onLike, liked }) {
   const [showShare, setShowShare] = useState(false);
+  const [imgZoom, setImgZoom] = useState(false);
 
   useEffect(() => {
     if (!work) return;
-    const onKey = (e) => { if (e.key === "Escape") { if (imgZoom) setImgZoom(false); else onClose(); } };
+    const onKey = (e) => { if (e.key === "Escape") { if (imgZoom) setImgZoom(false); else if (showShare) setShowShare(false); else onClose(); }};
     window.addEventListener("keydown", onKey);
-    const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    return () => { window.removeEventListener("keydown", onKey); document.body.style.overflow = prev; };
-  }, [work, onClose, imgZoom]);
+    return () => { window.removeEventListener("keydown", onKey); document.body.style.overflow = ""; };
+  }, [work, imgZoom, showShare]);
 
   if (!work) return null;
 
-  const progress = work.shipState === "landed" ? 100 : work.shipState === "pending" ? 0 : 40 + work.id * 7 % 50;
-  const statusLabel = work.shipState === "landed" ? "已靠港" : work.shipState === "pending" ? "待启航" : "航行中";
-  const statusColor = work.shipState === "landed" ? "#D9B46A" : work.shipState === "pending" ? "#8FA3B8" : "#4FA8D8";
-  const workLink = `https://example.com/work/${work.id}`;
-
-  const mockComments = [
-    { id: 1, name: "雅诗", avatar: 2, time: "2026/04/18", text: "设计的很有趣，走了一遍发现很适合学习，但是设计得有点眼晕，字体看着不太舒服，玩一会儿眼睛就累了",
-      replies: [{ name: work.author.name, text: `@雅诗 谢谢反馈，优化了一下，有空可以再体验一下呀😊`, time: "2026/04/19" }] },
-    { id: 2, name: "jasontang", avatar: 5, time: "2026/04/17", text: "好看，但是有点看不清楚",
-      replies: [{ name: work.author.name, text: `@jasontang 字体改了，应该有好一点`, time: "2026/04/18" }] },
-    { id: 3, name: "林未晓", avatar: 4, time: "2026/04/16", text: "太棒了！这个思路可以借鉴一下，期待后续迭代 🎉", replies: [] },
-  ];
-
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-6"
-      style={{ background: "rgba(10,31,61,0.5)", backdropFilter: "blur(8px)" }}
-      onClick={onClose}>
-      <div onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-[640px] max-h-[85vh] overflow-y-auto bg-white rounded-2xl shadow-[0_40px_80px_-20px_rgba(10,31,61,0.4)] border border-[#E7EDF3]">
-
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-6" style={{ background: "rgba(10,31,61,0.5)", backdropFilter: "blur(8px)" }} onClick={onClose}>
+      <div onClick={(e) => e.stopPropagation()} className="relative w-full max-w-[600px] max-h-[85vh] overflow-y-auto bg-white rounded-2xl shadow-[0_40px_80px_-20px_rgba(10,31,61,0.4)] border border-[#E7EDF3]">
         {/* Cover */}
-        <div className="relative h-[200px] overflow-hidden rounded-t-2xl"
-          style={{ background: `linear-gradient(135deg, oklch(85% 0.05 ${work.imgHue}), oklch(72% 0.08 ${(work.imgHue + 40) % 360}))` }}>
-          <div className="absolute inset-0 opacity-40" style={{
-            backgroundImage: "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.5), transparent 50%)"
-          }} />
-          <div className="absolute top-4 left-4 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-medium"
-            style={{ background: "rgba(255,255,255,0.9)", color: statusColor }}>
-            <span className="w-1.5 h-1.5 rounded-full" style={{ background: statusColor }} />
-            {statusLabel}
-          </div>
-          {work.featured && (
-            <div className="absolute top-4 right-16 inline-flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-[#FBF4DF] text-[#C9A349] text-[11px] font-medium">
-              <Icon name="Star" size={11} strokeWidth={2.5} /> 精选
-            </div>
-          )}
-          <div className="absolute bottom-4 left-4 font-mono text-[10px] tracking-[0.2em] text-white/70 drop-shadow">
-            SHIP · {String(work.id).padStart(3, "0")} · LEG {work.round}
-          </div>
-          <button onClick={onClose}
-            className="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-black/20 transition">
-            <Icon name="X" size={18} />
-          </button>
+        <div className="relative h-[180px] overflow-hidden rounded-t-2xl" style={{ background: `linear-gradient(135deg, oklch(85% 0.05 ${work.imgHue}), oklch(72% 0.08 ${(work.imgHue + 40) % 360}))` }}>
+          <div className="absolute inset-0 opacity-40" style={{ backgroundImage: "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.5), transparent 50%)" }} />
+          {work.featured && <div className="absolute top-4 left-4 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#FBF4DF] text-[#C9A349] text-[11px] font-medium"><Icon name="Star" size={11} strokeWidth={2.5} /> 精选</div>}
+          <button onClick={onClose} className="absolute top-4 right-4 w-8 h-8 rounded-full bg-black/20 hover:bg-black/40 text-white flex items-center justify-center transition"><Icon name="X" size={16} /></button>
         </div>
 
-        {/* Progress bar */}
-        <div className="h-1 bg-[#EEF3F7]">
-          <div className="h-full transition-all" style={{ width: `${progress}%`, background: statusColor }} />
-        </div>
-
-        {/* Body */}
-        <div className="px-7 py-6">
-          <h3 className="font-cn-heavy text-[24px] text-[#0A1F3D] leading-snug">{work.title}</h3>
-
-          <div className="mt-4 flex items-center gap-3">
-            <Avatar a={work.author} size={36} />
+        <div className="px-6 py-5">
+          <h3 className="font-cn-heavy text-[22px] text-[#0A1F3D] leading-snug">{work.title}</h3>
+          <div className="mt-3 flex items-center gap-3">
+            <CartoonAvatar seed={work.author.id} size={32} />
             <div>
-              <div className="text-[14px] font-medium text-[#0A1F3D]">{work.author.name}</div>
-              <div className="text-[11px] font-mono text-[#8FA3B8]">船长 · CAPT</div>
+              <div className="text-[13px] font-medium text-[#0A1F3D]">{work.author.name}</div>
+              <div className="text-[10px] text-[#8FA3B8]">作业 {work.round} · {new Date(work.createdAt).toLocaleDateString("zh-CN")}</div>
             </div>
           </div>
+          <div className="mt-4 h-px bg-[#EEF3F7]" />
+          <p className="mt-4 text-[13px] text-[#3F546B] leading-[1.8]">{work.excerpt}</p>
 
-          <div className="mt-5 h-px bg-[#EEF3F7]" />
-
-          {/* 作品介绍 */}
-          <div className="mt-5">
-            <div className="inline-flex items-center gap-2 mb-3">
-              <span className="w-1 h-3.5 rounded-full bg-[#4FA8D8]" />
-              <span className="font-cn-heavy text-[14px] text-[#0F1E2E]">作品介绍</span>
-            </div>
-            <p className="text-[13px] text-[#3F546B] leading-[1.8]">{work.excerpt}</p>
-          </div>
-
-          {/* 作品链接 */}
-          <div className="mt-5">
-            <div className="inline-flex items-center gap-2 mb-3">
-              <span className="w-1 h-3.5 rounded-full bg-[#4FA8D8]" />
-              <span className="font-cn-heavy text-[14px] text-[#0F1E2E]">作品链接</span>
-            </div>
-            <a href={workLink} target="_blank" rel="noopener noreferrer"
-              className="flex items-center gap-2 px-4 py-3 rounded-xl bg-[#F6FBFE] border border-[#E7EDF3] hover:border-[#4FA8D8] transition group cursor-pointer">
-              <Icon name="ExternalLink" size={14} className="text-[#4FA8D8] shrink-0" />
-              <span className="text-[13px] text-[#4FA8D8] group-hover:underline truncate">{workLink}</span>
-            </a>
-          </div>
-
-          {/* 作品截图 */}
-          <div className="mt-5">
-            <div className="inline-flex items-center gap-2 mb-3">
-              <span className="w-1 h-3.5 rounded-full bg-[#4FA8D8]" />
-              <span className="font-cn-heavy text-[14px] text-[#0F1E2E]">作品截图</span>
-            </div>
-            <div className="grid grid-cols-3 gap-3">
-              {[0, 40, 80].map((offset, i) => (
-                <div key={i}
-                  onClick={() => setImgZoom(true)}
-                  className="aspect-[4/3] rounded-xl overflow-hidden cursor-pointer hover:opacity-80 transition relative group"
-                  style={{ background: `linear-gradient(135deg, oklch(88% 0.04 ${(work.imgHue + offset) % 360}), oklch(76% 0.06 ${(work.imgHue + offset + 30) % 360}))` }}>
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition bg-black/20">
-                    <div className="w-8 h-8 rounded-full bg-white/90 flex items-center justify-center">
-                      <Icon name="ZoomIn" size={14} className="text-[#0A1F3D]" />
-                    </div>
-                  </div>
-                  <div className="absolute bottom-2 right-2 font-mono text-[9px] text-white/50">截图 {i + 1}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-6 h-px bg-[#EEF3F7]" />
-
-          {/* 评论区 */}
-          <div className="mt-6">
-            <div className="inline-flex items-center gap-2 mb-4">
-              <span className="w-1 h-3.5 rounded-full bg-[#4FA8D8]" />
-              <span className="font-cn-heavy text-[14px] text-[#0F1E2E]">全部评论</span>
-            </div>
-
-            {/* 评论输入 */}
-            <div className="rounded-xl border border-[#E7EDF3] p-4 mb-5">
-              <textarea value={comment} onChange={(e) => setComment(e.target.value)}
-                placeholder="实战精神，评论中出真知..."
-                rows={2}
-                className="w-full text-[13px] text-[#0F1E2E] placeholder:text-[#B8C9D9] resize-none focus:outline-none" />
-              <div className="flex items-center justify-between mt-2">
-                <div className="flex items-center gap-2 text-[#8FA3B8]">
-                  <button className="hover:text-[#4FA8D8] transition"><Icon name="Image" size={16} /></button>
-                  <button className="hover:text-[#4FA8D8] transition"><Icon name="Smile" size={16} /></button>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="text-[11px] text-[#B8C9D9] font-mono">{comment.length}/1200</span>
-                  <button className={`h-8 px-4 rounded-lg text-[12px] font-medium transition ${
-                    comment.trim() ? "bg-[#4FA8D8] text-white hover:bg-[#3E96C6]" : "bg-[#F1F5F9] text-[#B8C9D9] cursor-not-allowed"
-                  }`}>发布评论</button>
-                </div>
-              </div>
-            </div>
-
-            {/* 评论列表 */}
-            <div className="space-y-0">
-              {mockComments.map((c) => (
-                <div key={c.id} className="border-b border-[#F1F5F9] last:border-0 py-4">
-                  <div className="flex gap-3">
-                    <CartoonAvatar seed={c.avatar} size={32} />
-                    <div className="flex-1 min-w-0">
-                      <div className="text-[13px] font-medium text-[#0A1F3D]">{c.name}</div>
-                      <p className="mt-1.5 text-[13px] text-[#3F546B] leading-[1.7]">{c.text}</p>
-                      <div className="mt-2 flex items-center gap-4 text-[11px] text-[#8FA3B8]">
-                        <span>{c.time}</span>
-                        <button className="hover:text-[#4FA8D8] transition inline-flex items-center gap-1">
-                          <Icon name="ThumbsUp" size={11} /> 赞
-                        </button>
-                        <button className="hover:text-[#4FA8D8] transition">回复</button>
-                      </div>
-
-                      {/* Replies */}
-                      {c.replies.length > 0 && (
-                        <div className="mt-3 space-y-3">
-                          {c.replies.map((r, ri) => (
-                            <div key={ri} className="flex gap-2.5 pl-2 border-l-2 border-[#EEF3F7]">
-                              <CartoonAvatar seed={work.author.id} size={24} />
-                              <div className="flex-1 min-w-0">
-                                <div className="text-[12px]">
-                                  <span className="font-medium text-[#0A1F3D]">{r.name}</span>
-                                  <span className="text-[#8FA3B8] mx-1">回复</span>
-                                  <span className="text-[#4FA8D8]">{r.text.split(' ')[0]}</span>
-                                  <span className="text-[#3F546B]"> {r.text.split(' ').slice(1).join(' ')}</span>
-                                </div>
-                                <div className="mt-1.5 flex items-center gap-4 text-[11px] text-[#8FA3B8]">
-                                  <span>{r.time}</span>
-                                  <button className="hover:text-[#4FA8D8] transition inline-flex items-center gap-1">
-                                    <Icon name="ThumbsUp" size={11} /> 赞
-                                  </button>
-                                  <button className="hover:text-[#4FA8D8] transition">回复</button>
-                                </div>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* 分享按钮 */}
-          <div className="mt-6 flex justify-center">
-            <button onClick={() => setShowShare(true)}
-              className="h-10 px-6 rounded-full bg-gradient-to-r from-[#4FA8D8] to-[#7FC9E8] hover:from-[#3E96C6] hover:to-[#6BB8D8] text-white text-[13px] font-medium transition inline-flex items-center gap-2 shadow-[0_8px_20px_-8px_rgba(79,168,216,0.5)]">
-              <Icon name="Share2" size={14} /> 生成分享卡片
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Share card overlay */}
-      {showShare && (
-        <div className="fixed inset-0 z-[110] flex items-center justify-center bg-black/70"
-          onClick={() => setShowShare(false)}>
-          <div onClick={(e) => e.stopPropagation()} className="relative">
-            {/* Card */}
-            <div className="w-[360px] rounded-3xl overflow-hidden shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)]"
-              style={{ background: "linear-gradient(180deg, #E9F6FF 0%, #D4EDFC 30%, #EEF6FB 100%)" }}>
-
-              {/* Header */}
-              <div className="px-6 pt-6 pb-4 flex items-center gap-3">
-                <CartoonAvatar seed={work.author.id} size={40} />
-                <div>
-                  <div className="text-[15px] font-medium text-[#0A1F3D]">{work.author.name}@超级AI大航海</div>
-                  <div className="text-[12px] text-[#5A7088]">邀请你来查看这个作品</div>
-                </div>
-              </div>
-
-              {/* Content card */}
-              <div className="mx-5 rounded-2xl bg-white p-5 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.1)]">
-                <h3 className="font-cn-heavy text-[20px] text-[#0A1F3D] leading-snug">{work.title}</h3>
-                <p className="mt-3 text-[13px] text-[#3F546B] leading-[1.7]">{work.excerpt}</p>
-
-                <div className="mt-5 flex items-center gap-3">
-                  <CartoonAvatar seed={work.author.id} size={32} />
-                  <div>
-                    <div className="text-[13px] font-medium text-[#0A1F3D]">{work.author.name}</div>
-                    <div className="text-[11px] text-[#8FA3B8]">LEG {work.round} · SHIP {String(work.id).padStart(3, "0")}</div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Footer */}
-              <div className="px-5 pt-4 pb-5 flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className="w-7 h-7 rounded-md flex items-center justify-center"
-                    style={{ background: "rgba(79, 168, 216, 0.15)", border: "1px solid rgba(79, 168, 216, 0.25)" }}>
-                    <span style={{ color: "#4FA8D8" }}><Icon name="Anchor" size={13} /></span>
-                  </div>
-                  <span className="text-[12px] text-[#0A1F3D] font-medium">生财有术 · 航海实战</span>
-                </div>
-                {/* QR placeholder */}
-                <div className="w-[56px] h-[56px] rounded-lg bg-white border border-[#E7EDF3] flex items-center justify-center overflow-hidden">
-                  <svg viewBox="0 0 56 56" width="56" height="56">
-                    <rect width="56" height="56" fill="white" />
-                    {/* Simple QR-like pattern */}
-                    <rect x="6" y="6" width="16" height="16" rx="2" fill="#0A1F3D" />
-                    <rect x="9" y="9" width="10" height="10" rx="1" fill="white" />
-                    <rect x="12" y="12" width="4" height="4" fill="#0A1F3D" />
-                    <rect x="34" y="6" width="16" height="16" rx="2" fill="#0A1F3D" />
-                    <rect x="37" y="9" width="10" height="10" rx="1" fill="white" />
-                    <rect x="40" y="12" width="4" height="4" fill="#0A1F3D" />
-                    <rect x="6" y="34" width="16" height="16" rx="2" fill="#0A1F3D" />
-                    <rect x="9" y="37" width="10" height="10" rx="1" fill="white" />
-                    <rect x="12" y="40" width="4" height="4" fill="#0A1F3D" />
-                    <rect x="26" y="6" width="4" height="4" fill="#0A1F3D" />
-                    <rect x="26" y="14" width="4" height="4" fill="#0A1F3D" />
-                    <rect x="6" y="26" width="4" height="4" fill="#0A1F3D" />
-                    <rect x="14" y="26" width="4" height="4" fill="#0A1F3D" />
-                    <rect x="26" y="26" width="4" height="4" fill="#4FA8D8" />
-                    <rect x="34" y="26" width="4" height="4" fill="#0A1F3D" />
-                    <rect x="42" y="26" width="4" height="4" fill="#0A1F3D" />
-                    <rect x="26" y="34" width="4" height="4" fill="#0A1F3D" />
-                    <rect x="34" y="34" width="4" height="4" fill="#4FA8D8" />
-                    <rect x="42" y="34" width="4" height="4" fill="#0A1F3D" />
-                    <rect x="34" y="42" width="4" height="4" fill="#0A1F3D" />
-                    <rect x="42" y="42" width="4" height="4" fill="#0A1F3D" />
-                    <rect x="26" y="42" width="4" height="4" fill="#4FA8D8" />
-                    <rect x="46" y="46" width="4" height="4" fill="#0A1F3D" />
-                  </svg>
-                </div>
-              </div>
-            </div>
-
-            {/* Action buttons below card */}
-            <div className="mt-4 flex items-center justify-center gap-3">
-              <button onClick={() => setShowShare(false)}
-                className="h-9 px-5 rounded-full bg-white/20 hover:bg-white/30 text-white text-[12px] transition">
-                关闭
-              </button>
-              <button className="h-9 px-5 rounded-full bg-white text-[#0A1F3D] text-[12px] font-medium hover:bg-white/90 transition inline-flex items-center gap-1.5">
-                <Icon name="Download" size={13} /> 保存图片
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Image zoom overlay */}
-      {imgZoom && (
-        <div className="fixed inset-0 z-[110] flex items-center justify-center bg-black/80"
-          onClick={() => setImgZoom(false)}>
-          <div className="relative w-[80vw] max-w-[900px] aspect-[16/10] rounded-2xl overflow-hidden"
-            style={{ background: `linear-gradient(135deg, oklch(85% 0.05 ${work.imgHue}), oklch(72% 0.08 ${(work.imgHue + 40) % 360}))` }}>
-            <div className="absolute inset-0 flex items-center justify-center text-white/40 font-mono text-[14px]">
-              作品截图预览
-            </div>
-            <button onClick={() => setImgZoom(false)}
-              className="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/40 hover:bg-black/60 text-white flex items-center justify-center transition">
-              <Icon name="X" size={20} />
-            </button>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
-
-function VoyageProgress({ allWorks }) {
-  const currentIdx = TASKS.findIndex((t) => t.status === "current");
-  const [selected, setSelected] = useState(currentIdx);
-  const [submitOpen, setSubmitOpen] = useState(false);
-  const [briefOpen, setBriefOpen] = useState(false);
-  const [viewWork, setViewWork] = useState(null);
-  const [viewAuthor, setViewAuthor] = useState(null);
-  const selectedTask = TASKS[selected];
-  const doneCount = TASKS.filter((t) => t.status === "done").length;
-
-  // Horizontal rail layout: even-spaced x, single gentle wave y
-  const W = 1440,H = 260;
-  const xs = TASKS.map((_, i) => 140 + i * 290);
-  const ys = [170, 140, 120, 140, 170];
-
-  // Works linked to the selected task (round)
-  const linkedWorks = useMemo(
-    () => allWorks.filter((w) => w.round === selectedTask.n).slice(0, 6),
-    [allWorks, selected]
-  );
-
-  const badgeFor = (i, w) => {
-    if (w.featured) return { label: "精选", color: "#C9A349", bg: "#FBF4DF" };
-    if (i === 0) return { label: "最新", color: "#4FA8D8", bg: "#E3F2FA" };
-    if (w.likes > 200) return { label: "高完成度", color: "#2F7A5C", bg: "#E4F3EA" };
-    return null;
-  };
-
-  return (
-    <div className="relative bg-white">
-      {/* Subtle grid + horizon lines */}
-      <div className="absolute inset-0 pointer-events-none opacity-[0.5]" aria-hidden>
-        <svg className="w-full h-full" preserveAspectRatio="none" viewBox="0 0 1440 1600">
-          <defs>
-            <pattern id="mapgrid" width="40" height="40" patternUnits="userSpaceOnUse">
-              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#DDE8F0" strokeWidth="0.5" />
-            </pattern>
-          </defs>
-          <rect width="1440" height="1600" fill="url(#mapgrid)" />
-        </svg>
-      </div>
-
-      <div className="relative max-w-[1440px] mx-auto px-10 pt-24 pb-6">
-        {/* Eyebrow & title */}
-        <div className="flex items-end justify-between mb-5">
-          <div>
-            <h2 className="font-cn-heavy text-[28px] leading-[1.1] text-[#0F1E2E]">从出发到上岸 · 五站航程</h2>
-            <p className="mt-1.5 text-[13px] text-[#7A8A9A] leading-relaxed">与其在岸上评头论足，不如上船亲手造一个。</p>
-          </div>
-        </div>
-
-        {/* Unified task rail — compact inline timeline */}
-        <div className="relative rounded-[20px] border border-[#DCE9F2] px-8 py-5"
-        style={{ background: "linear-gradient(180deg, #FFFFFF 0%, #F6FBFE 100%)", boxShadow: "0 20px 50px -30px rgba(15,54,89,0.2)" }}>
-          {/* Horizontal timeline line */}
-          <div className="relative h-[4px] my-6">
-            {/* dotted full line */}
-            <div className="absolute inset-0 rounded-full"
-            style={{ backgroundImage: "repeating-linear-gradient(90deg, #B8C9D9 0 4px, transparent 4px 10px)" }} />
-            {/* active progress */}
-            <div className="absolute left-0 top-0 h-full rounded-full"
-            style={{
-              width: `${currentIdx / (TASKS.length - 1) * 100}%`,
-              background: "linear-gradient(90deg, #4FA8D8, #7FC9E8)"
-            }} />
-
-            {/* Nodes */}
-            {TASKS.map((t, i) => {
-              const done = t.status === "done";
-              const curr = t.status === "current";
-              const sel = i === selected;
-              const leftPct = i / (TASKS.length - 1) * 100;
-              return (
-                <div key={t.n}
-                className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2"
-                style={{ left: `${leftPct}%` }}>
-                  {/* Ship marker above current */}
-                  {curr &&
-                  <svg width="28" height="22" viewBox="-14 -18 28 22"
-                  className="absolute left-1/2 -translate-x-1/2 -top-[32px]">
-                      <path d="M -10 4 L 10 4 L 7 9 L -7 9 Z" fill="#0A1F3D" />
-                      <path d="M -9 4 L 9 4 L 7 7 L -7 7 Z" fill="#C9A349" />
-                      <line x1="0" y1="4" x2="0" y2="-14" stroke="#0A1F3D" strokeWidth="1.2" />
-                      <path d="M 0 -14 L 0 3 L 9 3 Q 6 -5, 0 -14 Z" fill="#FFFFFF" stroke="#4FA8D8" strokeWidth="1" />
-                      <path d="M 0 -14 L 0 3 L -7 3 Q -5 -3, 0 -14 Z" fill="#EAF4FA" stroke="#4FA8D8" strokeWidth="0.8" />
-                      <path d="M 0 -14 L 4 -12 L 0 -10 Z" fill="#C9A349" />
-                    </svg>
-                  }
-                  {/* Node dot */}
-                  <button onClick={() => setSelected(i)} className="block relative">
-                    {curr && <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-[#4FA8D8]/15 animate-pulse" />}
-                    <span className={`relative block rounded-full transition-all ${
-                    curr ? "w-4 h-4 bg-[#4FA8D8] ring-4 ring-white shadow-[0_0_0_2px_#4FA8D8]" :
-                    done ? "w-3 h-3 bg-[#4FA8D8] ring-2 ring-white" :
-                    sel ? "w-3 h-3 bg-white ring-2 ring-[#4FA8D8]" :
-                    "w-3 h-3 bg-white ring-2 ring-[#B8C9D9]"}`
-                    }>
-                      {done &&
-                      <svg className="absolute inset-0 m-auto" width="8" height="8" viewBox="-4 -4 8 8">
-                          <path d="M -2.5 0 L -0.5 2 L 2.5 -1.5" stroke="#FFFFFF" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                      }
-                    </span>
-                  </button>
-                </div>);
-
-            })}
-          </div>
-
-          {/* Labels under each node */}
-          <div className="grid grid-cols-5 gap-4 mt-4">
-            {TASKS.map((t, i) => {
-              const done = t.status === "done";
-              const curr = t.status === "current";
-              const sel = i === selected;
-              return (
-                <div key={t.n} className={`text-center transition ${sel ? "" : "opacity-80 hover:opacity-100"}`}>
-                  <button onClick={() => setSelected(i)} className="w-full text-center">
-                  <div className="flex items-center justify-center gap-2 mb-1.5">
-                    <span className={`font-mono text-[10px] tracking-[0.2em] ${
-                      done ? "text-[#4FA8D8]" : curr ? "text-[#C9A349]" : "text-[#8FA3B8]"}`
-                      }>LEG 0{t.n}</span>
-                    <span className={`text-[9px] font-medium px-1.5 py-0.5 rounded-full ${
-                      done ? "bg-[#E4F3EA] text-[#2F7A5C]" :
-                      curr ? "bg-[#FBF4DF] text-[#8A6B1F]" :
-                      "bg-[#F1F5F9] text-[#8FA3B8]"}`
-                      }>{done ? "已完成" : curr ? "进行中" : "未开始"}</span>
-                  </div>
-                  <div className={`font-cn-heavy ${curr ? "text-[18px]" : "text-[15px]"} ${
-                    curr || sel ? "text-[#0A1F3D]" : "text-[#3F546B]"} leading-tight`
-                    }>
-                    {t.title}
-                  </div>
-                  </button>
-                  {curr ?
-                  <button onClick={() => setBriefOpen(true)} className="mt-3 h-8 px-4 rounded-full bg-[#4FA8D8] hover:bg-[#3E96C6] text-white text-[12px] font-medium transition">
-                      开始作业 →
-                    </button> :
-                  done ?
-                  <div className="mt-2.5 text-[10px] font-mono text-[#8FA3B8]">
-                      {t.submits} 件 · 查看 →
-                    </div> :
-
-                  <div className="mt-2.5 text-[10px] text-[#B8C9D9]">{t.highlight}</div>
-                  }
-                </div>);
-
-            })}
-          </div>
-
-          {/* legacy block removed */}
-        </div>
-
-        {/* —— Works wall: linked to selected task —— */}
-        <div className="mt-10">
-          <div className="flex items-end justify-between mb-8">
-            <div>
-              <h3 className="font-cn-heavy text-[36px] text-[#0A1F3D] leading-tight">
-                这一站 · <span className="text-[#4FA8D8]">{selectedTask.title}</span>
-              </h3>
-              <p className="mt-2.5 text-[14px] text-[#5A7088]">
-                {selectedTask.goal} · 共 <span className="text-[#0A1F3D] font-medium">{selectedTask.submits || "—"}</span> 件提交
-              </p>
-            </div>
-            <div className="flex items-center gap-1 p-1 bg-white rounded-full border border-[#E7EDF3]">
-              {TASKS.map((t, i) =>
-              <button key={t.n} onClick={() => setSelected(i)}
-              className={`px-4 h-9 rounded-full text-[12px] transition ${
-              i === selected ? "bg-[#0A1F3D] text-white" : "text-[#5A7088] hover:text-[#0A1F3D]"}`
-              }>
-                  作业 {t.n}
-                </button>
-              )}
-            </div>
-          </div>
-
-          <div className="grid grid-cols-3 gap-6">
-            {linkedWorks.map((w, i) => {
-              const badge = badgeFor(i, w);
-              return (
-                <article key={w.id}
-                className="group relative rounded-2xl overflow-hidden bg-white border border-[#E7EDF3] hover:border-[#B8D9EC] hover:shadow-[0_24px_50px_-24px_rgba(15,54,89,0.25)] transition-all duration-300 hover:-translate-y-1">
-                  {/* Cover */}
-                  <div className="relative aspect-[16/10] overflow-hidden"
-                  style={{ background: `linear-gradient(135deg, oklch(90% 0.04 ${w.imgHue}), oklch(78% 0.07 ${(w.imgHue + 40) % 360}))` }}>
-                    <div className="absolute inset-0 opacity-50" style={{
-                      backgroundImage: "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.6), transparent 50%)"
-                    }} />
-                    <div className="absolute bottom-3 left-3 font-mono text-[10px] tracking-[0.2em] text-white/80 drop-shadow">
-                      SHIP · {String(w.id).padStart(3, "0")}
-                    </div>
-                    {badge &&
-                    <div className="absolute top-3 left-3 inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-medium"
-                    style={{ background: badge.bg, color: badge.color }}>
-                        {badge.label}
-                      </div>
-                    }
-                  </div>
-                  {/* Body */}
-                  <div className="p-5">
-                    <h4 className="font-cn-heavy text-[16px] text-[#0A1F3D] leading-snug truncate">
-                      {w.title}
-                    </h4>
-                    <p className="mt-2 text-[12.5px] text-[#5A7088] leading-relaxed line-clamp-2">
-                      {w.excerpt}
-                    </p>
-                    <div className="mt-4 pt-4 border-t border-[#EEF3F7] flex items-center justify-between">
-                      <div className="flex items-center gap-2 cursor-pointer hover:opacity-75 transition" onClick={() => setViewAuthor(w.author)}>
-                        <Avatar a={w.author} size={26} />
-                        <div className="text-[12px] text-[#0A1F3D]">{w.author.name}</div>
-                      </div>
-                      <div className="flex items-center gap-3 text-[11.5px] text-[#8FA3B8]">
-                        <span className="inline-flex items-center gap-1"><Icon name="Heart" size={12} />{w.likes}</span>
-                        <span className="inline-flex items-center gap-1"><Icon name="MessageCircle" size={12} />{w.comments}</span>
-                      </div>
-                    </div>
-                    <button onClick={() => setViewWork(w)}
-                      className="mt-3 w-full h-9 rounded-lg bg-white border border-[#E7EDF3] hover:border-[#4FA8D8] text-[12px] text-[#0A1F3D] hover:text-[#4FA8D8] transition inline-flex items-center justify-center gap-1.5">
-                      <Icon name="Eye" size={13} /> 查看作品
-                    </button>
-                  </div>
-                </article>);
-
-            })}
-          </div>
-
-          {linkedWorks.length === 0 &&
-          <div className="rounded-2xl border border-dashed border-[#DCE9F2] py-16 text-center text-[14px] text-[#8FA3B8]">
-              这一站还未启航,敬请期待。
-            </div>
-          }
-
-          {linkedWorks.length > 0 &&
-          <div className="mt-10 flex justify-center">
-              <button className="px-6 h-11 rounded-full bg-white border border-[#DCE9F2] hover:border-[#4FA8D8] hover:text-[#4FA8D8] text-[13px] text-[#0A1F3D] transition inline-flex items-center gap-2">
-                查看这一站全部作品
-                <Icon name="ArrowRight" size={14} />
-              </button>
-            </div>
-          }
-        </div>
-      </div>
-
-      <SubmitWorkModal open={submitOpen} onClose={() => setSubmitOpen(false)} task={selectedTask} />
-      <AssignmentModal
-        open={briefOpen}
-        onClose={() => setBriefOpen(false)}
-        task={TASKS[currentIdx]}
-        onStart={() => {setBriefOpen(false);setSubmitOpen(true);}} />
-      <WorkDetailModal work={viewWork} onClose={() => setViewWork(null)} />
-      <UserDrawer author={viewAuthor} allWorks={allWorks} onClose={() => setViewAuthor(null)} onViewWork={(w) => { setViewAuthor(null); setViewWork(w); }} />
-
-    </div>);
-
-}
-
-function SubmitWorkModal({ open, onClose, task }) {
-  const [link, setLink] = useState("");
-  const [name, setName] = useState("");
-  const [intro, setIntro] = useState("");
-  const [cover, setCover] = useState(null);
-  const [dragOver, setDragOver] = useState(false);
-  const fileRef = useRef(null);
-
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (e) => {if (e.key === "Escape") onClose();};
-    window.addEventListener("keydown", onKey);
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {window.removeEventListener("keydown", onKey);document.body.style.overflow = prev;};
-  }, [open, onClose]);
-
-  if (!open) return null;
-
-  const onFile = (f) => {
-    if (!f) return;
-    const url = URL.createObjectURL(f);
-    setCover({ url, name: f.name });
-  };
-
-  const canSubmit = link && name && intro && cover;
-
-  return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-6"
-    style={{ background: "rgba(10,31,61,0.45)", backdropFilter: "blur(6px)" }}
-    onClick={onClose}>
-      <div onClick={(e) => e.stopPropagation()}
-      className="relative w-full max-w-[480px] max-h-[90vh] overflow-y-auto bg-white rounded-2xl shadow-[0_40px_80px_-20px_rgba(10,31,61,0.4)] border border-[#E7EDF3]">
-        {/* Header */}
-        <div className="sticky top-0 z-10 flex items-center justify-between px-6 pt-5 pb-4 bg-white border-b border-[#F1F5F9]">
-          <div>
-            <h3 className="font-cn-heavy text-[20px] text-[#0F1E2E]">提交作品</h3>
-            <div className="mt-0.5 text-[11px] text-[#8FA3B8]">
-              当前站点 · <span className="text-[#14B8A6] font-medium">LEG 0{task.n} · {task.title}</span>
-            </div>
-          </div>
-          <button onClick={onClose}
-          className="w-8 h-8 rounded-full flex items-center justify-center text-[#8FA3B8] hover:text-[#0F1E2E] hover:bg-[#F4F7FA] transition">
-            <Icon name="X" size={18} />
-          </button>
-        </div>
-
-        {/* Body */}
-        <div className="px-6 py-5 space-y-5">
           {/* Link */}
-          <Field label="作品链接" required>
-            <div className="relative">
-              <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8FA3B8]">
-                <Icon name="Link" size={14} />
-              </span>
-              <input value={link} onChange={(e) => setLink(e.target.value)}
-              placeholder="https://scys.com/deepsea"
-              className="w-full h-11 pl-10 pr-4 rounded-xl border border-[#E7EDF3] bg-[#FAFCFD] text-[13px] text-[#0F1E2E] placeholder:text-[#B8C9D9] focus:outline-none focus:border-[#14B8A6] focus:bg-white transition" />
-            </div>
-          </Field>
-
-          {/* Name */}
-          <Field label="作品名称" required counter={`${name.length}/20`}>
-            <input value={name} maxLength={20} onChange={(e) => setName(e.target.value)}
-            placeholder="给你的作品取个名字"
-            className="w-full h-11 px-4 rounded-xl border border-[#E7EDF3] bg-[#FAFCFD] text-[13px] text-[#0F1E2E] placeholder:text-[#B8C9D9] focus:outline-none focus:border-[#14B8A6] focus:bg-white transition" />
-          </Field>
-
-          {/* Intro */}
-          <Field label="一句话介绍" required counter={`${intro.length}/100`}>
-            <textarea value={intro} maxLength={100} onChange={(e) => setIntro(e.target.value)}
-            rows={3}
-            placeholder="这个作品解决了什么问题？"
-            className="w-full px-4 py-3 rounded-xl border border-[#E7EDF3] bg-[#FAFCFD] text-[13px] text-[#0F1E2E] placeholder:text-[#B8C9D9] focus:outline-none focus:border-[#14B8A6] focus:bg-white transition resize-none" />
-          </Field>
-
-          {/* Cover upload */}
-          <Field label="作品截图" required>
-            <div
-              onClick={() => !cover && fileRef.current?.click()}
-              onDragOver={(e) => {e.preventDefault();setDragOver(true);}}
-              onDragLeave={() => setDragOver(false)}
-              onDrop={(e) => {e.preventDefault();setDragOver(false);onFile(e.dataTransfer.files?.[0]);}}
-              className={`relative rounded-xl border border-dashed transition cursor-pointer overflow-hidden
-                ${dragOver ? "border-[#14B8A6] bg-[#ECFBF7]" : "border-[#D6E3ED] bg-[#FAFCFD] hover:bg-[#F4F9FC] hover:border-[#B8D9EC]"}
-                ${cover ? "p-0" : "px-6 py-12"}
-              `}
-              style={{ minHeight: 200 }}>
-
-              <input ref={fileRef} type="file" accept="image/png,image/jpeg" hidden
-              onChange={(e) => onFile(e.target.files?.[0])} />
-              {cover ?
-              <div className="relative">
-                  <img src={cover.url} alt="" className="w-full h-[200px] object-cover" />
-                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent px-4 py-3 flex items-center justify-between">
-                    <span className="text-white text-[12px] truncate max-w-[70%]">{cover.name}</span>
-                    <button onClick={(e) => {e.stopPropagation();setCover(null);}}
-                  className="text-white/90 hover:text-white text-[12px] underline">重新上传</button>
-                  </div>
-                </div> :
-
-              <div className="flex flex-col items-center gap-3 text-center">
-                  <div className="w-11 h-11 rounded-full bg-white border border-[#E7EDF3] flex items-center justify-center text-[#8FA3B8]">
-                    <Icon name="Upload" size={18} />
-                  </div>
-                  <div>
-                    <div className="text-[13px] text-[#0F1E2E]">
-                      <span className="font-medium">点击上传</span>
-                      <span className="text-[#8FA3B8]">或拖拽图片</span>
-                    </div>
-                    <div className="mt-1 text-[11px] text-[#B8C9D9] font-mono tracking-wider">JPG · PNG</div>
-                  </div>
-                </div>
-              }
-            </div>
-          </Field>
-        </div>
-
-        {/* Footer */}
-        <div className="sticky bottom-0 bg-white border-t border-[#F1F5F9] px-6 py-4 flex items-center justify-between">
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#F4F7FA] text-[11px] text-[#5A7088]">
-            <span className="text-[#14B8A6]">#</span>作品墙
-          </div>
-          <div className="flex items-center gap-2">
-            <button onClick={onClose}
-            className="h-9 px-4 rounded-lg text-[13px] text-[#5A7088] hover:bg-[#F4F7FA] transition">
-              取消
-            </button>
-            <button disabled={!canSubmit}
-            className={`h-9 px-5 rounded-lg text-[13px] font-medium transition ${
-            canSubmit ? "bg-[#14B8A6] text-white hover:bg-[#0FA090]" : "bg-[#E7EDF3] text-[#B8C9D9] cursor-not-allowed"}`
-            }>
-              发布作品
-            </button>
-          </div>
-        </div>
-
-        {/* Bottom hint */}
-        <div className="px-6 pb-4 text-[11px] text-[#B8C9D9] text-center">
-          发布后，作品将同步显示在你的个人主页航记子列表中
-        </div>
-      </div>
-    </div>);
-
-}
-
-function Field({ label, required, counter, children }) {
-  return (
-    <div>
-      <div className="flex items-center justify-between mb-2">
-        <label className="text-[13px] font-medium text-[#0F1E2E]">
-          {label}{required && <span className="text-[#E15454] ml-1">*</span>}
-        </label>
-        {counter && <span className="text-[11px] text-[#B8C9D9] font-mono">{counter}</span>}
-      </div>
-      {children}
-    </div>);
-
-}
-
-function AssignmentModal({ open, onClose, task, onStart }) {
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (e) => {if (e.key === "Escape") onClose();};
-    window.addEventListener("keydown", onKey);
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {window.removeEventListener("keydown", onKey);document.body.style.overflow = prev;};
-  }, [open, onClose]);
-
-  if (!open) return null;
-
-  return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-6"
-    style={{ background: "rgba(10,31,61,0.45)", backdropFilter: "blur(6px)" }}
-    onClick={onClose}>
-      <div onClick={(e) => e.stopPropagation()}
-      className="relative w-full max-w-[560px] max-h-[90vh] overflow-y-auto bg-white rounded-2xl shadow-[0_40px_80px_-20px_rgba(10,31,61,0.4)] border border-[#E7EDF3]">
-        {/* Header banner */}
-        <div className="relative px-7 pt-7 pb-6 overflow-hidden"
-        style={{ background: "linear-gradient(135deg, #E9F6FF 0%, #F6FBFE 100%)" }}>
-          {/* Faint route line decoration */}
-          <svg className="absolute right-0 top-0 opacity-40" width="240" height="120" viewBox="0 0 240 120" fill="none">
-            <path d="M0 90 Q 60 70 120 80 T 240 60" stroke="#4FA8D8" strokeWidth="1.5" strokeDasharray="3 6" fill="none" />
-            <circle cx="120" cy="80" r="5" fill="#FFFFFF" stroke="#4FA8D8" strokeWidth="2" />
-            <circle cx="240" cy="60" r="4" fill="#FFFFFF" stroke="#B8C9D9" strokeWidth="1.5" />
-          </svg>
-
-          <button onClick={onClose}
-          className="absolute top-5 right-5 w-8 h-8 rounded-full flex items-center justify-center text-[#5A7088] hover:text-[#0F1E2E] hover:bg-white/70 transition">
-            <Icon name="X" size={18} />
-          </button>
-
-          <div className="relative">
-            <div className="inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.25em] text-[#C9A349] mb-3">
-              <span className="w-5 h-5 rounded-full bg-[#C9A349] text-white flex items-center justify-center text-[10px] font-bold">!</span>
-              LEG 0{task.n} · 进行中
-            </div>
-            <h3 className="font-cn-heavy text-[28px] leading-tight text-[#0F1E2E]">{task.title}</h3>
-            <p className="mt-1.5 text-[13px] text-[#5A7088]">{task.subtitle}</p>
-
-            <div className="mt-5 flex items-center gap-5 text-[12px] text-[#5A7088]">
-              <div className="inline-flex items-center gap-1.5">
-                <Icon name="Calendar" size={13} className="text-[#8FA3B8]" />
-                截止 <span className="font-mono text-[#0F1E2E]">{task.due}</span>
-              </div>
-              <div className="inline-flex items-center gap-1.5">
-                <Icon name="Users" size={13} className="text-[#8FA3B8]" />
-                已提交 <span className="font-mono text-[#0F1E2E]">{task.submits}</span> 件
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Body */}
-        <div className="px-7 py-6 space-y-6">
-          {/* Overview */}
-          <section>
-            <SectionLabel>任务简介</SectionLabel>
-            <p className="mt-3 text-[13px] leading-[1.7] text-[#3F546B]">{task.overview}</p>
-          </section>
-
-          {/* Deliverables */}
-          <section>
-            <SectionLabel>需要提交</SectionLabel>
-            <ul className="mt-3 space-y-2">
-              {task.deliverables?.map((d, i) =>
-              <li key={i} className="flex gap-3 text-[13px] text-[#3F546B] leading-relaxed">
-                  <span className="mt-[5px] font-mono text-[10px] text-[#4FA8D8] shrink-0 w-5">0{i + 1}</span>
-                  <span>{d}</span>
-                </li>
-              )}
-            </ul>
-          </section>
-
-          {/* Tips */}
-          {task.tips?.length > 0 &&
-          <section className="rounded-xl bg-[#FBF7E8] border border-[#F1E7BF] px-4 py-3.5">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-[14px]">💡</span>
-                <span className="text-[12px] font-medium text-[#8A6B1F]">船长贴士</span>
-              </div>
-              <ul className="space-y-1.5">
-                {task.tips.map((t, i) =>
-              <li key={i} className="text-[12px] text-[#8A6B1F]/90 leading-relaxed pl-6 -indent-6 before:content-['·'] before:mr-2.5 before:text-[#C9A349]">
-                    {t}
-                  </li>
-              )}
-              </ul>
-            </section>
-          }
-        </div>
-
-        {/* Footer */}
-        <div className="sticky bottom-0 bg-white border-t border-[#F1F5F9] px-7 py-4 flex items-center justify-between">
-          <div></div>
-          <div className="flex items-center gap-2">
-            <button onClick={onClose}
-            className="h-10 px-5 rounded-lg text-[13px] text-[#5A7088] hover:bg-[#F4F7FA] transition">
-              稍后开始
-            </button>
-            <button onClick={onStart}
-            className="h-10 px-5 rounded-lg bg-[#4FA8D8] hover:bg-[#3E96C6] text-white text-[13px] font-medium transition shadow-[0_8px_20px_-8px_rgba(79,168,216,0.6)]">
-              立即开始作业 →
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>);
-
-}
-
-function SectionLabel({ children }) {
-  return (
-    <div className="inline-flex items-center gap-2">
-      <span className="w-1 h-3.5 rounded-full bg-[#4FA8D8]" />
-      <span className="font-cn-heavy text-[14px] text-[#0F1E2E]">{children}</span>
-    </div>);
-
-}
-
-// —— HANDBOOK PAGE ————————————————————————————————————————————
-const HANDBOOK_COURSES = [
-  { id: 1, num: "01", title: "你是最强的", category: "快速入门", desc: "【快速入门】你是最强的", students: 2360, progress: 25, status: "learning" },
-  { id: 2, num: "02", title: "你是最美的", category: "快速入门", desc: "【快速入门】你是最美的", students: 2244, progress: 1, status: "learning" },
-  { id: 3, num: "03", title: "xxx", category: "实战进阶", desc: "【实战进阶(1/4)】xxx", students: 1763, progress: 0, status: "ready" },
-  { id: 4, num: "04", title: "xxx", category: "实战进阶", desc: "【实战进阶(2/4)】xxx", students: 1451, progress: 0, status: "ready" },
-  { id: 5, num: "05", title: "xxx", category: "实战进阶", desc: "【实战进阶(3/4)】xxx", students: 1061, progress: 0, status: "ready" },
-  { id: 6, num: "06", title: "xxx", category: "实战进阶", desc: "【实战进阶(4/4)】xxx", students: 350, progress: 0, status: "ready" },
-  { id: 7, num: "07", title: "xxx", category: "商业化", desc: "【商业化】xxx", students: 0, progress: 0, status: "locked", unlock: "4月27日 中午12:00 解锁" },
-  { id: 8, num: "08", title: "xxx", category: "商业化", desc: "【商业化】xxx", students: 0, progress: 0, status: "locked", unlock: "5月4日 中午12:00 解锁" },
-  { id: 9, num: "09", title: "xxx", category: "商业化", desc: "【商业化】xxx", students: 0, progress: 0, status: "locked", unlock: "5月11日 中午12:00 解锁" },
-];
-
-// Course detail content per course
-const COURSE_CHAPTERS = {
-  1: {
-    sections: [
-      { title: "序章：相遇", chapters: [
-        { id: "c1", title: "🔥 她在深夜的咖啡馆遇见了他", students: 2920 },
-      ]},
-      { title: "上篇：靠近", chapters: [
-        { id: "c2", title: "那杯手冲拿铁的温度", students: 1850 },
-        { id: "c3", title: "朋友圈三天可见的秘密", students: 1620 },
-        { id: "c4", title: "凌晨两点的默契", students: 1340 },
-      ]},
-      { title: "下篇：心动", chapters: [
-        { id: "c5", title: "她开始在意他的消息", students: 890 },
-        { id: "c6", title: "那天他没有来", students: 670 },
-      ]},
-    ],
-    content: {
-      banner: "超级AI大航海 · 航海手册",
-      title: "🔥 她在深夜的咖啡馆遇见了他",
-      body: `林栀从来没想过，自己会在凌晨一点的咖啡馆，被一杯洒在裙子上的美式改变整个人生轨迹。
-
-**"对不起，我没看到你。"** 那个男人慌慌张张地递过来一沓纸巾，声音低沉得像大提琴的尾音。
-
-她抬头，看见一双很深的眼睛。
-
-## 1. 凌晨的咖啡馆
-
-### 1.1 第一次见面
-
-林栀每天凌晨都来这家店。不是因为咖啡好喝——说实话，这里的拿铁淡得像洗杯水——而是因为这是方圆三公里内唯一一家 24 小时营业、不赶人、WiFi 还快的地方。
-
-她在赶一份周一要交的运营方案。老板说"要有创意"，但没人告诉她创意长什么样。
-
-男人坐到了对面。不是她对面——是隔了一张桌子的对面。他打开一台贴满贴纸的笔记本电脑，屏幕的蓝光映在他的脸上。
-
-她偷偷看了一眼，他在写代码。
-
-### 1.2 裙子上的美式
-
-事情发生在凌晨两点十七分。她记得很清楚，因为她刚看了一眼手机右上角的时间。
-
-他起身去续杯，转身的时候没看到她伸出来够插线板的腿。然后——
-
-- 一杯美式从天而降
-- 她新买的白裙子变成了抽象画
-- 他的脸比咖啡还苦
-
-**"我赔你。"** 他说。
-
-**"你赔不起，这条裙子是我的战袍。"** 她说。
-
-他愣了一下，然后笑了。笑起来的时候，眼角有一条很浅的纹路。
-
-## 2. 后来的事
-
-后来他们加了微信。他的头像是一只橘猫，朋友圈设置了三天可见，最新一条是转发了一篇技术文章，配文只有一个字："嗯。"
-
-林栀觉得这个人无聊透了。
-
-但是第三天晚上，她又去了那家咖啡馆。他也在。
-
-**第七天，他给她带了一杯拿铁。** "试试这个，比这家店的好喝。"是他自己手冲的，装在一个保温杯里，杯盖上贴了一只橘猫贴纸。
-
-第十四天，他帮她把运营方案改了一版。老板说"这次有点意思"。
-
-第二十一天，她发现自己每天凌晨去咖啡馆，已经不是为了赶方案了。
-
-> 💡 **后来林栀在日记里写：** 有些人走进你的生活，不是因为什么惊天动地的契机，只是因为他刚好在你最困的时候，递了一杯温度刚好的咖啡。`
-    }
-  },
-  2: {
-    sections: [
-      { title: "序章：天台", chapters: [
-        { id: "c1", title: "🌙 屋顶上的星星和秘密", students: 2100 },
-      ]},
-      { title: "上篇：日常", chapters: [
-        { id: "c2", title: "共享歌单里的告白气球", students: 1800 },
-        { id: "c3", title: "他给折叠椅贴了名字", students: 1500 },
-      ]},
-    ],
-    content: {
-      banner: "超级AI大航海 · 航海手册",
-      title: "🌙 屋顶上的星星和秘密",
-      body: `他叫顾深，程序员，话少，养了一只叫"Bug"的橘猫。
-
-林栀后来才知道，他每天凌晨来咖啡馆不是因为加班，而是因为失眠。
-
-**"睡不着的时候写代码，比数羊管用。"** 他说这话的时候语气很平，像在说今天天气不错。
-
-## 1. 天台
-
-### 1.1 第一次上天台
-
-第二十八天的晚上，咖啡馆停电了。
-
-老板说变压器坏了，修好至少要到明天。林栀的方案还差最后一页。她看着黑掉的屏幕，想骂人。
-
-"走吧，我知道一个地方。" 顾深收起电脑，站在门口等她。
-
-他带她爬了六楼的消防楼梯，推开一扇没锁的铁门。
-
-天台上有风，有月亮，还有半个城市的灯火。
-
-**"这里有信号吗？"** 她问。
-
-**"有，而且很快。"** 他说，然后从背包里掏出一个移动热点。
-
-她忍不住笑了。这大概是她听过最浪漫的情话——在天台上，给你开热点。
-
-### 1.2 星星和数据库
-
-她赶方案，他写代码。两个人背靠背坐在天台的水泥地上，各自对着发光的屏幕。
-
-偶尔他会念出一句："又报错了。"
-
-她会回一句："我也是。"
-
-然后两个人一起叹气，风把叹气吹散。
-
-十一点半的时候她写完了，转头想说一声"搞定"，发现他靠着她的背睡着了。
-
-呼吸很轻，很稳。屏幕上的光标还在闪。
-
-她没有动，就那样坐着，把方案又检查了一遍。
-
-## 2. 那些小事
-
-后来他们总去天台。
-
-- 他给天台搬了两把折叠椅和一张小桌子
-- 她带了一条旧毯子和一个蓝牙音箱
-- 他们有一个共享歌单，名字叫"凌晨营业中"
-- 她往里加周杰伦，他往里加坂本龙一
-
-有一天她发现歌单里多了一首《告白气球》。
-
-她问他："你也听周杰伦？"
-
-他说："不听。加给你的。"
-
-> 💡 **林栀后来想，喜欢一个人大概就是这样：** 你不需要变成他喜欢的样子，他会悄悄走进你喜欢的世界，然后假装自己一直都在。`
-    }
-  }
-};
-
-// Default chapter content for courses without detailed content
-const DEFAULT_COURSE_CONTENT = {
-  sections: [
-    { title: "引言", chapters: [{ id: "c1", title: "📖 章节内容即将上线", students: 0 }] },
-    { title: "必修篇", chapters: [{ id: "c2", title: "📖 敬请期待", students: 0 }] },
-  ],
-  content: {
-    banner: "超级AI大航海 · 航海手册",
-    title: "📖 章节内容即将上线",
-    body: "该课程内容正在紧锣密鼓地准备中，请先学习前面的课程，这一课很快就会和大家见面。\n\n> 💡 **船长贴士：** 按顺序学习效果更好，不要跳课哦。"
-  }
-};
-
-function CourseDetailView({ course, onBack }) {
-  const data = COURSE_CHAPTERS[course.id] || DEFAULT_COURSE_CONTENT;
-  const [activeChapter, setActiveChapter] = useState(data.sections[0].chapters[0].id);
-  const [expandedSections, setExpandedSections] = useState({ 0: true });
-
-  const toggleSection = (i) => setExpandedSections((prev) => ({ ...prev, [i]: !prev[i] }));
-
-  // Render markdown-like content
-  const renderContent = (text) => {
-    return text.split('\n').map((line, i) => {
-      if (line.startsWith('## ')) return <h2 key={i} className="font-cn-heavy text-[22px] text-[#0A1F3D] mt-8 mb-4">{line.slice(3)}</h2>;
-      if (line.startsWith('### ')) return <h3 key={i} className="font-cn-heavy text-[17px] text-[#0A1F3D] mt-6 mb-3">{line.slice(4)}</h3>;
-      if (line.startsWith('> ')) return <blockquote key={i} className="my-4 pl-4 border-l-3 border-[#4FA8D8] bg-[#F6FBFE] rounded-r-lg px-4 py-3 text-[13px] text-[#3F546B] leading-[1.8]" style={{ borderLeftWidth: 3 }}>{line.slice(2).replace(/\*\*(.*?)\*\*/g, '$1')}</blockquote>;
-      if (line.startsWith('- ')) return <li key={i} className="ml-5 text-[14px] text-[#3F546B] leading-[2] list-disc">{line.slice(2)}</li>;
-      if (line.startsWith('**') && line.endsWith('**')) return <p key={i} className="text-[14px] text-[#0A1F3D] font-medium leading-[2] my-2">{line.slice(2, -2)}</p>;
-      if (line.trim() === '') return <div key={i} className="h-3" />;
-      // Handle inline bold
-      const parts = line.split(/\*\*(.*?)\*\*/g);
-      return <p key={i} className="text-[14px] text-[#3F546B] leading-[2]">{parts.map((p, j) => j % 2 === 1 ? <strong key={j} className="text-[#0A1F3D]">{p}</strong> : p)}</p>;
-    });
-  };
-
-  return (
-    <div className="relative bg-white min-h-screen flex">
-      {/* Left sidebar */}
-      <div className="w-[280px] shrink-0 border-r border-[#EEF3F7] bg-[#FAFCFD] pt-20 overflow-y-auto h-screen sticky top-0">
-        <div className="px-5 pb-4 border-b border-[#EEF3F7]">
-          <button onClick={onBack} className="flex items-center gap-1.5 text-[12px] text-[#4FA8D8] hover:text-[#3E96C6] transition mb-3">
-            <Icon name="ArrowLeft" size={13} /> 返回手册
-          </button>
-          <div className="flex items-center gap-3">
-            <CartoonAvatar seed={3} size={36} />
-            <div className="flex-1 min-w-0">
-              <div className="font-cn-heavy text-[14px] text-[#0A1F3D] truncate">{course.title}</div>
-              <div className="text-[11px] text-[#8FA3B8] mt-0.5 truncate">{course.desc}</div>
-            </div>
-          </div>
-          <div className="mt-3 flex items-center justify-between text-[11px] text-[#8FA3B8]">
-            <span>已学：</span>
-            <span className="font-mono">{course.progress}%</span>
-          </div>
-          <div className="mt-1.5 h-1 rounded-full bg-[#E7EDF3] overflow-hidden">
-            <div className="h-full rounded-full bg-[#4FA8D8]" style={{ width: `${course.progress}%` }} />
-          </div>
-        </div>
-
-        {/* Chapter list */}
-        <div className="py-3">
-          {data.sections.map((sec, si) => (
-            <div key={si}>
-              <button onClick={() => toggleSection(si)}
-                className="w-full flex items-center justify-between px-5 py-2.5 text-[13px] font-medium text-[#0A1F3D] hover:bg-[#F0F5FA] transition">
-                <span>{sec.title}</span>
-                <span className={`transition-transform ${expandedSections[si] ? "" : "-rotate-90"}`}>
-                  <Icon name="ChevronDown" size={14} className="text-[#8FA3B8]" />
-                </span>
-              </button>
-              {expandedSections[si] && (
-                <div className="pb-1">
-                  {sec.chapters.map((ch) => (
-                    <button key={ch.id} onClick={() => setActiveChapter(ch.id)}
-                      className={`w-full text-left px-5 py-2.5 text-[12.5px] leading-[1.5] transition border-l-2 ${
-                        activeChapter === ch.id
-                          ? "bg-[#E9F6FF] border-[#4FA8D8] text-[#4FA8D8] font-medium"
-                          : "border-transparent text-[#3F546B] hover:bg-[#F4F7FA]"
-                      }`}>
-                      <div className="truncate">{ch.title}</div>
-                      {ch.students > 0 && <div className="text-[10px] text-[#B8C9D9] mt-0.5 font-mono">{ch.students}人学过</div>}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Right content */}
-      <div className="flex-1 pt-20 min-w-0">
-        {/* Breadcrumb */}
-        <div className="px-10 pt-6 pb-4 text-[12px] text-[#8FA3B8]">
-          {data.sections[0].title} &gt; {data.content.title}
-        </div>
-
-        {/* Banner */}
-        <div className="mx-10 rounded-2xl overflow-hidden h-[140px] flex items-center justify-center relative"
-          style={{ background: "linear-gradient(135deg, #14B8A6 0%, #4FA8D8 50%, #7FC9E8 100%)" }}>
-          <div className="absolute inset-0 opacity-20" style={{
-            backgroundImage: "radial-gradient(circle at 20% 50%, rgba(255,255,255,0.3), transparent 50%)"
-          }} />
-          <div className="relative text-center">
-            <div className="text-[11px] text-white/70 font-mono tracking-wider mb-2">⚓ 超级AI大航海 · 航海手册</div>
-            <div className="font-cn-heavy text-[28px] text-white">生财有术航海实战</div>
-          </div>
-        </div>
-
-        {/* Article content */}
-        <div className="px-10 py-8 max-w-[800px]">
-          <h1 className="font-cn-heavy text-[28px] text-[#0A1F3D] leading-tight mb-6">{data.content.title}</h1>
-          <div>{renderContent(data.content.body)}</div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function HandbookPage() {
-  const [activeCourse, setActiveCourse] = useState(null);
-
-  if (activeCourse) {
-    return <CourseDetailView course={activeCourse} onBack={() => setActiveCourse(null)} />;
-  }
-
-  const coverGradients = [
-    "linear-gradient(135deg, #0A1F3D 0%, #143256 100%)",
-    "linear-gradient(135deg, #0C2440 0%, #1E4E7A 100%)",
-    "linear-gradient(135deg, #071527 0%, #0C2440 100%)",
-    "linear-gradient(135deg, #0A1F3D 0%, #1A3A5C 100%)",
-    "linear-gradient(135deg, #0C2440 0%, #143256 100%)",
-    "linear-gradient(135deg, #071527 0%, #1E4E7A 100%)",
-    "linear-gradient(135deg, #1A1A2E 0%, #2A1E3F 60%, #0C2440 100%)",
-    "linear-gradient(135deg, #1A1A2E 0%, #2A1E3F 60%, #0C2440 100%)",
-    "linear-gradient(135deg, #1A1A2E 0%, #2A1E3F 60%, #0C2440 100%)",
-  ];
-
-  return (
-    <div className="relative bg-white min-h-screen">
-      <div className="absolute inset-0 pointer-events-none opacity-[0.3]" aria-hidden>
-        <svg className="w-full h-full" preserveAspectRatio="none" viewBox="0 0 1440 1600">
-          <defs>
-            <pattern id="hbgrid" width="40" height="40" patternUnits="userSpaceOnUse">
-              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#DDE8F0" strokeWidth="0.5" />
-            </pattern>
-          </defs>
-          <rect width="1440" height="1600" fill="url(#hbgrid)" />
-        </svg>
-      </div>
-
-      <div className="relative max-w-[1200px] mx-auto px-10 pt-24 pb-24">
-        <div className="mb-10">
-          <div className="font-mono text-[11px] tracking-[0.35em] text-[#4FA8D8] mb-3">HANDBOOK · 航 海 手 册</div>
-          <h2 className="font-cn-heavy text-[36px] text-[#0A1F3D] leading-tight">航海手册</h2>
-          <p className="mt-2 text-[14px] text-[#5A7088]">从零开始，一步步掌握 AI 实战技能</p>
-        </div>
-
-        <div className="grid grid-cols-3 gap-6">
-          {HANDBOOK_COURSES.map((c, i) => (
-            <article key={c.id} className="group rounded-2xl overflow-hidden bg-white border border-[#E7EDF3] hover:border-[#B8D9EC] hover:shadow-[0_24px_50px_-24px_rgba(15,54,89,0.2)] transition-all duration-300 hover:-translate-y-1">
-              {/* Cover */}
-              <div className="relative h-[140px] overflow-hidden flex items-center justify-center px-6"
-                style={{ background: coverGradients[i] }}>
-                {/* Subtle decorative elements */}
-                <svg className="absolute right-0 top-0 opacity-10" width="120" height="120" viewBox="0 0 120 120" fill="none">
-                  <circle cx="90" cy="30" r="60" stroke="#4FC3E3" strokeWidth="0.5" />
-                  <circle cx="90" cy="30" r="40" stroke="#4FC3E3" strokeWidth="0.5" />
-                </svg>
-                <div className="relative w-full">
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="px-2 py-0.5 rounded text-[10px] font-mono tracking-wider text-[#4FC3E3] bg-[#4FC3E3]/15 border border-[#4FC3E3]/20">
-                      {c.num}
-                    </span>
-                    <div className="flex items-center gap-1.5">
-                      <CartoonAvatar seed={3} size={20} />
-                      <span className="text-[10px] text-white/50 font-mono">雪雪</span>
-                    </div>
-                  </div>
-                  <h3 className="font-cn-heavy text-[22px] text-white leading-tight">{c.title}</h3>
-                </div>
-              </div>
-
-              {/* Body */}
-              <div className="p-5">
-                <p className="text-[12.5px] text-[#3F546B] leading-relaxed line-clamp-2 min-h-[40px]">{c.desc}</p>
-
-                {c.students > 0 && (
-                  <div className="mt-3 text-[11px] text-[#8FA3B8] font-mono">{c.students} 人学过</div>
-                )}
-
-                {/* Progress */}
-                {c.status === "learning" && (
-                  <div className="mt-3">
-                    <div className="h-1 rounded-full bg-[#E7EDF3] overflow-hidden">
-                      <div className="h-full rounded-full bg-[#4FA8D8]" style={{ width: `${c.progress}%` }} />
-                    </div>
-                    <div className="mt-1.5 text-[10px] text-[#4FA8D8] font-mono">已学习 {c.progress}%</div>
-                  </div>
-                )}
-
-                {c.status === "ready" && <div className="mt-3 text-[11px] text-[#8FA3B8]">未开始</div>}
-                {c.status === "locked" && <div className="mt-3 text-[11px] text-[#8FA3B8]">未开始</div>}
-
-                {/* Action */}
-                <div className="mt-4 pt-4 border-t border-[#EEF3F7]">
-                  {c.status === "learning" && (
-                    <button onClick={() => setActiveCourse(c)} className="w-full h-9 rounded-lg bg-white border border-[#E7EDF3] hover:border-[#4FA8D8] text-[12px] text-[#0A1F3D] hover:text-[#4FA8D8] transition inline-flex items-center justify-center gap-1.5">
-                      <Icon name="BookOpen" size={13} /> 继续学习
-                    </button>
-                  )}
-                  {c.status === "ready" && (
-                    <button onClick={() => setActiveCourse(c)} className="w-full h-9 rounded-lg bg-white border border-[#E7EDF3] hover:border-[#4FA8D8] text-[12px] text-[#0A1F3D] hover:text-[#4FA8D8] transition inline-flex items-center justify-center gap-1.5">
-                      <Icon name="BookOpen" size={13} /> 开始学习
-                    </button>
-                  )}
-                  {c.status === "locked" && (
-                    <button className="w-full h-9 rounded-lg bg-[#F4F7FA] text-[12px] text-[#8FA3B8] cursor-not-allowed inline-flex items-center justify-center gap-1.5">
-                      <Icon name="Calendar" size={13} /> {c.unlock}
-                    </button>
-                  )}
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// —— PILOT PAGE ——————————————————————————————————————————————
-const PILOT_ITEMS = [
-  { id: 1, title: "xxx", desc: "【三期】xxx", date: "2026-04-16", students: 766 },
-  { id: 2, title: "xxx", desc: "【三期】xxx", date: "2026-03-31", students: 270 },
-  { id: 3, title: "xxx", desc: "【三期】xxx", date: "2026-03-19", students: 131 },
-  { id: 4, title: "xxx", desc: "【三期】xxx", date: "2026-03-26", students: 190 },
-  { id: 5, title: "xxx", desc: "【三期】xxx", date: "2026-04-09", students: 161 },
-  { id: 6, title: "xxx", desc: "【三期】xxx", date: "2026-01-06", students: 11 },
-  { id: 7, title: "xxx", desc: "【三期】xxx", date: "2026-01-06", students: 2 },
-  { id: 8, title: "xxx", desc: "【三期】xxx", date: "2026-01-06", students: 14 },
-  { id: 9, title: "xxx", desc: "【二期】xxx", date: "2026-01-06", students: 314 },
-];
-
-function PilotPage() {
-  return (
-    <div className="relative bg-white min-h-screen">
-      <div className="absolute inset-0 pointer-events-none opacity-[0.3]" aria-hidden>
-        <svg className="w-full h-full" preserveAspectRatio="none" viewBox="0 0 1440 1600">
-          <defs>
-            <pattern id="plgrid" width="40" height="40" patternUnits="userSpaceOnUse">
-              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#DDE8F0" strokeWidth="0.5" />
-            </pattern>
-          </defs>
-          <rect width="1440" height="1600" fill="url(#plgrid)" />
-        </svg>
-      </div>
-
-      <div className="relative max-w-[1200px] mx-auto px-10 pt-24 pb-24">
-        <div className="mb-10">
-          <div className="font-mono text-[11px] tracking-[0.35em] text-[#4FA8D8] mb-3">PILOT · 高 手 领 航</div>
-          <h2 className="font-cn-heavy text-[36px] text-[#0A1F3D] leading-tight">高手领航</h2>
-          <p className="mt-2 text-[14px] text-[#5A7088]">向高手学习，少走弯路</p>
-        </div>
-
-        <div className="grid grid-cols-3 gap-6">
-          {PILOT_ITEMS.map((item) => (
-            <article key={item.id} className="group rounded-2xl overflow-hidden bg-white border border-[#E7EDF3] hover:border-[#B8D9EC] hover:shadow-[0_24px_50px_-24px_rgba(15,54,89,0.2)] transition-all duration-300 hover:-translate-y-1">
-              {/* Cover - light blue gradient with avatar */}
-              <div className="relative h-[120px] overflow-hidden flex items-center px-6"
-                style={{ background: "linear-gradient(135deg, #E9F6FF 0%, #D4EDFC 50%, #EEF6FB 100%)" }}>
-                {/* Decorative circles */}
-                <svg className="absolute right-0 top-0 opacity-20" width="140" height="120" viewBox="0 0 140 120" fill="none">
-                  <circle cx="100" cy="20" r="80" stroke="#4FA8D8" strokeWidth="0.8" />
-                  <circle cx="110" cy="30" r="50" stroke="#4FA8D8" strokeWidth="0.5" />
-                </svg>
-                <div className="relative flex items-center gap-4">
-                  <CartoonAvatar seed={item.id * 3} size={52} />
-                  <h3 className="font-cn-heavy text-[20px] text-[#0A1F3D] leading-tight">{item.title}</h3>
-                </div>
-              </div>
-
-              {/* Body */}
-              <div className="p-5">
-                <p className="text-[12.5px] text-[#3F546B] leading-relaxed line-clamp-2 min-h-[40px]">{item.desc}</p>
-
-                <div className="mt-3 flex items-center gap-3 text-[11px] text-[#8FA3B8] font-mono">
-                  <span className="inline-flex items-center gap-1">
-                    <Icon name="Calendar" size={11} /> {item.date}
-                  </span>
-                  <span>{item.students} 人学过</span>
-                </div>
-
-                <div className="mt-4 pt-4 border-t border-[#EEF3F7]">
-                  <button className="w-full h-9 rounded-lg bg-white border border-[#E7EDF3] hover:border-[#4FA8D8] text-[12px] text-[#0A1F3D] hover:text-[#4FA8D8] transition inline-flex items-center justify-center gap-1.5">
-                    <Icon name="Play" size={13} /> 开始学习
-                  </button>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// —— FLOATING FEED BUBBLE ————————————————————————————————————
-function FeedBubble() {
-  const [expanded, setExpanded] = useState(false);
-  const [pos, setPos] = useState({ x: window.innerWidth - 160, y: window.innerHeight - 80 });
-  const dragging = useRef(false);
-  const offset = useRef({ x: 0, y: 0 });
-  const moved = useRef(false);
-  const bubbleRef = useRef(null);
-
-  // Current feed item for ticker
-  const [tickIdx, setTickIdx] = useState(0);
-  useEffect(() => {
-    const t = setInterval(() => setTickIdx((i) => (i + 1) % FEED.length), 3000);
-    return () => clearInterval(t);
-  }, []);
-
-  const onDown = (e) => {
-    dragging.current = true;
-    moved.current = false;
-    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-    offset.current = { x: clientX - pos.x, y: clientY - pos.y };
-    e.preventDefault();
-  };
-
-  useEffect(() => {
-    const onMove = (e) => {
-      if (!dragging.current) return;
-      moved.current = true;
-      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-      setPos({
-        x: Math.max(0, Math.min(window.innerWidth - 160, clientX - offset.current.x)),
-        y: Math.max(60, Math.min(window.innerHeight - 60, clientY - offset.current.y)),
-      });
-    };
-    const onUp = () => { dragging.current = false; };
-    window.addEventListener("mousemove", onMove);
-    window.addEventListener("mouseup", onUp);
-    window.addEventListener("touchmove", onMove, { passive: false });
-    window.addEventListener("touchend", onUp);
-    return () => {
-      window.removeEventListener("mousemove", onMove);
-      window.removeEventListener("mouseup", onUp);
-      window.removeEventListener("touchmove", onMove);
-      window.removeEventListener("touchend", onUp);
-    };
-  }, []);
-
-  const handleClick = () => {
-    if (!moved.current) setExpanded((v) => !v);
-  };
-
-  const currentFeed = FEED[tickIdx];
-
-  return (
-    <div ref={bubbleRef} className="fixed z-[90] select-none" style={{ left: pos.x, top: pos.y }}>
-      {/* Expanded panel */}
-      {expanded && (
-        <div className="absolute bottom-[52px] right-0 w-[300px] rounded-2xl overflow-hidden"
-          style={{
-            background: "rgba(7, 21, 39, 0.92)",
-            backdropFilter: "blur(20px)",
-            border: "1px solid rgba(79, 195, 227, 0.12)",
-            boxShadow: "0 20px 60px -15px rgba(0,0,0,0.6)",
-            animation: "bubbleUp 0.25s ease-out",
-          }}>
-          <div className="px-4 py-3 flex items-center justify-between border-b border-white/8">
-            <div className="flex items-center gap-2">
-              <span className="relative flex w-1.5 h-1.5">
-                <span className="absolute inset-0 rounded-full bg-[#4FC3E3] animate-ping opacity-60" />
-                <span className="relative w-1.5 h-1.5 rounded-full bg-[#4FC3E3]" />
-              </span>
-              <span className="font-mono text-[9px] tracking-[0.3em] text-[#4FC3E3]">CREW</span>
-              <span className="text-white/15 text-[10px]">│</span>
-              <span className="font-mono text-[9px] tracking-[0.2em] text-white/50">作 业 动 态</span>
-            </div>
-          </div>
-          <div className="p-3 space-y-2 max-h-[280px] overflow-y-auto no-scrollbar">
-            {FEED.map((f, i) => (
-              <div key={i} className="flex items-start gap-2.5 text-[11.5px] leading-[1.4] px-1 py-1 rounded-lg hover:bg-white/5 transition">
-                <span className="relative mt-[6px] shrink-0">
-                  <span className="absolute inset-0 rounded-full bg-[#4FC3E3] blur-[3px] opacity-70" />
-                  <span className="relative block w-1 h-1 rounded-full bg-[#4FC3E3]" />
-                </span>
-                <div className="min-w-0 flex-1">
-                  <span className="text-white/75">
-                    <span className="text-white font-medium">{f.who}</span> {f.what}
-                  </span>
-                  <span className="ml-1.5 font-mono text-[9px] text-white/30">{f.when}</span>
+          <a href={work.link} target="_blank" rel="noopener noreferrer" className="mt-4 flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#F6FBFE] border border-[#E7EDF3] hover:border-[#4FA8D8] transition group">
+            <Icon name="ExternalLink" size={14} className="text-[#4FA8D8]" />
+            <span className="text-[12px] text-[#4FA8D8] group-hover:underline truncate">{work.link}</span>
+          </a>
+
+          {/* Screenshots */}
+          <div className="mt-4 grid grid-cols-3 gap-2">
+            {[0, 40, 80].map((offset, i) => (
+              <div key={i} onClick={() => setImgZoom(true)} className="aspect-[4/3] rounded-lg overflow-hidden cursor-pointer hover:opacity-80 transition relative group"
+                style={{ background: `linear-gradient(135deg, oklch(88% 0.04 ${(work.imgHue + offset) % 360}), oklch(76% 0.06 ${(work.imgHue + offset + 30) % 360}))` }}>
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition bg-black/20">
+                  <div className="w-7 h-7 rounded-full bg-white/90 flex items-center justify-center"><Icon name="ZoomIn" size={12} /></div>
                 </div>
               </div>
             ))}
           </div>
-          <div className="px-4 py-2 border-t border-white/8 font-mono text-[9px] tracking-[0.2em] text-white/25 text-center">
-            ● STREAMING · 实 时 同 步
+
+          {/* Actions */}
+          <div className="mt-5 flex items-center justify-between">
+            <button onClick={() => onLike(work.id)}
+              className={`h-9 px-4 rounded-full text-[12px] font-medium transition inline-flex items-center gap-1.5 ${
+                liked ? "bg-[#FEE2E2] text-[#E15454] border border-[#FECACA]" : "bg-[#F4F7FA] text-[#5A7088] border border-[#E7EDF3] hover:border-[#E15454] hover:text-[#E15454]"
+              }`}>
+              <span className={liked ? "like-pop" : ""}><Icon name="Heart" size={14} /></span>
+              {(liked ? work.likes + 1 : work.likes)}
+            </button>
+            <button onClick={() => setShowShare(true)}
+              className="h-9 px-4 rounded-full bg-[#4FA8D8] hover:bg-[#3E96C6] text-white text-[12px] font-medium transition inline-flex items-center gap-1.5">
+              <Icon name="Share2" size={13} /> 生成分享卡片
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Share overlay */}
+      {showShare && (
+        <div className="fixed inset-0 z-[110] flex items-center justify-center bg-black/70" onClick={() => setShowShare(false)}>
+          <div onClick={(e) => e.stopPropagation()}>
+            <div className="w-[340px] rounded-3xl overflow-hidden shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)]" style={{ background: "linear-gradient(180deg, #E9F6FF 0%, #D4EDFC 30%, #EEF6FB 100%)" }}>
+              <div className="px-5 pt-5 pb-3 flex items-center gap-3">
+                <CartoonAvatar seed={work.author.id} size={36} />
+                <div>
+                  <div className="text-[14px] font-medium text-[#0A1F3D]">{work.author.name}@超级AI大航海</div>
+                  <div className="text-[11px] text-[#5A7088]">邀请你来查看这个作品</div>
+                </div>
+              </div>
+              <div className="mx-4 rounded-2xl bg-white p-5 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.08)]">
+                <h3 className="font-cn-heavy text-[18px] text-[#0A1F3D] leading-snug">{work.title}</h3>
+                <p className="mt-2 text-[12px] text-[#3F546B] leading-[1.6] line-clamp-3">{work.excerpt}</p>
+                <div className="mt-3 flex items-center gap-2">
+                  <CartoonAvatar seed={work.author.id} size={24} />
+                  <span className="text-[11px] text-[#0A1F3D]">{work.author.name}</span>
+                  <span className="text-[10px] text-[#B8C9D9] ml-auto">{new Date(work.createdAt).toLocaleDateString("zh-CN")}</span>
+                </div>
+              </div>
+              <div className="px-4 pt-3 pb-4 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 rounded flex items-center justify-center" style={{ background: "rgba(79,168,216,0.15)", color: "#4FA8D8" }}><Icon name="Anchor" size={12} /></div>
+                  <span className="text-[11px] text-[#0A1F3D] font-medium">生财有术 · 航海实战</span>
+                </div>
+                <div className="w-[48px] h-[48px] rounded-lg bg-white border border-[#E7EDF3] flex items-center justify-center">
+                  <svg viewBox="0 0 48 48" width="48" height="48"><rect width="48" height="48" fill="white"/><rect x="4" y="4" width="14" height="14" rx="2" fill="#0A1F3D"/><rect x="7" y="7" width="8" height="8" rx="1" fill="white"/><rect x="9" y="9" width="4" height="4" fill="#0A1F3D"/><rect x="30" y="4" width="14" height="14" rx="2" fill="#0A1F3D"/><rect x="33" y="7" width="8" height="8" rx="1" fill="white"/><rect x="35" y="9" width="4" height="4" fill="#0A1F3D"/><rect x="4" y="30" width="14" height="14" rx="2" fill="#0A1F3D"/><rect x="7" y="33" width="8" height="8" rx="1" fill="white"/><rect x="9" y="35" width="4" height="4" fill="#0A1F3D"/><rect x="22" y="22" width="4" height="4" fill="#4FA8D8"/><rect x="30" y="30" width="4" height="4" fill="#0A1F3D"/><rect x="38" y="38" width="4" height="4" fill="#0A1F3D"/></svg>
+                </div>
+              </div>
+            </div>
+            <div className="mt-3 flex justify-center gap-3">
+              <button onClick={() => setShowShare(false)} className="h-8 px-4 rounded-full bg-white/20 text-white text-[11px]">关闭</button>
+              <button className="h-8 px-4 rounded-full bg-white text-[#0A1F3D] text-[11px] font-medium inline-flex items-center gap-1"><Icon name="Download" size={12} /> 保存图片</button>
+            </div>
           </div>
         </div>
       )}
 
-      {/* Bubble */}
-      <div
-        onMouseDown={onDown}
-        onTouchStart={onDown}
-        onClick={handleClick}
-        className="flex items-center gap-2 h-[42px] pl-3 pr-4 rounded-full cursor-grab active:cursor-grabbing transition-shadow"
-        style={{
-          background: "linear-gradient(135deg, rgba(10, 31, 61, 0.9), rgba(20, 50, 86, 0.9))",
-          backdropFilter: "blur(12px)",
-          border: "1px solid rgba(79, 195, 227, 0.2)",
-          boxShadow: expanded
-            ? "0 8px 30px -8px rgba(79, 195, 227, 0.4), 0 0 0 1px rgba(79, 195, 227, 0.15)"
-            : "0 8px 24px -8px rgba(0,0,0,0.4)",
-        }}>
-        <span className="relative flex w-2 h-2 shrink-0">
-          <span className="absolute inset-0 rounded-full bg-[#4FC3E3] animate-ping opacity-50" />
-          <span className="relative w-2 h-2 rounded-full bg-[#4FC3E3]" />
-        </span>
-        <span className="text-[11px] text-white/80 whitespace-nowrap overflow-hidden max-w-[120px]" style={{
-          animation: "tickFade 3s ease-in-out infinite",
-        }}>
-          <span className="text-white font-medium">{currentFeed.who}</span> {currentFeed.what}
-        </span>
-      </div>
-
-      <style>{`
-        @keyframes bubbleUp {
-          from { opacity: 0; transform: translateY(8px) scale(0.95); }
-          to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        @keyframes tickFade {
-          0%, 100% { opacity: 0.6; }
-          15%, 85% { opacity: 1; }
-        }
-      `}</style>
+      {/* Image zoom */}
+      {imgZoom && (
+        <div className="fixed inset-0 z-[110] flex items-center justify-center bg-black/80" onClick={() => setImgZoom(false)}>
+          <div className="relative w-[80vw] max-w-[800px] aspect-[16/10] rounded-2xl" style={{ background: `linear-gradient(135deg, oklch(85% 0.05 ${work.imgHue}), oklch(72% 0.08 ${(work.imgHue + 40) % 360}))` }}>
+            <div className="absolute inset-0 flex items-center justify-center text-white/40">作品截图预览</div>
+            <button onClick={() => setImgZoom(false)} className="absolute top-3 right-3 w-9 h-9 rounded-full bg-black/40 text-white flex items-center justify-center"><Icon name="X" size={18} /></button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
 
-// —— APP ——————————————————————————————————————————————————————
+// ── Work Card ──
+function WorkCard({ work, onClick, onLike, liked }) {
+  return (
+    <article className="group rounded-2xl overflow-hidden bg-white border border-[#E7EDF3] hover:border-[#B8D9EC] hover:shadow-[0_20px_40px_-20px_rgba(15,54,89,0.18)] transition-all duration-300 hover:-translate-y-1">
+      <div className="relative aspect-[16/10] overflow-hidden cursor-pointer" onClick={onClick}
+        style={{ background: `linear-gradient(135deg, oklch(90% 0.04 ${work.imgHue}), oklch(78% 0.07 ${(work.imgHue + 40) % 360}))` }}>
+        <div className="absolute inset-0 opacity-50" style={{ backgroundImage: "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.6), transparent 50%)" }} />
+        {work.featured && <div className="absolute top-3 left-3 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-[#FBF4DF] text-[#C9A349]"><Icon name="Star" size={10} /> 精选</div>}
+        <div className="absolute bottom-2 right-2 text-[9px] text-white/50">作业 {work.round}</div>
+      </div>
+      <div className="p-4">
+        <h4 className="font-cn-heavy text-[15px] text-[#0A1F3D] leading-snug truncate cursor-pointer hover:text-[#4FA8D8] transition" onClick={onClick}>{work.title}</h4>
+        <p className="mt-1.5 text-[12px] text-[#5A7088] leading-relaxed line-clamp-2">{work.excerpt}</p>
+        <div className="mt-3 pt-3 border-t border-[#EEF3F7] flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <CartoonAvatar seed={work.author.id} size={24} />
+            <span className="text-[12px] text-[#0A1F3D]">{work.author.name}</span>
+          </div>
+          <button onClick={(e) => { e.stopPropagation(); onLike(work.id); }}
+            className={`inline-flex items-center gap-1 text-[11px] transition px-2 py-1 rounded-full ${
+              liked ? "text-[#E15454] bg-[#FEF2F2]" : "text-[#8FA3B8] hover:text-[#E15454] hover:bg-[#FEF2F2]"
+            }`}>
+            <span className={liked ? "like-pop" : ""}><Icon name="Heart" size={12} /></span>
+            <span className="num">{liked ? work.likes + 1 : work.likes}</span>
+          </button>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+// ── App ──
 function App() {
-  const [entered, setEntered] = useState(true);
-  const [navTab, setNavTab] = useState("handbook"); // handbook | pilot | qa | voyage
-  const [status, setStatus] = useState("all");
   const [round, setRound] = useState("all");
   const [sort, setSort] = useState("new");
-  const [q, setQ] = useState("");
-  const [page, setPage] = useState(1);
+  const [viewWork, setViewWork] = useState(null);
+  const [likedIds, setLikedIds] = useState(() => {
+    try { return JSON.parse(localStorage.getItem("voyage_likes") || "{}"); } catch { return {}; }
+  });
 
-  const allWorks = useMemo(() => {
-    const base = makeWorks(72);
-    return base.map((w, i) => {
-      let shipState;
-      if (i % 11 === 0) shipState = "pending";else
-      if (w.round <= 3) shipState = "landed";else
-      shipState = "sailing";
-      return { ...w, shipState };
+  const allWorks = useMemo(() => makeWorks(60), []);
+
+  const toggleLike = (id) => {
+    setLikedIds((prev) => {
+      const next = { ...prev, [id]: !prev[id] };
+      localStorage.setItem("voyage_likes", JSON.stringify(next));
+      return next;
     });
-  }, []);
-
-  const counts = useMemo(() => ({
-    all: allWorks.length,
-    sailing: allWorks.filter((w) => w.shipState === "sailing").length,
-    landed: allWorks.filter((w) => w.shipState === "landed").length,
-    pending: allWorks.filter((w) => w.shipState === "pending").length
-  }), [allWorks]);
+  };
 
   const filtered = useMemo(() => {
     let r = allWorks;
-    if (status !== "all") r = r.filter((w) => w.shipState === status);
-    if (round !== "all") r = r.filter((w) => w.round === round);
-    if (q.trim()) {
-      const qq = q.trim().toLowerCase();
-      r = r.filter((w) => w.title.toLowerCase().includes(qq) || w.author.name.includes(qq));
+    if (round !== "all") r = r.filter((w) => w.round === Number(round));
+    if (sort === "hot") {
+      r = [...r].sort((a, b) => (b.likes + (likedIds[b.id] ? 1 : 0)) - (a.likes + (likedIds[a.id] ? 1 : 0)));
+    } else {
+      r = [...r].sort((a, b) => b.createdAt - a.createdAt);
     }
-    r = [...r].sort((a, b) => sort === "hot" ? b.likes - a.likes : b.id - a.id);
     return r;
-  }, [allWorks, status, round, sort, q]);
+  }, [allWorks, round, sort, likedIds]);
 
-  const PER = 12;
-  const totalPages = Math.max(1, Math.ceil(filtered.length / PER));
-  const paged = filtered.slice((page - 1) * PER, page * PER);
-
-  useEffect(() => {setPage(1);}, [status, round, sort, q]);
-
-  const handleEnter = () => {
-    setEntered(true);
-    setTimeout(() => {
-      const el = document.getElementById("fleet");
-      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 100);
-  };
+  const roundCounts = useMemo(() => {
+    const c = { all: allWorks.length };
+    for (let i = 1; i <= 5; i++) c[i] = allWorks.filter((w) => w.round === i).length;
+    return c;
+  }, [allWorks]);
 
   return (
-    <div className="seabg min-h-screen">
-      <Navbar entered={entered} setEntered={setEntered} navTab={navTab} setNavTab={setNavTab} />
-      {!entered && <BridgeHero onEnter={handleEnter} />}
+    <div className="min-h-screen">
+      <Navbar />
+      <div className="max-w-[1280px] mx-auto px-8 pt-22 pb-16">
+        <div className="mb-8 pt-4">
+          <h1 className="font-cn-heavy text-[32px] text-[#0A1F3D]">作业墙</h1>
+          <p className="mt-1.5 text-[14px] text-[#5A7088]">每一个作品都是一次真实的实战，共 {allWorks.length} 件作品</p>
+        </div>
 
-      {entered && <>
-        {navTab === "voyage" && (
-          <section id="fleet">
-            <VoyageProgress allWorks={allWorks} />
-          </section>
-        )}
-        {navTab === "handbook" && <HandbookPage />}
-        {navTab === "pilot" && <PilotPage />}
-        {navTab === "qa" && (
-          <div className="relative bg-white min-h-screen flex items-center justify-center">
-            <div className="text-center text-[#8FA3B8]">
-              <Icon name="MessageCircle" size={48} className="mx-auto mb-4 text-[#B8C9D9]" />
-              <div className="font-cn-heavy text-[24px] text-[#0A1F3D] mb-2">航海问答</div>
-              <p className="text-[14px]">即将上线，敬请期待</p>
-            </div>
+        <div className="flex flex-wrap items-center gap-3 mb-8">
+          <div className="flex items-center gap-1 p-1 bg-white rounded-full border border-[#E7EDF3]">
+            {[{ v: "all", l: "全部" }, { v: "1", l: "作业 1" }, { v: "2", l: "作业 2" }, { v: "3", l: "作业 3" }, { v: "4", l: "作业 4" }, { v: "5", l: "作业 5" }].map((r) => (
+              <button key={r.v} onClick={() => setRound(r.v)}
+                className={`px-3.5 h-8 rounded-full text-[12px] transition ${round === r.v ? "bg-[#0A1F3D] text-white" : "text-[#5A7088] hover:text-[#0A1F3D]"}`}>
+                {r.l} <span className={`ml-1 text-[10px] ${round === r.v ? "text-white/60" : "text-[#B8C9D9]"}`}>{roundCounts[r.v === "all" ? "all" : Number(r.v)]}</span>
+              </button>
+            ))}
           </div>
-        )}
-      </>}
-      {entered && <FeedBubble />}
-    </div>);
+          <div className="flex-1" />
+          <div className="flex items-center gap-1 p-1 bg-white rounded-full border border-[#E7EDF3]">
+            {[{ v: "new", l: "最新提交", i: "Clock" }, { v: "hot", l: "最多点赞", i: "Flame" }].map((s) => (
+              <button key={s.v} onClick={() => setSort(s.v)}
+                className={`px-3.5 h-8 rounded-full text-[12px] transition inline-flex items-center gap-1.5 ${sort === s.v ? "bg-[#0A1F3D] text-white" : "text-[#5A7088] hover:text-[#0A1F3D]"}`}>
+                <Icon name={s.i} size={12} /> {s.l}
+              </button>
+            ))}
+          </div>
+        </div>
 
+        <div className="grid grid-cols-4 gap-5">
+          {filtered.map((w) => (
+            <WorkCard key={w.id} work={w} liked={!!likedIds[w.id]} onClick={() => setViewWork(w)} onLike={toggleLike} />
+          ))}
+        </div>
+
+        {filtered.length === 0 && (
+          <div className="rounded-2xl border border-dashed border-[#DCE9F2] py-20 text-center text-[14px] text-[#8FA3B8]">这一站还没有作品，敬请期待</div>
+        )}
+      </div>
+
+      <WorkDetailModal work={viewWork} onClose={() => setViewWork(null)} onLike={toggleLike} liked={viewWork ? !!likedIds[viewWork.id] : false} />
+    </div>
+  );
 }
 
 ReactDOM.createRoot(document.getElementById("root")).render(<App />);
-  </script>
+</script>
 </body>
 </html>
