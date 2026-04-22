@@ -1,0 +1,4 @@
+[    1828ms] [LOG] [Auth] 初始化 - cookie __token: 存在 (eyJhbGciOiJIUzI1NiIs...) @ https://scrm.scys.com/assets/preload-helper.91054061.js:1
+[    1828ms] [LOG] [Auth] 初始化 - userTokenCache: 有值 @ https://scrm.scys.com/assets/preload-helper.91054061.js:1
+[    1828ms] [LOG] [Auth] 初始化 - userInfoCache: {"token":"","manager_id":10676,"name":"雪雪","avatar":"https://s3-imfile.feishucdn.com/static-resource/v1/v3_00v8_cad01368-afef-4be2-91e4-74bcbb4c76fg~?image_size=72x72&cut_type=&quality=&format=image&sticker_format=.webp","lark_open_id":"ou_742a1f9c13b3d0732ae783b13cd16774","department":"实战运营部^G航海运营组"} @ https://scrm.scys.com/assets/preload-helper.91054061.js:1
+[    2003ms] [LOG] ✅ Menu 组件已挂载 @ https://scrm.scys.com/assets/default-layout.7aaa514f.js:0
